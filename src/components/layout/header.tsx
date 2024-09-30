@@ -1,13 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import NavItems from "./nav-items";
 import MobileNav from "./mobile-nav";
 import Register from "./register";
-import { useModal } from "@/hook/useModal";
+import { Login } from "./login";
+import useRegisterModal from "@/hook/useRegisterModal";
+import useLoginModal from "@/hook/useLoginModal";
 export const Header = () => {
-  const { close, isOpen ,setIsOpen} = useModal();
+  const { onOpen } = useLoginModal();
+  const registerModal = useRegisterModal();
   return (
     <header className="w-full border-b">
       <div className="wrapper flex items-center justify-between container py-3">
@@ -23,13 +26,12 @@ export const Header = () => {
         </nav>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <Register isOpen={isOpen} open={setIsOpen} />
-            <Link
-              className="py-1 px-2 md:text-base text-sm font-medium text-white bg-primary rounded-md border-[2px] border-primary "
-              href={"#"}
-            >
-              Login
-            </Link>
+            <div onClick={() => registerModal?.onOpen()}>
+              <Register situation="button" />
+            </div>
+            <div onClick={() => onOpen()}>
+              <Login situation="button" />
+            </div>
           </div>
           <MobileNav />
         </div>

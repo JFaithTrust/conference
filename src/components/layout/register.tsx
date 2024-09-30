@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +9,7 @@ import {
   DialogTrigger,
   DialogOverlay,
   DialogFooter,
+  DialogClose,
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -24,25 +25,51 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ConfirmPhoneCodeSchema, registerSchema } from "@/lib/validation";
-
+import $axios from "@/http/axios";
+import { toast } from "sonner";
+import clsx from "clsx";
+import { Login } from "./login";
+import useRegisterModal from "@/hook/useRegisterModal";
+import useLoginModal from "@/hook/useLoginModal";
 const Register = ({
-  open,
-  isOpen,
-}: {
-  isOpen: boolean;
-  open: React.Dispatch<React.SetStateAction<boolean>>;
+  situation,
+}: //
+{
+  situation: "text" | "button";
 }) => {
+  const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
+
+  // const onToggle = useCallback(() => {
+  //   registerModal.onClose();
+  //   loginModal.onOpen();
+  //   console.log(registerModal?.isOpen);
+  // }, [registerModal, loginModal]);
+  const onToggle = () => {
+    // loginModal.onOpen();
+    console.log(registerModal?.isOpen, "------");
+
+    registerModal.onClose();
+    registerModal.onClose;
+
+    console.log(registerModal?.isOpen, "++++++++++++++++++++");
+  };
   const [step, setStep] = useState(1);
   const [saved, setSaved] = useState({ phoneNumber: "", password: "" });
+
   return (
-    <Dialog open={isOpen} onOpenChange={open}>
+    <Dialog open={registerModal?.isOpen} onOpenChange={registerModal?.onClose}>
       <DialogTrigger asChild>
-        <Button
-          onClick={() => open(true)}
-          className="py-1 px-2 text-base font-medium text-primary md:block hidden border-[2px] rounded-md border-primary bg-white hover:bg-white"
+        <button
+          onClick={() => registerModal?.onOpen()}
+          className={clsx(
+            situation === "button" &&
+              "py-1 px-2  md:block  border-[2px] rounded-md border-primary bg-white",
+            situation === "text" && "text-base font-medium text-primary"
+          )}
         >
           Ro'yxatdan o'tish
-        </Button>
+        </button>
       </DialogTrigger>
       <DialogOverlay className="bg-black/10">
         <DialogContent
@@ -55,16 +82,11 @@ const Register = ({
             <Step2 saved={saved} />
           )}
           <DialogFooter>
-            <div className="mb-4 text-sm text-mainindigo/80 flex flex-col text-left px-[110px]">
-              <p>
-                I have already an account
-                <span
-                  className="cursor-pointer underline text-mainindigo hover:no-underline ml-3"
-                  // onClick={onToggle}
-                >
-                  Login
-                </span>
-              </p>
+            <div className="mb-4 text-sm text-primary/70 flex gap-2 justify-center items-center w-full">
+              <p>Menda allaqachon akkaunt bor</p>
+              <div onClick={() => onToggle()}>
+                <Login situation="text" />
+              </div>
             </div>
           </DialogFooter>
         </DialogContent>
@@ -90,9 +112,16 @@ const Step1 = ({
       fullName: "",
       phoneNumber: "+998",
       password: "",
+      confirmPassword: "",
     },
   });
-  const onSubmit = () => {};
+  const onSubmit = (values: any) => {
+    `use server`;
+    // $axios
+    console.log(values);
+    toast.success("sms code jo'natildi");
+    setStep(2);
+  };
   return (
     <Form {...form} key={"step1"}>
       <form
@@ -116,7 +145,7 @@ const Step1 = ({
                   className="border-[2px] border-primary-500 focus-visible:border-primary-500/70"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-600" />
             </FormItem>
           )}
         />
@@ -134,10 +163,9 @@ const Step1 = ({
                   placeholder="+998912345678"
                   className="border-[2px] border-primary-500 focus-visible:border-primary-500/70"
                   {...field}
-                  maxLength={13}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-600" />
             </FormItem>
           )}
         />
@@ -155,7 +183,7 @@ const Step1 = ({
                   className="border-[2px] border-primary-500 focus-visible:border-primary-500/70"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-600" />
             </FormItem>
           )}
         />
@@ -172,20 +200,20 @@ const Step1 = ({
                   type="password"
                   placeholder="Confirm Password"
                   {...field}
+                  value={field.value || ""}
                   className="border-[2px] border-primary-500 focus-visible:border-primary-500/70"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-600" />
             </FormItem>
           )}
         />
-        {/* <CustomButton
+        <button
           type="submit"
-          disabled={isSubmitting}
-          label={"Verify Phone Number"}
-          mainable
-          classNames="py-[12px] px-[100px] rounded-2xl text-xl font-medium leading-[100%]"
-        /> */}
+          className="py-[12px] w-full rounded-lg text-lg font-medium leading-[100%] text-white bg-primary"
+        >
+          Tasdiqlash
+        </button>
       </form>
     </Form>
   );
@@ -202,20 +230,23 @@ const Step2 = ({
       smsCode: "",
     },
   });
-  const onSubmit = () => {};
+  const onSubmit = (value: any) => {
+    console.log(value);
+    // toast.success(value);
+  };
   return (
     <Form {...form} key={"step2"}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="px-[48px] pt-[48px] pb-[15px] flex flex-col justify-center items-center gap-[30px] w-[504px]"
+        className=" w-full space-y-4"
       >
-        <h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo">
-          Confirm Phone Number
-        </h1>
-        <p className="text-sm text-mainindigo/80">
-          We have sent you an SMS with a code to your phone number. Please enter
-          the code in the field below.
-        </p>
+        <DialogTitle className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo">
+          Telefon raqamingizni tasdiqlang
+        </DialogTitle>
+        <DialogDescription className="text-sm text-mainindigo/80">
+          Sizning telefon raqamingizga SMS yubordik. Iltimos, SMS dagi kodni
+          kiriting.
+        </DialogDescription>
         <FormField
           name="smsCode"
           control={form.control}
@@ -224,22 +255,22 @@ const Step2 = ({
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="Code"
+                  // value={field.value || ""}
+                  placeholder="Kod"
                   {...field}
-                  className="w-full"
+                  className="border-[2px] border-primary-500 focus-visible:border-primary-500/70"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-600" />
             </FormItem>
           )}
         />
-        {/* <CustomButton
-      type="submit"
-      disabled={isSubmitting}
-      label={"Verify Phone Number"}
-      mainable
-      classNames="py-[12px] px-[100px] rounded-2xl text-xl font-medium leading-[100%]"
-    /> */}
+        <button
+          type="submit"
+          className="py-[12px] w-full rounded-lg text-lg font-medium leading-[100%] text-white bg-primary"
+        >
+          Tasdiqlash
+        </button>
       </form>
     </Form>
   );

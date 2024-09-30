@@ -71,11 +71,6 @@ const config: Config = {
         "dotted-pattern": "url('/dotted-pattern.png')",
         "hero-img": "url('/assets/images/hero.png')",
       },
-      //   borderRadius: {
-      //     lg: "var(--radius)",
-      //     md: "calc(var(--radius) - 2px)",
-      //     sm: "calc(var(--radius) - 4px)",
-      //   },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

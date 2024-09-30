@@ -2,12 +2,12 @@ import * as z from "zod";
 
 export const loginSchema = z.object({
   phoneNumber: z.string().min(10),
-  password: z.string().min(4),
+  password: z.string().min(6),
 });
 
 const passwordSchema = z
   .string()
-  .min(8, { message: "Password kamida 8 ta harakterdan iborat bo'lishi kerak" })
+  .min(6, { message: "Password kamida 6 ta harakterdan iborat bo'lishi kerak" })
   .max(30, { message: "Password 30 ta harakterdan oshmasligi kerak" });
 
 export const registerSchema = z
@@ -69,5 +69,3 @@ export const ConferenceAddSchema = z.object({
     required_error: "Sana kiritilishi shart.",
   }),
 });
-
-
