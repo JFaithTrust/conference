@@ -1,22 +1,41 @@
 "use server";
 
-import $auth from "@/http/auth";
-import { cookies } from "next/headers";
+import {cookies} from "next/headers";
 
-export async function setCookie(token: string) {
-  cookies().set("token", token);
-  return "ok";
+export async function setCookie(token: string, role: string) {
+    cookies().set("token", token);
+    cookies().set("role", role);
+    return "ok";
 }
 
-export async function getCookie() {
-  const token = cookies().get("token");
+export async function getCookieToken() {
+    const token = cookies().get("token");
 
-  if (token) {
-    try {
-      return token.value;
-    } catch (error) {
-      return null;
+    if (token) {
+        try {
+            return token.value;
+        } catch (error) {
+            return error;
+        }
     }
-  }
-  return null;
+    return null;
+}
+
+export async function getCookieRole() {
+    const role = cookies().get("role");
+
+    if (role) {
+        try {
+            return role.value;
+        } catch (error) {
+            return error;
+        }
+    }
+    return null;
+}
+
+export async function removeCookie() {
+    cookies().delete("token");
+    cookies().delete("role");
+    return "ok";
 }

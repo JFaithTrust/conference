@@ -1,14 +1,14 @@
 import axios from "axios";
-import { getCookie } from "@/lib/actions/auth.action";
+import { getCookieToken } from "@/lib/actions/auth.action";
 
-const URL = process.env.NEXT_PUBLIC_LOCALE_API_URL;
+const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;
 
 const $auth = axios.create({
     baseURL: URL
 });
 
 $auth.interceptors.request.use(async (config) => {
-    let token = await getCookie();
+    const token = await getCookieToken();
 
     if(token){
         config.headers.Authorization = `Bearer ${token}`;
