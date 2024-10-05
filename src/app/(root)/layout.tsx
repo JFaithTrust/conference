@@ -1,7 +1,8 @@
-import {Header} from "@/components/layout/header";
-import {Footer} from "@/components/layout/footer";
+
 import {ReactNode} from "react";
 import {ForgotPasswordModal, LoginModal, RegisterModal} from "@/components/modals";
+import { Footer, Header } from "@/components/layout";
+
 
 export default function RootLayout({
                                        children,

@@ -6,3 +6,4 @@ export interface UserType {
     phoneNumber: string;
     userStatus: string;
 }
+

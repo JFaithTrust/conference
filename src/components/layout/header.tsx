@@ -8,7 +8,7 @@ import {getUser} from "@/lib/actions/user.action";
 import {getCookieToken} from "@/lib/actions/auth.action";
 import UserCard from "@/components/cards/user.card";
 
-export const Header = async () => {
+const Header = async () => {
     const token = await getCookieToken();
     let userData = null;
     if (token) {
@@ -42,3 +42,5 @@ export const Header = async () => {
         </header>
     );
 };
+
+export default Header;
