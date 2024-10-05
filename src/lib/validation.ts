@@ -27,7 +27,7 @@ export const forgotPasswordSchema1 = z.object({
 });
 
 export const forgotPasswordSchema2 = z.object({
-  smsCode: z.string().min(4).max(4),
+  smsCode: z.string().min(6).max(6),
 });
 
 export const forgotPasswordSchema3 = z.object({
