@@ -1,9 +1,15 @@
+"use client"
+import React, { useState } from "react";
+import Sidebar from "@/components/layout/side-bar";
+
 const DashboardPage = () => {
-    return (
-        <div>
-        <h1>Dashboard</h1>
-        </div>
-    );
-}
+  const [open, setOpen] = useState(true);
+
+  return (
+    <div className="flex bg-indigo-50">
+      <Sidebar open={open} setOpen={setOpen} />
+    </div>
+  );
+};
 
 export default DashboardPage;

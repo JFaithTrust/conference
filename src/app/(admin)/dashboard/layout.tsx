@@ -8,7 +8,6 @@ export default function AuthLayout({
     return (
         <main>
             <div className="flex h-screen">
-                Sidebar
                 <main className={"flex-grow"}>{children}</main>
             </div>
         </main>
