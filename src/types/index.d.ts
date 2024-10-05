@@ -4,5 +4,5 @@ export interface UserType {
     email: string;
     role: "SUPER_ADMIN" | "REVIEWER" | "USER";
     phoneNumber: string;
-    userStatus: string;
+    userStatus: "Accepted"|"Feedback"|"Rejected";
 }
