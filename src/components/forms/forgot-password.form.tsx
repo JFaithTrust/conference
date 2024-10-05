@@ -11,6 +11,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {toast} from "sonner";
 import $axios from "@/http/axios";
 import useLoginModal from "@/hook/useLoginModal";
+import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
 
 const ForgotPasswordForm = () => {
     const [step, setStep] = useState(1);
@@ -138,24 +139,31 @@ function ForgotStep2({
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="px-[48px] pt-[48px] pb-[15px] flex flex-col justify-center items-center gap-[30px] w-[504px]"
+                    className="space-y-4"
                 >
-                    <h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo">
-                        Tasdiqlash
-                    </h1>
-                    <p>Telefon raqamingizga yuborilgan SMS kodni kiriting</p>
+                    {/*<h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo">*/}
+                    {/*    Tasdiqlash*/}
+                    {/*</h1>*/}
+                    {/*<p>Telefon raqamingizga yuborilgan SMS kodni kiriting</p>*/}
                     <FormField
                         name="smsCode"
                         control={form.control}
                         render={({ field }) => (
                             <FormItem>
+                                <FormLabel className="text-base font-medium">
+                                    SMS kod
+                                </FormLabel>
                                 <FormControl>
-                                    <Input
-                                        type="number"
-                                        placeholder="SMS Code"
-                                        {...field}
-                                        className="w-[400px]"
-                                    />
+                                    <InputOTP maxLength={6} {...field}>
+                                        <InputOTPGroup>
+                                            <InputOTPSlot index={0} />
+                                            <InputOTPSlot index={1} />
+                                            <InputOTPSlot index={2} />
+                                            <InputOTPSlot index={3} />
+                                            <InputOTPSlot index={4} />
+                                            <InputOTPSlot index={5} />
+                                        </InputOTPGroup>
+                                    </InputOTP>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -164,7 +172,7 @@ function ForgotStep2({
                     <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="py-[12px] px-[100px] rounded-2xl text-xl font-medium leading-[100%]"
+                        className="py-[12px] w-full rounded-lg text-lg font-medium leading-[100%] text-white bg-primary"
                     >Verify Phone Number</Button>
                 </form>
             </Form>
@@ -195,7 +203,7 @@ function ForgotStep3({ saved }: { saved: { phoneNumber: string } }) {
                 //   phoneNumber: saved.phoneNumber,
                 // });
                 forgotPasswordModal.onClose();
-                loginModal.isOpen = true;
+                loginModal.onOpen();
                 // localStorage.setItem("access_token", data.token);
                 // const userToken = localStorage.getItem("access_token");
                 // const encodedData = userToken?.split(".")[1];
@@ -217,23 +225,26 @@ function ForgotStep3({ saved }: { saved: { phoneNumber: string } }) {
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="px-[48px] pt-[48px] pb-[15px] flex flex-col justify-center items-center gap-[30px] w-[504px]"
+                    className="space-y-4"
                 >
-                    <h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo">
-                        Parolni tiklash
-                    </h1>
-                    <p>Yangi parolni kiriting</p>
+                    {/*<h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo">*/}
+                    {/*    Parolni tiklash*/}
+                    {/*</h1>*/}
+                    {/*<p>Yangi parolni kiriting</p>*/}
                     <FormField
                         name="password"
                         control={form.control}
                         render={({ field }) => (
                             <FormItem>
+                                <FormLabel className="text-base font-medium">
+                                    Parol
+                                </FormLabel>
                                 <FormControl>
                                     <Input
                                         type="password"
-                                        placeholder="Password"
+                                        placeholder="*******"
                                         {...field}
-                                        className="w-[400px]"
+                                        className="border-[2px] border-primary-500 focus-visible:border-primary-500/70"
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -245,12 +256,15 @@ function ForgotStep3({ saved }: { saved: { phoneNumber: string } }) {
                         control={form.control}
                         render={({ field }) => (
                             <FormItem>
+                                <FormLabel className="text-base font-medium">
+                                    Parol
+                                </FormLabel>
                                 <FormControl>
                                     <Input
                                         type="password"
-                                        placeholder="Confirm Password"
+                                        placeholder="*******"
                                         {...field}
-                                        className="w-[400px]"
+                                        className="border-[2px] border-primary-500 focus-visible:border-primary-500/70"
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -260,8 +274,10 @@ function ForgotStep3({ saved }: { saved: { phoneNumber: string } }) {
                     <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="py-[12px] px-[100px] rounded-2xl text-xl font-medium leading-[100%]"
-                    >Verify Phone Number</Button>
+                        className="py-[12px] w-full rounded-lg text-lg font-medium leading-[100%] text-white bg-primary"
+                    >
+                        Tasdiqlash
+                    </Button>
                 </form>
             </Form>
         </div>
