@@ -4,8 +4,9 @@ export interface UserType {
     email: string;
     role: "SUPER_ADMIN" | "REVIEWER" | "USER";
     phoneNumber: string;
-    userStatus: string;
+     userStatus: string;
 }
+
 export interface ConferenceType {
     id: number;
     name: string;
