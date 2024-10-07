@@ -1,85 +1,229 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import TitleSection from "@/components/shared/title-section";
-import Option from "@/components/shared/option";
-import ToggleClose from "@/components/shared/toggle-close";
-import { SidebarProps, options } from "@/types/side-bar-types";
-import { usePathname } from "next/navigation";
+import React, { Fragment, useState} from "react";
+import {motion} from "framer-motion";
+import {TitleSection} from "@/components/shared/title-section";
+import {Option} from "@/components/shared/option";
+import {ToggleClose} from "@/components/shared/toggle-close";
+import {usePathname, useRouter} from "next/navigation";
+import {FiHome, FiMonitor, FiTag, FiUsers} from "react-icons/fi";
+import {MdReviews} from "react-icons/md";
+import {CgFileDocument} from "react-icons/cg";
+import {FcConferenceCall} from "react-icons/fc";
+import {IconType} from "react-icons";
 
-const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [selected, setSelected] = useState<string>("Dashboard");
+const Sidebar = () => {
+    const [open, setOpen] = useState(true);
+    const [isArticlesOpen, setIsArticlesOpen] = useState(false)
+    const [isConferencesOpen, setIsConferencesOpen] = useState(false)
 
-  const pathname = usePathname();
-  const selectedOption = options.find((option) => option.pathName === pathname)?.title || "Dashboard";
+    const pathname = usePathname();
+    const router = useRouter();
+    // const selectedOption = options.find((option) => option.pathName === pathname)?.title || "Dashboard";
 
-  const toggleDropdown = (title: string) => {
-    setOpenDropdown(openDropdown === title ? null : title);
-  };
+    // const toggleDropdown = (title: string) => {
+    //     setOpenDropdown(openDropdown === title ? null : title);
+    // };
+    //
+    // const handleToggleClose = () => {
+    //     setOpen((prev) => !prev);
+    //
+    //     if (open) {
+    //         setOpenDropdown(null);
+    //     }
+    // };
 
-  const handleToggleClose = () => {
-    setOpen((prev) => !prev);
-    
-    if (open) {
-      setOpenDropdown(null);
+    interface LinkProps {
+        Icon: IconType;
+        title: string;
+        pathName: string;
+        subLinks?: SubLinkProps[];
     }
-  };
 
-  return (
-    <motion.nav
-      layout
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.125 }}
-      className="sticky top-0 h-screen shrink-0 border-r border-slate-300 bg-white p-2 overflow-y-auto"
-      style={{ width: open ? "225px" : "fit-content" }}
-    >
-      <TitleSection open={open} />
+    interface SubLinkProps {
+        Icon: IconType
+        title: string
+        pathName: string
+        notifs?: number;
+    }
 
-      <div className="space-y-1">
-        {options.map((option) => (
-          <div key={option.title}>
-            <Option
-              Icon={option.Icon}
-              title={option.title}
-              selected={selectedOption}
-              setSelected={(title) => {
-                setSelected(title);
-                if (option.dropdownItems) {
-                  toggleDropdown(title);
+    const LinkData: LinkProps[] = [
+        {
+            Icon: FiHome,
+            title: "Dashboard",
+            pathName: "/dashboard",
+        },
+        {
+            Icon: FcConferenceCall,
+            title: "Conferences",
+            pathName: "/dashboard/conferences",
+            subLinks: [
+                {
+                    title: "All Conferences",
+                    pathName: "/dashboard/conferences/all",
+                    Icon: FcConferenceCall,
+                },
+                {
+                    title: "Fields",
+                    pathName: "/dashboard/conferences/fields",
+                    Icon: FiTag,
+                },
+            ],
+        },
+        {
+            Icon: CgFileDocument,
+            title: "Articles",
+            pathName: "/dashboard/articles",
+            subLinks: [
+                {
+                    title: "New Articles",
+                    pathName: "/dashboard/articles/new",
+                    Icon: FiMonitor,
+                    notifs: 3,
+                },
+                {
+                    title: "Merged Articles",
+                    pathName: "/dashboard/articles/merged",
+                    Icon: FiMonitor,
+                    notifs: 1,
+                },
+                {
+                    title: "Approved Articles",
+                    pathName: "/dashboard/articles/approved",
+                    Icon: FiMonitor,
+                    notifs: 2,
                 }
-              }}
-              open={open}
-              onDropdownToggle={() => {
-                if (option.dropdownItems) {
-                  toggleDropdown(option.title);
-                }
-              }}
-              pathName={option.pathName} // Ensure pathname is passed to Option
-            />
-            {option.dropdownItems && openDropdown === option.title && (
-              <div className="pl-8 mt-1 space-y-1">
-                {option.dropdownItems.map((item) => (
-                  <motion.button
-                    key={item.title}
-                    onClick={item.action}
-                    className="w-full text-left px-2 py-1 text-sm bg-myindigo text-blue-50 hover:text-gray-900 rounded-md transition-colors duration-150 ease-in-out"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    {item.title}
-                  </motion.button>
+            ],
+        },
+        {
+            Icon: MdReviews,
+            title: "Reviewers",
+            pathName: "/dashboard/reviewers",
+        },
+        {
+            Icon: FiUsers,
+            title: "Users",
+            pathName: "/dashboard/users"
+        }
+    ]
+
+    return (
+        <motion.nav
+            layout
+            className="sticky top-0 h-screen shrink-0 border-r border-slate-300 bg-white p-2"
+            style={{
+                width: open ? "225px" : "fit-content",
+            }}
+        >
+            <TitleSection open={open}/>
+
+            <div className="space-y-1">
+                {LinkData.map((link) => (
+                    <Fragment key={link.title}>
+                        <Option
+                            Icon={link.Icon}
+                            title={link.title}
+                            pathName={link.pathName}
+                            open={open}
+                            setIsArticlesOpen={setIsArticlesOpen}
+                            setIsConferencesOpen={setIsConferencesOpen}
+                        />
+                        {isConferencesOpen && link.pathName === "/dashboard/conferences" && (
+                            <div className="mt-1 space-y-1">
+                                {link?.subLinks?.map((item) => (
+                                    <motion.button
+                                        onClick={() => router.push(item.pathName)}
+                                        key={item.title}
+                                        layout
+                                        className={`relative flex h-10 w-full items-center rounded-md transition-colors ${pathname === item.pathName ? "bg-indigo-100 text-indigo-800" : "text-slate-500 hover:bg-slate-100"}`}
+                                    >
+                                        <motion.div
+                                            layout
+                                            className="grid h-full w-10 place-content-center text-lg"
+                                        >
+                                            <item.Icon/>
+                                        </motion.div>
+                                        {open && (
+                                            <motion.span
+                                                layout
+                                                initial={{opacity: 0, y: 12}}
+                                                animate={{opacity: 1, y: 0}}
+                                                transition={{delay: 0.125}}
+                                                className="text-xs font-medium"
+                                            >
+                                                {item.title}
+                                            </motion.span>
+                                        )}
+
+                                        {item.notifs && open && (
+                                            <motion.span
+                                                initial={{scale: 0, opacity: 0}}
+                                                animate={{
+                                                    opacity: 1,
+                                                    scale: 1,
+                                                }}
+                                                style={{y: "-50%"}}
+                                                transition={{delay: 0.5}}
+                                                className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
+                                            >
+                                                {item.notifs}
+                                            </motion.span>
+                                        )}
+                                    </motion.button>)
+                                )}
+                            </div>
+                        )}
+                        {isArticlesOpen && link.pathName === "/dashboard/articles" && (
+                            <div className="mt-1 space-y-1">
+                                {link?.subLinks?.map((item) => (
+                                    <motion.button
+                                        key={item.title}
+                                        onClick={() => router.push(item.pathName)}
+                                        layout
+                                        className={`relative flex h-10 w-full items-center rounded-md transition-colors ${pathname === item.pathName ? "bg-indigo-100 text-indigo-800" : "text-slate-500 hover:bg-slate-100"}`}
+                                    >
+                                        <motion.div
+                                            layout
+                                            className="grid h-full w-10 place-content-center text-lg"
+                                        >
+                                            <item.Icon/>
+                                        </motion.div>
+                                        {open && (
+                                            <motion.span
+                                                layout
+                                                initial={{opacity: 0, y: 12}}
+                                                animate={{opacity: 1, y: 0}}
+                                                transition={{delay: 0.125}}
+                                                className="text-xs font-medium"
+                                            >
+                                                {item.title}
+                                            </motion.span>
+                                        )}
+
+                                        {item.notifs && open && (
+                                            <motion.span
+                                                initial={{scale: 0, opacity: 0}}
+                                                animate={{
+                                                    opacity: 1,
+                                                    scale: 1,
+                                                }}
+                                                style={{y: "-50%"}}
+                                                transition={{delay: 0.5}}
+                                                className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
+                                            >
+                                                {item.notifs}
+                                            </motion.span>
+                                        )}
+                                    </motion.button>)
+                                )}
+                            </div>
+                        )}
+
+                    </Fragment>
                 ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-      <ToggleClose open={open} setOpen={handleToggleClose} />
-    </motion.nav>
-  );
+            </div>
+
+            <ToggleClose open={open} setOpen={setOpen}/>
+        </motion.nav>
+    );
 };
 
 export default Sidebar;

@@ -31,7 +31,7 @@ const UserCard = async ({ user }: {user: UserType}) => {
                 >
                     {/*<Sheet>*/}
                     {/*    <SheetTrigger asChild>*/}
-                    {/*        <Button className="p-2.5 rounded text-sm flex flex-row justify-between bg-mainindigo text-mainwhite hover:bg-mainindigo/85 transition-all duration-200 ease-in-out w-full">*/}
+                    {/*        <Button className="p-2.5 rounded text-sm flex flex-row justify-between bg-mainindigo text-mainwhite hover:bg-mainindigo/85 transition-fields duration-200 ease-in-out w-full">*/}
                     {/*            Profile*/}
                     {/*            <FaUser className="w-5 h-4" />*/}
                     {/*        </Button>*/}
@@ -63,7 +63,7 @@ const UserCard = async ({ user }: {user: UserType}) => {
                     {/*            <SheetClose asChild>*/}
                     {/*                <div className="w-full flex justify-end">*/}
                     {/*                    <Button*/}
-                    {/*                        className="p-2.5 rounded text-sm flex flex-row justify-between bg-typegreen text-mainwhite hover:bg-typegreen/85 transition-all duration-200 ease-in-out w-fit"*/}
+                    {/*                        className="p-2.5 rounded text-sm flex flex-row justify-between bg-typegreen text-mainwhite hover:bg-typegreen/85 transition-fields duration-200 ease-in-out w-fit"*/}
                     {/*                        type="submit"*/}
                     {/*                        onClick={handleUpdateName}*/}
                     {/*                    >*/}
