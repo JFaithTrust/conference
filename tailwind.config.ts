@@ -65,6 +65,13 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      variants: {
+        extend: {
+          transitionProperty: {
+            'colors': 'background-color, border-color, color',
+          },
+        },
+      },
       fontFamily: {
         poppins: ["var(--font-poppins)"],
       },
