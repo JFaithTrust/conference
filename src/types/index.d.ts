@@ -1,8 +1,8 @@
-export interface UserType {
+export  interface UserType {
     id: number;
     fullName: string;
     email: string;
     role: "SUPER_ADMIN" | "REVIEWER" | "USER";
     phoneNumber: string;
-    userStatus: "Accepted"|"Feedback"|"Rejected";
+    userStatus: "Active"|"Blocked";
 }

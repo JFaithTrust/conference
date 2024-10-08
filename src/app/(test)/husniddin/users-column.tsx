@@ -1,20 +1,10 @@
 "use client"
 
 import {ColumnDef} from "@tanstack/react-table"
-import {ArrowUpDown, MoreHorizontal} from "lucide-react"
-// import {format} from "date-fns" // date-fns dan format funksiyasini import qilamiz
+import {ArrowUpDown} from "lucide-react"
 import {Button} from "@/components/ui/button"
-// import {
-//     DropdownMenu,
-//     DropdownMenuContent,
-//     DropdownMenuItem,
-//     DropdownMenuLabel,
-//     DropdownMenuSeparator,
-//     DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu"
+
 import {UserType} from "@/types";
-// import {useLocale} from "next-intl";
-// import {useRouter} from "next/navigation";
 import {clsx} from "clsx";
 
 
@@ -43,13 +33,7 @@ export const usersColumn: ColumnDef<UserType>[] = [
             return <div className="font-medium text-sm">{row.original.phoneNumber}</div>
         },
     },
-    {
-        accessorKey: "email",
-        header: () => <div>Email</div>,
-        cell: ({row}) => {
-            return <div className="font-medium text-sm truncate">{row.getValue("email")}</div>
-        },
-    },
+   
     {
         accessorKey: "email",
         header: ({column}) => {
@@ -57,61 +41,28 @@ export const usersColumn: ColumnDef<UserType>[] = [
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    className="font-medium text-lg"
                 >
                     Email
                     <ArrowUpDown className="ml-2 h-4 w-4"/>
                 </Button>
             )
         },
-        cell: ({row}) => <div className="lowercase pl-8">{row.original.email}</div>,
+        cell: ({row}) => <div className="lowercase">{row.original.email}</div>,
     },
 
     {
         accessorKey: "userStatus",
-        header: () => <div className={"text-center"}>Status</div>,
+        header: () => <div className={"text-center max-w-40"}>Status</div>,
         cell: ({row}) => {
             return <div
-                className={clsx("font-medium text-sm py-1 px-4 rounded-2xl text-center",{
-                    "bg-status-green": row.original.userStatus === "Accepted",
-                    "bg-status-yellow": row.original.userStatus === "Feedback",
-                    "bg-status-red": row.original.userStatus === "Rejected",
+                className={clsx("font-medium text-sm py-1.5 px-4 rounded-2xl text-center max-w-40  capitalize text-white",{
+                    "bg-status-green": row.original.userStatus === "Active",
+                    "bg-status-red": row.original.userStatus === "Blocked",
                 })}>{
-                row.original.userStatus === "Accepted" ? "Qabul qilingan" :
-                    row.original.userStatus === "Feedback" ? "Fikr-mulohaza" :
-                            row.original.userStatus === "Rejected" ? "Rad etilgan" : ""
+                row.original.userStatus === "Active" ? "Aktive" :
+                            row.original.userStatus === "Blocked" ? "Blocked" : ""
             }</div>
         },
     },
-
-    // {
-    //     id: "actions",
-    //     cell: ({row}) => {
-    //         const user = row.original
-
-    //         // eslint-disable-next-line react-hooks/rules-of-hooks
-    //         // const locale = useLocale()
-    //         // eslint-disable-next-line react-hooks/rules-of-hooks
-    //         // const router = useRouter()
-
-    //         return (
-    //             <DropdownMenu>
-    //                 <DropdownMenuTrigger asChild>
-    //                     <Button variant="ghost" className="h-8 w-8 p-0">
-    //                         <span className="sr-only">Open menu</span>
-    //                         <MoreHorizontal className="h-4 w-4 text-status-btn-payment"/>
-    //                     </Button>
-    //                 </DropdownMenuTrigger>
-    //                 <DropdownMenuContent align="end">
-    //                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //                     <DropdownMenuItem
-    //                         // onClick={() => router.push(`/${locale}/dashboard/complaints/${complaint.id}`)}
-    //                         onClick={() => navigator.clipboard.writeText(user.id)}
-    //                     >
-    //                         Javob berish
-    //                     </DropdownMenuItem>
-    //                 </DropdownMenuContent>
-    //             </DropdownMenu>
-    //         )
-    //     },
-    // },
 ]
