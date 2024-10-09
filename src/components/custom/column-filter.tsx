@@ -21,7 +21,7 @@ export function ColumnFilter<D>(props: FilterProps<D>) {
         <div className="flex gap-x-4">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                        <Button className="ml-auto rounded-lg font-medium py-3 px-4 bg-white text-muted-foreground">
+                        <Button  className="ml-auto rounded-lg font-medium py-3 px-4 bg-white text-muted-foreground outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
                             <LuListFilter className="mr-2 h-4 w-4"/>
                             <span>
                             Filter

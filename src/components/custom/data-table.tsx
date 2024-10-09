@@ -151,7 +151,7 @@ export function DataTable<D, V>({
           <TableCell
             key={cell.id}
             className={clsx({
-              "max-w-32": cellIndex === row.getVisibleCells().length - 1, // Oxirgi ustun bo'lsa `max-w-32` klassi qo'shiladi
+              "min-w-28 flex justify-end items-center": cellIndex === row.getVisibleCells().length - 1, // Oxirgi ustun bo'lsa `max-w-32` klassi qo'shiladi
             })}
           >
             {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -169,10 +169,11 @@ export function DataTable<D, V>({
 </TableBody>
 
                 </Table>
+                
+            {hasPagination && <CustomPagination table={table} className="pt-10 pb-7" />}
                  {/* )} */}
             </div>
 
-            {hasPagination && <CustomPagination table={table} />}
         </div>
     );
 }
