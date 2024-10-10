@@ -8,15 +8,6 @@ import { clsx } from "clsx";
 
 
 export const usersColumn: ColumnDef<UserType>[] = [
-    // {
-    //     accessorKey: "id",
-    //     header: () => <div>Id</div>,
-    //     cell: ({row}) => {
-    //         return <div className="font-medium text-sm flex gap-x-2">
-    //             <div>{row.original.id}</div>
-    //         </div>
-    //     },
-    // },
 
     {
         accessorKey: "id",
@@ -38,14 +29,6 @@ export const usersColumn: ColumnDef<UserType>[] = [
             </div>
         },
     },
-
-    // {
-    //     accessorKey: "fullName",
-    //     header: () => <div>Name</div>,
-    //     cell: ({row}) => {
-    //         return <div className="font-medium text-sm">{row.original.fullName}</div>
-    //     },
-    // },
 
     {
         accessorKey: "fullName",
