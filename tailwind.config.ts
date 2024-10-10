@@ -17,6 +17,7 @@ const config: Config = {
     },
     extend: {
       colors: {
+        myindigo: '#7975FF',
         primary: {
           500: "#624CF5",
           50: "#F6F8FD",

@@ -4,6 +4,8 @@ import { Toaster } from "sonner";
 import {ReactNode} from "react";
 import "./globals.css";
 
+
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -31,7 +33,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Toaster richColors={true} position="top-right" />
+        <main>
         {children}
+        </main>
       </body>
     </html>
   );
