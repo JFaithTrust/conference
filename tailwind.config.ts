@@ -20,13 +20,12 @@ const config: Config = {
         myindigo: '#7975FF',
         primary: {
           500: "#624CF5",
-          50: " #F6F8FD",
+          50: "#F6F8FD",
           DEFAULT: "#624CF5",
           foreground: "hsl(var(--primary-foreground))",
         },
-        coral: {
-          500: "#15BF59",
-        },
+
+        "primary-btn": "#0000FF",
 
         grey: {
           600: "#545454", // Subdued - color name in figma
@@ -36,10 +35,14 @@ const config: Config = {
         },
         black: "#000000",
         white: "#FFFFFF",
+        mainwhite: "#FAFAFA",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         foreground: "hsl(var(--foreground))",
+        "status-green": "#01AA5C",
+        // 'status-green': '#49CC90',
+        "status-red": "#E90000",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
