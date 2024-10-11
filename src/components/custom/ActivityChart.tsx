@@ -1,3 +1,4 @@
+"use client";
 import {
   LineChart,
   Line,
@@ -21,17 +22,16 @@ const chartData = [
 const ActivityChart = () => {
   const CustomTooltip = ({
     payload,
-    label,
     active,
   }: {
-    payload: any;
-    label: any;
-    active: any;
+    payload?: any;
+    label?: any;
+    active?: any;
   }) => {
     if (active) {
       return (
         <div className="w-16 h-10 rounded-md flex items-center border-[#9CA3AF] justify-center border bg-white">
-          <p className="label">{`${payload[0].value}`}</p>
+          <p className="label">{`${payload[0]?.value}`}</p>
         </div>
       );
     }
@@ -40,7 +40,7 @@ const ActivityChart = () => {
   return (
     <div className="w-full h-40 bg-gray-50 p-4 rounded-lg">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData}>
+        <LineChart accessibilityLayer data={chartData}>
           <XAxis
             dataKey="name"
             tick={{ fontSize: 12, fontWeight: 600, fill: "#9CA3AF" }} // Styling x-axis labels Remove tick line

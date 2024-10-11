@@ -4,7 +4,19 @@ import Sidebar from "@/components/layout/side-bar";
 import WeekCalendar from "@/components/custom/week-calendar";
 import { TaskTodayCard } from "@/components/cards/task-today.card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import ActivityChart from "@/components/custom/ActivityChart";
+import dynamic from "next/dynamic";
+
+
+
+const ActivityChart = dynamic(
+  () => import("@/components/custom/ActivityChart"),
+  { ssr: false }
+);
+const CircularChart = dynamic(
+  () => import("@/components/custom/circular-chart"),
+  { ssr: false }
+);
+
 const DashboardPage = () => {
   const [open, setOpen] = useState(true);
 
@@ -13,7 +25,7 @@ const DashboardPage = () => {
       <Sidebar open={open} setOpen={setOpen} />
       <div className="max-w-[60%] w-full px-5 pt-10">
         <div className="flex items-center gap-8">
-          <div className="w-[250px] h-full border-2 border-primary">Lorem ipsum dolor sit.</div>
+          <CircularChart />
           <ActivityChart />
         </div>
       </div>

@@ -5,13 +5,16 @@ import CountDownConference from "../custom/CountDownConference";
 import { ConferenceType } from "@/types";
 import { Button } from "../ui/button";
 export const TaskTodayCard = () => {
+
   // const [data, setData] = useState<ConferenceType[] | []>([]);
+
   // useEffect(() => {
   //   $auth
   //     .get("/conference/all")
   //     .then((res) => console.log(res.data))
   //     .catch((error) => console.log(error));
   // }, []);
+
   const data = [
     {
       id: 1,
