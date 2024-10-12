@@ -10,7 +10,7 @@ const CircularChart = () => {
   const COLORS = ["#6366F1", "#1F2937"]; // Progress color and background color
 
   return (
-    <div className="w-56 h-64 bg-gray-900 text-white p-4 rounded-lg flex flex-col justify-between">
+    <div className="w-[250px] h-full bg-gray-900 text-white p-4 rounded-lg flex flex-col justify-between">
       <div>
         <p className="text-lg font-semibold">Running Task</p>
         <p className="text-4xl font-bold mt-4">65</p>

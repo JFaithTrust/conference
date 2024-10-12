@@ -1,5 +1,4 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import $auth from "@/http/auth";
 import CountDownConference from "../custom/CountDownConference";
 import { ConferenceType } from "@/types";

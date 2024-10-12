@@ -38,7 +38,7 @@ const ActivityChart = () => {
   };
 
   return (
-    <div className="w-full h-40 bg-gray-50 p-4 rounded-lg">
+    <div className="w-full h-full bg-gray-50 p-4 rounded-lg">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart accessibilityLayer data={chartData}>
           <XAxis
