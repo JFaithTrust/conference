@@ -66,7 +66,7 @@ function ForgotStep1({
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
+                className="space-y-3 md:space-y-4"
             >
                 <FormField
                     name="phoneNumber"
@@ -94,7 +94,7 @@ function ForgotStep1({
                 <button
                     type="submit"
                     aria-disabled={isSubmitting}
-                    className="py-[12px] w-full rounded-lg text-lg font-medium leading-[100%] text-white bg-primary"
+                    className="py-[12px] w-full rounded-lg text-lg font-normal md:font-medium leading-[100%] text-white bg-primary"
                 >
                     Tasdiqlash
                 </button>
@@ -139,7 +139,7 @@ function ForgotStep2({
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-4"
+                    className="space-y-3 md:space-y-4"
                 >
                     {/*<h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo">*/}
                     {/*    Tasdiqlash*/}
@@ -172,7 +172,7 @@ function ForgotStep2({
                     <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="py-[12px] w-full rounded-lg text-lg font-medium leading-[100%] text-white bg-primary"
+                        className="py-[12px] w-full rounded-lg text-lg font-normal md:font-medium leading-[100%] text-white bg-primary"
                     >Verify Phone Number</Button>
                 </form>
             </Form>

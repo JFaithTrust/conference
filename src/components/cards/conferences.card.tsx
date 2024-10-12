@@ -17,7 +17,6 @@ export const Card = ({ data }: { data: ConferenceType }) => {
         <div className="flex items-start gap-8 justify-end">
           {/* {formatDate(data?.deadlineForThesis, false)} */}
           {<CountDownConference targetDate={data?.deadlineForThesis} />}
-          {/* {CountdownTimer()} */}
         </div>
         <h3 className="text-lg font-medium">
           {data?.name.slice(0, 55)}
