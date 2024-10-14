@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import { useState } from "react";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import isoWeek from "dayjs/plugin/isoWeek";
+import { MdOutlineArrowDropDown } from "react-icons/md";
 
 dayjs.extend(localizedFormat);
 dayjs.extend(isoWeek);
@@ -32,19 +33,19 @@ const WeekCalendar = () => {
       {/* Header with month and navigation */}
       <div className="flex justify-between items-center">
         <button
-          className="text-primary hover:text-primary/70 focus:outline-none"
+          className="text-primary hover:text-primary/70 rotate-90 focus:outline-none"
           onClick={handlePrevMonth}
         >
-          &#9664;
+          <MdOutlineArrowDropDown size={36} />
         </button>
         <span className="font-semibold text-lg">
           {dayjs(selectedDate).format("MMMM YYYY")}
         </span>
         <button
-          className=" text-primary hover:text-primary/70 focus:outline-none"
+          className=" text-primary rotate-[-90deg] hover:text-primary/70 focus:outline-none"
           onClick={handleNextMonth}
         >
-          &#9654;
+          <MdOutlineArrowDropDown size={36} />
         </button>
       </div>
 

@@ -2,16 +2,10 @@ import React from "react";
 import WeekCalendar from "@/components/custom/week-calendar";
 import { TaskTodayCard } from "@/components/cards/task-today.card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import dynamic from "next/dynamic";
+import CircularChart from "@/components/custom/circular-chart";
+import ActivityChart from "@/components/custom/ActivityChart";
 
-const ActivityChart = dynamic(
-  () => import("@/components/custom/ActivityChart"),
-  { ssr: false }
-);
-const CircularChart = dynamic(
-  () => import("@/components/custom/circular-chart"),
-  { ssr: false }
-);
+
 
 const DashboardPage = () => {
   return (
