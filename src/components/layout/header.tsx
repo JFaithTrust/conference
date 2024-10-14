@@ -25,7 +25,7 @@ const Header = async () => {
                     <Image src="/logo.svg" alt="logo" width={38} height={38}/>
                     Konferensiya
                 </Link>
-                <nav className="md:flex-between md:flex hidden w-full max-w-xs">
+                <nav className="md:flex-between lg:flex hidden w-full max-w-xs">
                     <NavItems/>
                 </nav>
                 <div className="flex items-center gap-4">

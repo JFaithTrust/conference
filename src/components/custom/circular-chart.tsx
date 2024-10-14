@@ -1,55 +1,103 @@
 "use client";
-import React from "react";
-import { PieChart, Pie, Cell } from "recharts";
 
-const CircularChart = () => {
-  const data = [
-    { name: "Progress", value: 45 },
-    { name: "Remaining", value: 55 },
-  ];
-  const COLORS = ["#6366F1", "#1F2937"]; // Progress color and background color
+import {
+  Label,
+  PolarGrid,
+  PolarRadiusAxis,
+  RadialBar,
+  RadialBarChart,
+} from "recharts";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ChartConfig, ChartContainer } from "@/components/ui/chart";
+
+export const description = "A radial chart with text";
+
+const chartData = [
+  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+];
+
+const chartConfig = {
+  visitors: {
+    label: "Visitors",
+  },
+  safari: {
+    label: "Safari",
+    color: "#624CF5",
+  },
+} satisfies ChartConfig;
+
+function CircularChart() {
   return (
-    <div className="w-[250px] h-full bg-gray-900 text-white p-4 rounded-lg flex flex-col justify-between">
-      <div>
-        <p className="text-lg font-semibold">Running Task</p>
-        <p className="text-4xl font-bold mt-4">65</p>
-      </div>
+    <Card className="max-w-[350px] w-full h-full bg-gray-900/95 text-white rounded-lg flex flex-col justify-between">
+      <CardHeader className="items-center pb-0 flex justify-start">
+        <CardTitle className="text-lg font-semibold">Running Task</CardTitle>
+        <CardDescription className="text-4xl font-bold">
+          65
+        </CardDescription>
+      </CardHeader>
 
-      <div className="flex items-center justify-between mt-4">
-        <div className="relative">
-          <PieChart width={80} height={80}>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              startAngle={90}
-              endAngle={-270}
-              innerRadius={30}
-              outerRadius={40}
-              paddingAngle={0}
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-          </PieChart>
-          <div className="absolute top-0 left-0 flex items-center justify-center w-20 h-20">
-            <p className="text-xl font-bold">{data[0].value}%</p>
-          </div>
-        </div>
-
-        <div className="text-center">
-          <p className="text-blue-500 text-xl font-bold">100</p>
-          <p className="text-sm text-gray-400">Task</p>
-        </div>
-      </div>
-    </div>
+      <CardContent className="flex-1 pb-0">
+        <ChartContainer
+          config={chartConfig}
+          className="mx-auto aspect-square max-h-[110px]"
+        >
+          <RadialBarChart
+            data={chartData}
+            startAngle={0}
+            endAngle={240}
+            innerRadius={50}
+            outerRadius={60}
+          >
+            <PolarGrid
+              gridType="circle"
+              radialLines={false}
+              stroke="none"
+              className="first:fill-muted last:fill-background "
+              polarRadius={[48, 44]}
+            />
+            <RadialBar dataKey="visitors" background cornerRadius={10} />
+            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-4xl font-bold"
+                        >
+                          {chartData[0].visitors.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-muted-foreground"
+                        >
+                          Visitors
+                        </tspan>
+                      </text>
+                    );
+                  }
+                }}
+              />
+            </PolarRadiusAxis>
+          </RadialBarChart>
+        </ChartContainer>
+      </CardContent>
+    </Card>
   );
-};
-
+}
 export default CircularChart;

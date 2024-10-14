@@ -6,12 +6,12 @@ import NavItems from "@/components/layout/nav-items";
 
 const MobileNav = () => {
   return (
-    <nav className="md:hidden">
+    <nav className="lg:hidden">
       <Sheet>
         <SheetTrigger className="align-middle">
           <LuMenu size={32} />
         </SheetTrigger>
-        <SheetContent className="flex flex-col gap-6 bg-white md:hidden">
+        <SheetContent className="flex flex-col gap-6 bg-white lg:hidden">
           <Link
             href="/"
             className="flex items-center gap-[2px] md:text-2xl text-lg font-bold md:font-bold"
