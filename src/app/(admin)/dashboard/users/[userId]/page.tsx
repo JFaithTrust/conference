@@ -26,7 +26,7 @@ const UserInfo = ({ params }: { params: { userId: number } }) => {
       {userData && (
         <div className="flex flex-col gap-y-[18px] px-[30px]">
           <Button
-            className="w-fit px-[18px] py-[12px] flex gap-y-2"
+            className="w-fit px-[18px] py-[12px] flex gap-y-2 mt-4"
             variant="primary"
             onClick={() => router.back()}
           >

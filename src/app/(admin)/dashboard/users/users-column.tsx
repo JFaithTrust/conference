@@ -149,7 +149,7 @@ export const usersColumn: ColumnDef<UserType>[] = [
                         <DropdownMenuSeparator />
 
                         <DropdownMenuItem
-                            onClick={() => router.push(`/husniddin/${user.id}`)}
+                            onClick={() => router.push(`/dashboard/users/${user.id}`)}
                         >
                             Ko&apos;rish
                         </DropdownMenuItem>
