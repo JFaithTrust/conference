@@ -15,4 +15,14 @@ export async function getUser() {
 export async function getAllUsers() {
   const { data } = await $auth.get("/user/all?role=USER");
   return data;
-};
+}
+
+export async function changeUserStatus(id: number, enable: boolean) {
+  const { data } = await $auth.put(`/user/changeStatus/${id}?enable=${enable}`);
+  return data;
+}
+
+export async function getUserById(id: number) {
+  const { data } = await $auth.get(`/user/${id}`);
+  return data;
+}

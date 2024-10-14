@@ -1,5 +1,4 @@
-"use client";
-
+'use client'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -20,14 +19,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React, { useState } from "react";
+import React from "react";
 import { CustomPagination } from "@/components/custom/custom-pagination";
 import { clsx } from "clsx";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Input } from "@/components/ui/input";
 import { ColumnFilter } from "@/components/custom/column-filter";
 import { AddButton } from "@/components/custom/add-button";
-import Loading from "../loading/loading";
 
 interface TableProps<D, V> {
   columns: ColumnDef<D, V>[]
@@ -58,10 +56,6 @@ export function DataTable<D, V>({
   addButtonLink = "",
   openDialog,
 }: TableProps<D, V>) {
-  // const [pagination, setPagination] = useState<PaginationType>({
-  //     pageIndex: 0,
-  //     pageSize: 5,
-  // })
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -69,7 +63,6 @@ export function DataTable<D, V>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [globalFilter, setGlobalFilter] = React.useState("")
-  const [loading, setLoading] = useState(true);
 
 
   const table = useReactTable({
@@ -118,19 +111,11 @@ export function DataTable<D, V>({
             <AddButton link={addButtonLink} onClick={openDialog} />
           )}
         </div>
-
-
-
-
       </div>
 
       {/* Table rendering logic */}
-      <div
-        className="rounded-3xl bg-child-black overflow-hidden"
-      >
-        {loading ? (
-          <Loading />
-        ) : (
+      <div className="rounded-3xl bg-child-black overflow-hidden">
+       
           <Table className=" overflow-hidden bg-mainwhite border-[1px] border-solid border-[#DCDBFA]  rounded-xl">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -169,11 +154,7 @@ export function DataTable<D, V>({
             </TableBody>
 
           </Table>
-
-        )}
-
         {hasPagination && <CustomPagination table={table} className="pt-10 pb-7" />}
-
       </div>
 
     </div>
