@@ -69,7 +69,7 @@ export function DataTable<D, V>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [globalFilter, setGlobalFilter] = React.useState("")
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
 
   const table = useReactTable({
