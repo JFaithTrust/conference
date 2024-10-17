@@ -2,6 +2,7 @@
 
 import $auth from "@/http/auth";
 import { UserType } from "@/types";
+import {revalidatePath} from "next/cache";
 
 export async function getUser() {
   try {
@@ -15,4 +16,11 @@ export async function getUser() {
 export async function getAllUsers() {
   const { data } = await $auth.get("/user/all?role=USER");
   return data;
-};
+}
+
+export async function changeUserStatus(id: number, enable: boolean) {
+  const { data } = await $auth.put(`/user/changeStatus/${id}?enable=${enable}`);
+
+  revalidatePath("/dashboard/users")
+  return data;
+}

@@ -20,14 +20,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React, { useState } from "react";
+import React from "react";
 import { CustomPagination } from "@/components/custom/custom-pagination";
 import { clsx } from "clsx";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Input } from "@/components/ui/input";
 import { ColumnFilter } from "@/components/custom/column-filter";
 import { AddButton } from "@/components/custom/add-button";
-import Loading from "../loading/loading";
 
 interface TableProps<D, V> {
   columns: ColumnDef<D, V>[]
@@ -58,10 +57,6 @@ export function DataTable<D, V>({
   addButtonLink = "",
   openDialog,
 }: TableProps<D, V>) {
-  // const [pagination, setPagination] = useState<PaginationType>({
-  //     pageIndex: 0,
-  //     pageSize: 5,
-  // })
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -69,8 +64,6 @@ export function DataTable<D, V>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [globalFilter, setGlobalFilter] = React.useState("")
-  const [loading, setLoading] = useState(true);
-
 
   const table = useReactTable({
     data,
@@ -118,25 +111,15 @@ export function DataTable<D, V>({
             <AddButton link={addButtonLink} onClick={openDialog} />
           )}
         </div>
-
-
-
-
       </div>
 
       {/* Table rendering logic */}
-      <div
-        className="rounded-3xl bg-child-black overflow-hidden"
-      >
-        {loading ? (
-          <Loading />
-        ) : (
-          <Table className=" overflow-hidden bg-mainwhite border-[1px] border-solid border-[#DCDBFA]  rounded-xl">
+          <Table className="overflow-hidden bg-mainwhite rounded-md drop-shadow">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <TableHead className="text-lg font-medium" key={header.id}>
+                    <TableHead className="font-medium bg-indigo-500 text-white" key={header.id}>
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   ))}
@@ -145,7 +128,7 @@ export function DataTable<D, V>({
             </TableHeader>
             <TableBody>
               {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row, rowIndex) => (
+                table.getRowModel().rows.map((row) => (
                   <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                     {row.getVisibleCells().map((cell, cellIndex) => (
                       <TableCell
@@ -167,15 +150,8 @@ export function DataTable<D, V>({
                 </TableRow>
               )}
             </TableBody>
-
           </Table>
-
-        )}
-
         {hasPagination && <CustomPagination table={table} className="pt-10 pb-7" />}
-
       </div>
-
-    </div>
   );
 }
