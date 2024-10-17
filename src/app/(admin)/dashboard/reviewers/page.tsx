@@ -17,7 +17,9 @@ const ReviwersPage = async () => {
           columns={usersColumn}
           data={userData}
           hasAddButton={true}
-          hasFilter={false}
+          hasFilter={true}
+          addButtonLink="sddsf"
+          // openDialog={true}
           hasPagination={true}
         />
       </ScrollArea>

@@ -1,19 +1,19 @@
-"use client"
-
 import {ReactNode} from "react";
 import Sidebar from "@/components/layout/side-bar";
+import {getUser} from "@/lib/actions/user.action";
 
-export default function AuthLayout({
+export default async function AuthLayout({
                                        children,
                                    }: Readonly<{
     children: ReactNode;
 }>) {
+    const userData = await getUser()
 
     return (
         <main>
             <div className="flex h-screen bg-indigo-50">
-                <Sidebar />
-                <main className={"flex-grow"}>{children}</main>
+                <Sidebar userData={userData} />
+                <main className={"flex-grow transition-al"}>{children}</main>
             </div>
         </main>
     );

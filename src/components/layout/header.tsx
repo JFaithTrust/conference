@@ -6,7 +6,7 @@ import MobileNav from "./mobile-nav";
 import AuthButtons from "@/components/shared/auth-buttons";
 import {getUser} from "@/lib/actions/user.action";
 import {getCookieToken} from "@/lib/actions/auth.action";
-import UserCard from "@/components/cards/user.card";
+import {TitleSection} from "@/components/shared/title-section";
 
 const Header = async () => {
     const token = await getCookieToken();
@@ -31,8 +31,10 @@ const Header = async () => {
                 <div className="flex items-center gap-4">
                     {
                         token && userData != null ? (
-                            <UserCard user={userData}/>
-                        ) : (
+                            // <UserCard user={userData}/>
+                            <TitleSection userData={userData} isDashboard={false} />
+                        )
+                            : (
                             <AuthButtons/>
                         )
                     }
