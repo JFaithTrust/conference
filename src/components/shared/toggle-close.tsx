@@ -74,9 +74,9 @@ export const ToggleClose = ({
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.125 }}
-                  className="text-xs font-medium"
+                  className="font-medium"
               >
-                Hide
+                Yashirish
               </motion.span>
           )}
         </div>

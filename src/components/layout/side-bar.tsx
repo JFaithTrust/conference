@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { motion } from "framer-motion";
-import { TitleSection } from "@/components/shared/title-section";
 import { Option } from "@/components/shared/option";
 import { ToggleClose } from "@/components/shared/toggle-close";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,9 +8,10 @@ import { MdReviews } from "react-icons/md";
 import { CgFileDocument } from "react-icons/cg";
 import { FcConferenceCall } from "react-icons/fc";
 import { IconType } from "react-icons";
+import TitleSectionWrapper from "../shared/title-section-wrapper";
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(true);   
   const [isArticlesOpen, setIsArticlesOpen] = useState(false);
   const [isConferencesOpen, setIsConferencesOpen] = useState(false);
 
@@ -113,7 +113,7 @@ const Sidebar = () => {
         width: open ? "260px" : "fit-content",
       }}
     >
-      <TitleSection open={open} />
+      <TitleSectionWrapper open={open} />
 
       <div className="space-y-1">
         {LinkData.map((link) => (
