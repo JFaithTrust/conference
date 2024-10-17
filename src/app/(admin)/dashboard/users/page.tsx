@@ -1,6 +1,6 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { usersColumn } from "@/app/(admin)/dashboard/users/users-column";
-import { DataTable } from "@/components/custom/data-table";
+import { DataTable } from "@/components/custom/custom-data-table/data-table";
 import { getAllUsers } from "@/lib/actions/user.action";
 import { Suspense } from "react";
 import Loading from "@/components/loading/loading";

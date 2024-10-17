@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -20,12 +20,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import { CustomPagination } from "@/components/custom/custom-pagination";
+import { CustomPagination } from "@/components/custom/custom-data-table/custom-pagination";
 import { clsx } from "clsx";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Input } from "@/components/ui/input";
-import { ColumnFilter } from "@/components/custom/column-filter";
-import { AddButton } from "@/components/custom/add-button";
+import { ColumnFilter } from "@/components/custom/custom-data-table/column-filter";
+import { AddButton } from "@/components/custom/custom-data-table/add-button";
+import UserBlockModal from "@/components/modals/user-block.modal";
 
 interface TableProps<D, V> {
   columns: ColumnDef<D, V>[]
@@ -154,9 +155,12 @@ export function DataTable<D, V>({
             </TableBody>
 
           </Table>
+          <UserBlockModal />
         {hasPagination && <CustomPagination table={table} className="pt-10 pb-7" />}
       </div>
 
     </div>
   );
 }
+
+
