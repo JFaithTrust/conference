@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useChangeStatus } from "@/hook";
 import {router} from "next/client";
+import { useRouter } from "next/navigation";
 
 export const usersColumn: ColumnDef<UserType>[] = [
     {
@@ -88,7 +89,7 @@ export const usersColumn: ColumnDef<UserType>[] = [
             const changeStatus = useChangeStatus();
             const isUserActive = user.userStatus === "ACTIVE";
             const newStatus = isUserActive ? "INACTIVE" : "ACTIVE";
-
+            const router = useRouter();
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

@@ -24,3 +24,8 @@ export async function changeUserStatus(id: number, enable: boolean) {
   revalidatePath("/dashboard/users")
   return data;
 }
+
+export async function getUserById(id: number) {
+  const { data } = await $auth.get(`/user/${id}`);
+  return data;
+}
