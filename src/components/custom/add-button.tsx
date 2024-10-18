@@ -12,9 +12,9 @@ interface AddButtonProps {
 export function AddButton({ link, onClick }: AddButtonProps) {
   return link ? (
     <Link href={link}>
-      <Button className="py-3 px-4 flex gap-x-2 bg-card-orange text-white rounded-lg skew-x-[-20deg] bg-black">
+      <Button className="py-3 px-4 flex gap-x-2 bg-card-orange text-white rounded-lg skew-x-[-20deg] ">
         <LuPlus className={"size-4 skew-x-[20deg]"} />
-        <span className={"skew-x-[20deg]"}>Yaratish</span>
+        <span className={"skew-x-[20deg] "}>Yaratish</span>
       </Button>
     </Link>
   ) : (

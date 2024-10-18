@@ -86,3 +86,13 @@
 }
 
 
+::-webkit-scrollbar {
+    height: 10px;
+    width: 8px;
+    background-color: #fff;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #6052ba;
+    border-radius: 3px;
+  }
