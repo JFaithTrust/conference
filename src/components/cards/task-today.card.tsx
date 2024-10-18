@@ -1,7 +1,5 @@
 import React from "react";
-import $auth from "@/http/auth";
 import CountDownConference from "../custom/CountDownConference";
-import { ConferenceType } from "@/types";
 import { Button } from "../ui/button";
 export const TaskTodayCard = () => {
 
@@ -103,7 +101,7 @@ export const TaskTodayCard = () => {
               {item?.description.slice(0, 110)}
               ...
             </p>
-            <Button className="bg-primary hover:bg-primary/75 w-full" variant={"default"}>Ko'proq ko'rish</Button>
+            <Button className="bg-primary hover:bg-primary/75 w-full" variant={"default"}>Ko&apos;proq ko&apos;rish</Button>
           </div>
         </div>
       ))}

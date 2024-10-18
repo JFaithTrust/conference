@@ -1,7 +1,5 @@
 "use client"
 
-import {motion} from "framer-motion";
-import {FiLogOut} from "react-icons/fi";
 import {UserType} from "@/types";
 import React from "react";
 import {removeCookie} from "@/lib/actions/auth.action";
@@ -42,10 +40,10 @@ export const TitleSection = ({open, userData, isDashboard}: TitleSectionProps) =
                 <PopoverContent
                     className={`flex flex-col gap-y-2`}
                 >
-                    {(userData?.role == null && userData?.role === "SUPER_ADMIN" || "REVIEWER") ? (
+                    {(userData?.role === "SUPER_ADMIN" || userData?.role === "REVIEWER") ? (
                         <Link href="/dashboard">
                             <Button
-                                className="p-2.5 rounded text-sm flex flex-row gap-x-2 bg-mainindigo text-mainwhite hover:bg-mainindigo/85 transition-all duration-200 ease-in-out w-fit"
+                                className="p-2.5 rounded text-sm flex flex-row gap-x-2 bg-indigo-500 text-mainwhite hover:bg-indigo-500/80 transition-all duration-200 ease-in-out w-full"
                             >
                                 Dashboard
                                 <AiFillDashboard className="w-5 h-4"/>
@@ -53,8 +51,8 @@ export const TitleSection = ({open, userData, isDashboard}: TitleSectionProps) =
                         </Link>
                     ) : null}
                     <Button
-                        type={"submit"}
-                        className="p-2.5 rounded text-sm flex flex-row justify-between bg-typered text-mainwhite hover:bg-typered/85 transition-all duration-200 ease-in-out w-fit"
+                        onClick={handleLogout}
+                        className="p-2.5 rounded text-sm flex flex-row justify-between bg-red-500 w-full text-mainwhite hover:bg-red-500/80 transition-all duration-200 ease-in-out"
                     >
                         Chiqish
                         <ArrowRight className="w-5 h-4"/>

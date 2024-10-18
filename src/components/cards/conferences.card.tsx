@@ -1,7 +1,5 @@
 import React from "react";
 import { ConferenceType } from "@/types";
-import { formatDate } from "@/functions/formats";
-import CountdownTimer from "../custom/CountdownTimer";
 import CountDownConference from "../custom/CountDownConference";
 export const Card = ({ data }: { data: ConferenceType }) => {
   return (
@@ -29,7 +27,7 @@ export const Card = ({ data }: { data: ConferenceType }) => {
             "..."}
         </p>
         <div className="flex items-center gap-3">
-          <img src="./location.svg" alt="icon" />
+          {/*<img src="/public/location.svg" alt="icon" />*/}
           <p className="text-sm font-normal text-primary">{data?.address}</p>
         </div>
       </div>

@@ -15,8 +15,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useChangeStatus } from "@/hook";
-import {router} from "next/client";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 
 export const usersColumn: ColumnDef<UserType>[] = [
     {
@@ -87,9 +86,11 @@ export const usersColumn: ColumnDef<UserType>[] = [
             const user = row.original;
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const changeStatus = useChangeStatus();
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const router = useRouter();
             const isUserActive = user.userStatus === "ACTIVE";
             const newStatus = isUserActive ? "INACTIVE" : "ACTIVE";
-            const router = useRouter();
+
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

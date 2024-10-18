@@ -26,6 +26,7 @@ const ChangeStatusModal = () => {
             onClose();
         } catch (error) {
             toast.error("Xatolik yuz berdi, iltimos qayta urinib ko'ring.");
+            console.log(error);
         }
     };
 

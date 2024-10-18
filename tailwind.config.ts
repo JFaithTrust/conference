@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
         "2xl": "1400px",
       },
@@ -24,9 +24,7 @@ const config: Config = {
           DEFAULT: "#624CF5",
           foreground: "hsl(var(--primary-foreground))",
         },
-
         "primary-btn": "#0000FF",
-
         grey: {
           600: "#545454", // Subdued - color name in figma
           500: "#757575",

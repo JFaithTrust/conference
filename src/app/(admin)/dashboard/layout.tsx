@@ -13,7 +13,7 @@ export default async function AuthLayout({
         <main>
             <div className="flex h-screen bg-indigo-50">
                 <Sidebar userData={userData} />
-                <main className={"flex-grow transition-al"}>{children}</main>
+                <main className={"flex-grow pt-3 container"}>{children}</main>
             </div>
         </main>
     );

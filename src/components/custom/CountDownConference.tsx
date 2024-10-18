@@ -1,7 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 
 interface CountdownProps {
   targetDate: string;

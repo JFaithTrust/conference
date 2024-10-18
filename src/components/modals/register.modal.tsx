@@ -24,12 +24,6 @@ const RegisterModal = () => {
     loginModal.onOpen();
   }, [loginModal, registerModal, forgotPasswordModal]);
 
-  const onToggleForgot = useCallback(() => {
-    loginModal.onClose();
-    registerModal.onClose();
-    forgotPasswordModal.onOpen();
-  }, [loginModal, registerModal, forgotPasswordModal]);
-
   return (
     <Dialog open={registerModal.isOpen} onOpenChange={registerModal.onClose}>
       <DialogContent
