@@ -1,28 +1,32 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { usersColumn } from "@/app/(test)/husniddin/users-column";
+import { typesColumn } from "@/app/(test)/husniddin/types-column";
 import { DataTable } from "@/components/custom/data-table";
-import { getAllUsers } from "@/lib/actions/user.action";
+import { getAllDirections } from "@/lib/actions/direction.action";
+import ChangeStatusModal from "@/components/modals/change-status.modal";
+import Loading from "@/components/loading/loading";
+import { Suspense } from "react";
 
-const Users = async () => {
-  const userData = await getAllUsers();
+const Directions = async () => {
+  const directionsData = await getAllDirections();
 
-  console.log(userData);
+  console.log("data: ",directionsData);
 
 
   return (
-    <div>
-      <ScrollArea className="h-[100vh] bg-slate-100">
+<div>
+<ChangeStatusModal/>
+    <Suspense fallback={<Loading />}>
         <DataTable
-          columns={usersColumn}
-          data={userData}
-          hasAddButton={false}
-          hasFilter={false}
-          hasPagination={true}
+            columns={typesColumn}
+            data={directionsData}
+            hasAddButton={true}
+            hasFilter={false}
+            hasPagination={true}
         />
-      </ScrollArea>
-    </div>
+    </Suspense>
+</div>
   );
 };
 
-export default Users;
+export default Directions;
 

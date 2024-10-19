@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { getUserById } from "@/lib/actions/user.action";
 import { Button } from "@/components/ui/button";

@@ -48,6 +48,7 @@ const globalFilterFn = (row: any, columnId: string, filterValue: string) => {
   return rowValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
 };
 
+
 export function DataTable<D, V>({
   columns,
   data,

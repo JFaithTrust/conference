@@ -41,8 +41,8 @@ const ChangeStatusModal = () => {
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleConfirm}>Continue</AlertDialogAction>
+                    <AlertDialogCancel className="bg-red-500/90 hover:bg-primary-600  text-white hover:text-white font-bold py-2 px-4 rounded">Cancel</AlertDialogCancel>
+                    <AlertDialogAction className="bg-primary-500/90 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded" onClick={handleConfirm}>Continue</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

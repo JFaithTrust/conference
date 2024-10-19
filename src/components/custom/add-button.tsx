@@ -12,19 +12,20 @@ export function AddButton({ link, onClick }: AddButtonProps) {
     return link ? (
         <Link href={link}>
             <Button
-                className="py-3 px-4 flex gap-x-2 bg-card-orange text-white rounded-lg skew-x-[-20deg]"
+                className="ml-auto rounded-lg font-medium py-3 px-4 gap-1 bg-white text-muted-foreground outline-none focus-visible:ring-0 focus-visible:ring-offset-0 hover:text-indigo-500"
             >
-                <LuPlus className={"size-4 skew-x-[20deg]"} />
-                <span className={"skew-x-[20deg]"}>Yaratish</span>
+                {/* py-3 px-4 flex gap-x-2 bg-white  rounded-lg  */}
+                <LuPlus className={"size-4"} />
+                <span>Yaratish</span>
             </Button>
         </Link>
     ) : (
         <Button
             onClick={onClick} // Handle onClick
-            className="py-3 px-4 flex gap-x-2 bg-card-orange text-white rounded-lg skew-x-[-20deg]"
+            className="ml-auto rounded-lg font-medium py-3 px-4 gap-1 bg-white text-muted-foreground outline-none focus-visible:ring-0 focus-visible:ring-offset-0 hover:text-indigo-500"
         >
-            <LuPlus className={"size-4 skew-x-[20deg]"} />
-            <span className={"skew-x-[20deg]"}>Yaratish</span>
+            <LuPlus className={"size-4"} />
+            <span>Yaratish</span>
         </Button>
     );
 }
