@@ -1,10 +1,10 @@
-export  interface UserType {
+export interface UserType {
     id: number;
     fullName: string;
     email: string;
     role: "SUPER_ADMIN" | "REVIEWER" | "USER";
     phoneNumber: string;
-    userStatus: "ACTIVE"|"INACTIVE";
+    userStatus: "ACTIVE" | "INACTIVE";
 }
 
 export interface ConferenceType {
@@ -18,13 +18,13 @@ export interface ConferenceType {
     address?: string;
     requirements?: string;
     newApplicationsCount?: number;
-    images:string;
+    images: string;
     owner?: {
-      id: number;
-      fullName: string;
-      email: string;
-      username: string;
-      role: string;
-      phoneNumber: string;
+        id: number;
+        fullName: string;
+        email: string;
+        username: string;
+        role: string;
+        phoneNumber: string;
     };
-  }
+}

@@ -14,9 +14,7 @@ const AuthButtons = () => {
       <button
         onClick={() => registerModal.onOpen()}
         className={clsx(
-          // situation === "button" &&
-          "py-1 lg:px-2 px-[2px]  md:block  border-[2px] rounded-md border-primary bg-white",
-          // situation === "text" && "" +
+          "py-1 lg:px-2 px-2  md:block  border-[2px] rounded-md border-primary bg-white",
           "text-base font-medium text-primary hidden md:block"
         )}
       >
@@ -24,14 +22,12 @@ const AuthButtons = () => {
       </button>
       <button
         className={clsx(
-          // situation === "button" &&
-          "md:py-1 py-[2px] px-2  md:block  border-[2px] rounded-md border-primary bg-primary text-white",
-          // situation === "text" &&
+          "md:py-1 py-[2px] px-2 md:block  border-[2px] rounded-md border-primary bg-primary text-white",
           "text-base font-medium text-primary"
         )}
         onClick={() => loginModal.onOpen()}
       >
-        Login
+        Kirish
       </button>
     </div>
   );

@@ -81,8 +81,97 @@
     }
 }
 
+@layer utilities {
+    /* ===== UTILITIES */
+    /* =====  REACT DATE PICKER OVERRIDES */
+    .date-picker {
+        @apply overflow-hidden border-transparent w-full
+        text-sm rounded-md outline-none !important
+    }
+}
+
 .p-medium-16 {
     @apply text-[16px] font-medium leading-[24px];
 }
 
+/* React Date Picker */
+.react-datepicker__input-container input {
+    background-color: #ffffff !important;
+    padding: 0.5rem;
+    width: 100%;
+    outline: none;
+}
 
+.react-datepicker-wrapper.date-picker {
+    display: flex;
+    align-items: center;
+}
+
+.react-datepicker{
+    background-color: #ffffff !important;
+    border: none !important;
+}
+
+.react-datepicker__header {
+    background-color: #6366f1 !important;
+    color: #ffffff !important;
+}
+
+.react-datepicker__current-month {
+    color: #ffffff !important;
+}
+
+.react-datepicker__day-name {
+    color: #ffffff !important;
+}
+
+.react-datepicker-time__header{
+    color: #ffffff !important;
+}
+.react-datepicker__day--today{
+    background-color: #6366f1 !important;
+    color: #ffffff !important;
+    opacity: 0.8;
+    border-radius: 4px
+}
+
+.react-datepicker__triangle {
+    fill: #6366f1 !important;
+    color: #6366f1 !important;
+    stroke: #6366f1 !important;
+}
+
+.react-datepicker__time-list-item:hover {
+    background-color: #6366f1 !important;
+    color: white;
+}
+
+.react-datepicker__day--selected {
+    background-color: #6366f1 !important;
+    color: #ffffff !important;
+    border-radius: 4px;
+}
+
+.react-datepicker__time-list-item--selected {
+    background-color: #6366f1 !important;
+}
+
+.react-datepicker__time-list-item {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.react-datepicker::-webkit-scrollbar-thumb {
+    background-color: #6366f1 !important;
+}
+
+.react-datepicker__day--keyboard-selected{
+    background-color: transparent !important;
+    color: #000000 !important;
+}
+
+/* Scrollbar style */
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
+    scrollbar-width: thin; /* Firefox support */
+    scrollbar-color: #6366f1 #f1f1f1; /* Scrollbar color (thumb and track) */
+}
