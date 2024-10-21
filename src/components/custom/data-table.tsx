@@ -54,7 +54,7 @@ export function DataTable<D, V>({
   hasAddButton = false,
   addButtonLink = "",
   openDialog,
-  hasSearchbar = true, // Default to true
+  hasSearchbar = true,
 }: TableProps<D, V>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
