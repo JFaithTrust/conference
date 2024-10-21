@@ -1,7 +1,4 @@
 "use client"
-
-import {motion} from "framer-motion";
-import {FiLogOut} from "react-icons/fi";
 import {UserType} from "@/types";
 import React from "react";
 import {removeCookie} from "@/lib/actions/auth.action";
