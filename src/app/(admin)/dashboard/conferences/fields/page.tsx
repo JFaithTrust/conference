@@ -2,6 +2,7 @@ import { DataTable } from "@/components/custom/data-table";
 import { getAllDirections } from "@/fetch-api/fetchConferences";
 import { fieldsColumn } from "./fields-column";
 
+
 const DirectionFieldsPage = async () => {
   const data = await getAllDirections();
   return (
@@ -9,7 +10,7 @@ const DirectionFieldsPage = async () => {
       <DataTable
         columns={fieldsColumn}
         data={data}
-        hasPagination={true}
+        hasPagination
         hasSearchbar
         hasFilter
         hasAddButton

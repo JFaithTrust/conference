@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { DirectionType } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 // import { FaTrash, FaUsers } from "react-icons/fa";
 // import { MdEditNote } from "react-icons/md";
 // import clsx from "clsx";
@@ -45,14 +46,18 @@ export const fieldsColumn: ColumnDef<DirectionType>[] = [
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            <button>
+                           <Link href='/dashboard/conferences/fields/delete-fields'>
+                           <button>
                                 O&apos;chirish
                             </button>
+                            </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            <button>
+                        <Link href='/dashboard/conferences/fields/edit-fields'>
+                           <button>
                                 Tahrirlash
                             </button>
+                            </Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

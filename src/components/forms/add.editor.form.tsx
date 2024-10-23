@@ -1,3 +1,5 @@
+'use client'; 
+
 import { userAddSchema } from "@/lib/validation";
 import Modal from "../ui/Modal";
 import { Button } from "../ui/button";
@@ -9,18 +11,18 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import useUserAddModal from "@/hook/useUserAddModal";
 import { UserType } from "@/types";
-import { useState } from "react"; // Import useState
+import { useState } from "react";
 
 interface UserAddFormProps {
   allReviewers: UserType[];
-  setReviewersId: (ids: string[]) => void; // Ensure to type this correctly
+  setReviewersId: (ids: string[]) => void;
 }
 
 const AddEditorForm = ({
   allReviewers,
   setReviewersId,
 }: UserAddFormProps) => {
-  const userAddModal = useUserAddModal(); // Keep this as a client hook
+  const userAddModal = useUserAddModal();
 
   const form = useForm<z.infer<typeof userAddSchema>>({
     resolver: zodResolver(userAddSchema),
@@ -29,7 +31,7 @@ const AddEditorForm = ({
     },
   });
 
-  const [searchTerm, setSearchTerm] = useState(""); // Declare state for searchTerm
+  const [searchTerm, setSearchTerm] = useState("");
 
   function onSubmit(data: z.infer<typeof userAddSchema>) {
     setReviewersId(data.users);
@@ -49,7 +51,7 @@ const AddEditorForm = ({
                 <div>
                   <Input
                     placeholder="Enter name..."
-                    onChange={(e) => setSearchTerm(e.target.value)} // Set searchTerm directly
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     className="border-[1px] border-solid rounded-xl border-[#E2DEDE]"
                   />
                 </div>
@@ -85,8 +87,8 @@ const AddEditorForm = ({
                             </div>
                             <Button
                               className={`py-[6px] px-[12px] rounded-xl w-[100px] ${
-                                user.userStatus === "INACTIVE" 
-                                  ? "bg-typered hover:bg-typered/85" 
+                                user.userStatus === "INACTIVE"
+                                  ? "bg-typered hover:bg-typered/85"
                                   : "bg-typegreen hover:bg-typegreen/85"
                               }`}
                             >

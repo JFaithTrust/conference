@@ -14,3 +14,15 @@ export const getAllDirections = async (): Promise<DirectionType[]> => {
   const { data } = await $auth.get(`/direction/all`);
   return data;
 };
+
+export const deleteDirection = async (id: string) => {
+  const response = await fetch(`/api/directions/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to delete the direction');
+  }
+
+  return response.json();
+};

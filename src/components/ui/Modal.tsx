@@ -8,6 +8,7 @@ interface ModalProps {
   footer?: ReactElement;
   bg?: string;
   classNames?: string;
+  children: React.ReactNode
 }
 
 export default function Modal({ body, footer, isOpen, onClose, bg, classNames }: ModalProps) {
