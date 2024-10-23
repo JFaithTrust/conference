@@ -1,36 +1,16 @@
+import React from 'react';
+import AddEditorForm from '@/components/forms/add.editor.form'; // Import the AddEditorForm
+import { UserType } from '@/types';
 
-// import { Button } from "@/components/ui/button";
-// import { FaArrowLeftLong } from "react-icons/fa6";
-// import { getAllUsers } from "@/lib/actions/user.action";
-// import { UserType } from "@/types";
-// import { DataTable } from "@/components/custom/data-table";
-// import { reviewersColumn } from "./reviewers.column";
+const CreateDirectionField = async () => {
+  
+  const allReviewers: UserType[] = []; 
 
-// const TypeCreate = async () => {
-//   const allReviewers: UserType[] = await getAllUsers("REVIEWER");
+  return (
+    <div className="p-4 md:p-8">
+      <AddEditorForm allReviewers={allReviewers} setReviewersId={(ids) => console.log(ids)} />
+    </div>
+  );
+};
 
- 
-//   return (
-//     <div className="flex flex-col gap-y-[18px] px-[30px]">
-//       <Button
-//         className="w-fit px-[18px] py-[12px] flex gap-y-2"
-//         onClick={() => router.back()}
-//       >
-//         <FaArrowLeftLong className="text-white w-6 h-4" />
-//         Back
-//       </Button>
-
-//       {/* DataTable component */}
-//       <DataTable
-//         columns={reviewersColumn}
-//         data={allReviewers}
-//         hasPagination={true}
-//         hasSearchbar={true}
-//         hasAddButton={true} 
-//         openDialog={() => console.log("Open modal for adding new reviewer")}
-//       />
-//     </div>
-//   );
-// };
-
-// export default TypeCreate;
+export default CreateDirectionField;
