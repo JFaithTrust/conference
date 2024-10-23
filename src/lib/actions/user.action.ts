@@ -29,3 +29,8 @@ export async function getUserById(id: number) {
   const { data } = await $auth.get(`/user/${id}`);
   return data;
 }
+
+export const getUserByDirectionId = async (id: number): Promise<UserType[]> => {
+  const { data } = await $auth.get(`/user/byDirection/${id}`);
+  return data;
+};
