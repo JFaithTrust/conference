@@ -14,6 +14,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useReviewersStore from "@/hook/useReviewerModal";
+import { FaRegEdit } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+
 
 export const typesColumn: ColumnDef<DirectionType>[] = [
   {
@@ -52,7 +58,17 @@ export const typesColumn: ColumnDef<DirectionType>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => (
+    cell: ({ row }) => {
+      // const [reviewersId, setReviewersId] = React.useState([] as string[]);
+      // const handleDelete = (id: string) => {
+      //   // const deleteReviewersId = reviewersId.filter((item) => {
+      //   //   return item !== id;
+      //   // });
+      //   // const deleted = reviewersId.find((item) => item === id);
+      //   setReviewersId(reviewersId.filter((item) => item !== id));
+      // };
+      return(
+      
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -63,11 +79,18 @@ export const typesColumn: ColumnDef<DirectionType>[] = [
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => alert("Ko‘rish")} >
-          Ko&apos;rish
+         
+          <DropdownMenuItem className="bg-yellow-400 text-white text-lg justify-center" onClick={() => alert("Ko‘rish")} >
+          <FaEdit />
           </DropdownMenuItem>
+          
+          <DropdownMenuItem className="bg-red-500 text-white text-lg justify-center mt-1" onClick={() => alert("Ko‘rish")} >
+          <MdDelete />
+          </DropdownMenuItem>
+          
         </DropdownMenuContent>
       </DropdownMenu>
-    ),
+ );
+},
   },
 ];
