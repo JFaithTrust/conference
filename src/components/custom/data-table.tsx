@@ -109,7 +109,10 @@ export function DataTable<D, V>({
         <div className={"flex gap-x-2 items-center"}>
           {hasFilter && <ColumnFilter table={table} />}
           {hasAddButton && (
-            <AddButton link={addButtonLink} onClick={openDialog} />
+            <AddButton
+                // link={addButtonLink}
+                onClick={openDialog}
+            />
           )}
         </div>
       </div>
