@@ -12,6 +12,14 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
+import { clsx } from "clsx";
+import React from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+
+import { AddButton } from "@/components/custom/add-button";
+import { ColumnFilter } from "@/components/custom/column-filter";
+import { CustomPagination } from "@/components/custom/custom-pagination";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -20,13 +28,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React from "react";
-import { CustomPagination } from "@/components/custom/custom-pagination";
-import { clsx } from "clsx";
-import { AiOutlineSearch } from "react-icons/ai";
-import { Input } from "@/components/ui/input";
-import { ColumnFilter } from "@/components/custom/column-filter";
-import { AddButton } from "@/components/custom/add-button";
 
 interface TableProps<D, V> {
   columns: ColumnDef<D, V>[]
@@ -92,7 +93,7 @@ export function DataTable<D, V>({
       <div className={"flex items-center justify-between"}>
         {/* Search Bar and Filter (if needed) */}
         <div className="relative max-w-[300px] py-4">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-muted-foreground">
+          <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-muted-foreground">
             <AiOutlineSearch className=" size-5" />
           </span>
           <div className={"rounded-md"}>
@@ -100,13 +101,13 @@ export function DataTable<D, V>({
               placeholder={"Enter name..."}
               value={globalFilter ?? ""}
               onChange={(event) => setGlobalFilter(event.target.value)}
-              className="pl-10 w-[300px]"
+              className="w-[300px] pl-10"
             // className="max-w-sm"
             />
           </div>
         </div>
 
-        <div className={"flex gap-x-2 items-center"}>
+        <div className={"flex items-center gap-x-2"}>
           {hasFilter && <ColumnFilter table={table} />}
           {hasAddButton && (
             <AddButton
@@ -118,12 +119,12 @@ export function DataTable<D, V>({
       </div>
 
       {/* Table rendering logic */}
-          <Table className="overflow-hidden bg-mainwhite rounded-md drop-shadow">
+          <Table className="overflow-hidden rounded-md bg-mainwhite drop-shadow">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <TableHead className="font-medium bg-indigo-500 text-white" key={header.id}>
+                    <TableHead className="bg-indigo-500 font-medium text-white" key={header.id}>
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   ))}
@@ -155,7 +156,7 @@ export function DataTable<D, V>({
               )}
             </TableBody>
           </Table>
-        {hasPagination && <CustomPagination table={table} className="pt-10 pb-7" />}
+        {hasPagination && <CustomPagination table={table} className="pb-7 pt-10" />}
       </div>
   );
 }

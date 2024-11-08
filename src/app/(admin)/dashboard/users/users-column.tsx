@@ -1,11 +1,11 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { UserType } from "@/types";
 import { clsx } from "clsx";
-import { MoreHorizontal } from "lucide-react";
+import { ArrowUpDown , MoreHorizontal } from "lucide-react";
+import {useRouter} from "next/navigation";
+
+import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,7 +15,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useChangeStatus } from "@/hook";
-import {useRouter} from "next/navigation";
+import { UserType } from "@/types";
 
 export const usersColumn: ColumnDef<UserType>[] = [
     {
@@ -26,11 +26,11 @@ export const usersColumn: ColumnDef<UserType>[] = [
                 className="font-medium"
             >
                 Name
-                <ArrowUpDown className="ml-2 h-4 w-4" />
+                <ArrowUpDown className="ml-2 size-4" />
             </Button>
         ),
         cell: ({ row }) => (
-            <div className="font-medium flex">
+            <div className="flex font-medium">
                 <div>{row.original.fullName}</div>
             </div>
         ),
@@ -50,7 +50,7 @@ export const usersColumn: ColumnDef<UserType>[] = [
                 className="font-medium"
             >
                 Email
-                <ArrowUpDown className="ml-2 h-4 w-4" />
+                <ArrowUpDown className="ml-2 size-4" />
             </Button>
         ),
         cell: ({ row }) => <div className="lowercase">{row.original.email}</div>,
@@ -63,13 +63,13 @@ export const usersColumn: ColumnDef<UserType>[] = [
                 className={"font-medium"}
             >
                 Status
-                <ArrowUpDown className="ml-2 h-4 w-4" />
+                <ArrowUpDown className="ml-2 size-4" />
             </Button>
         ),
         cell: ({ row }) => (
             <div
                 className={clsx(
-                    "font-medium py-1.5 px-4 rounded-xl w-24 text-center capitalize text-white",
+                    "w-24 rounded-xl px-4 py-1.5 text-center font-medium capitalize text-white",
                     {
                         "bg-status-green": row.original.userStatus === "ACTIVE",
                         "bg-status-red": row.original.userStatus === "INACTIVE",
@@ -94,9 +94,9 @@ export const usersColumn: ColumnDef<UserType>[] = [
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
+                        <Button variant="ghost" className="size-8 p-0">
                             <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
+                            <MoreHorizontal className="size-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">

@@ -1,13 +1,13 @@
 "use client";
 
-import useForgotPasswordModal from "@/hook/useForgotPasswordModal";
+import { ForgotPasswordForm } from "@/components/forms";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ForgotPasswordForm } from "@/components/forms";
+import useForgotPasswordModal from "@/hook/useForgotPasswordModal";
 
 const ForgotPasswordModal = () => {
   const forgotPasswordModal = useForgotPasswordModal();
@@ -19,10 +19,10 @@ const ForgotPasswordModal = () => {
     >
       <DialogContent
         aria-describedby={undefined}
-        className="max-w-[450px] w-full p-8 md:p-10 lg:p-12 !bg-primary-50 bg-dotted-pattern bg-cover bg-fixed bg-center"
+        className="w-full max-w-[450px] !bg-primary-50 bg-dotted-pattern bg-cover bg-fixed bg-center p-8 md:p-10 lg:p-12"
       >
         <DialogHeader>
-          <DialogTitle className="font-medium text-2xl md:text-3xl text-primary-500 text-center">
+          <DialogTitle className="text-center text-2xl font-medium text-primary-500 md:text-3xl">
             Parolni tiklash
           </DialogTitle>
         </DialogHeader>

@@ -1,8 +1,9 @@
-import {getUserById} from "@/lib/actions/user.action";
-import {Button} from "@/components/ui/button";
-import {FaArrowLeftLong} from "react-icons/fa6";
-import {UserType} from "@/types";
 import Link from "next/link";
+import {FaArrowLeftLong} from "react-icons/fa6";
+
+import {Button} from "@/components/ui/button";
+import {getUserById} from "@/lib/actions/user.action";
+import {UserType} from "@/types";
 
 const UserInfo = async ({params}: { params: { userId: number } }) => {
     const userData: UserType = await getUserById(params.userId);
@@ -13,14 +14,14 @@ const UserInfo = async ({params}: { params: { userId: number } }) => {
                 <div className="flex flex-col gap-y-[18px]">
                     <Link
                         href={"/dashboard/users"}
-                        className="bg-indigo-500 text-destructive-foreground shadow-sm hover:bg-indigo-500 w-fit inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 px-3 py-1.5 gap-2"
+                        className="inline-flex w-fit items-center justify-center gap-2 rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-medium text-destructive-foreground shadow-sm transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                     >
-                        <FaArrowLeftLong className="text-white w-4 h-4"/>
+                        <FaArrowLeftLong className="size-4 text-white"/>
                         Back
                     </Link>
                     <div
-                        className="flex p-[18px] flex-col gap-y-[18px] bg-mainwhite rounded-xl border-[1px] border-solid border-[#DCDBFA]">
-                        <h2 className="font-semibold font-source-serif-pro text-3xl">
+                        className="flex flex-col gap-y-[18px] rounded-xl border border-solid border-[#DCDBFA] bg-mainwhite p-[18px]">
+                        <h2 className="text-3xl font-semibold">
                             Foydalanuvchi ma&apos;lumotlari
                         </h2>
                         <div className="flex flex-col gap-y-2">
@@ -34,9 +35,9 @@ const UserInfo = async ({params}: { params: { userId: number } }) => {
 
                         <div className="flex flex-row justify-between">
                             <div className="flex flex-col gap-y-2">
-                                <span className="font-normal text-sm">Status</span>
+                                <span className="text-sm font-normal">Status</span>
                                 <Button
-                                    className={`py-3 px-12 text-white ${userData.userStatus === "INACTIVE"
+                                    className={`px-12 py-3 text-white ${userData.userStatus === "INACTIVE"
                                         ? "bg-status-red hover:bg-status-red/85"
                                         : "bg-status-green hover:bg-status-green/85"
                                     }`}

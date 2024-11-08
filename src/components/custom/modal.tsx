@@ -1,3 +1,7 @@
+import { DialogClose } from "@radix-ui/react-dialog";
+import React, { useState } from "react";
+import { LuPlus } from "react-icons/lu";
+
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -9,10 +13,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { DialogClose } from "@radix-ui/react-dialog";
 
-import React, { useState } from "react";
-import { LuPlus } from "react-icons/lu";
 
 interface ModalProps {
     onClick?: () => void; // Added an onClick prop
@@ -114,17 +115,17 @@ const Modal = ({ onClick }: ModalProps) => {
             <DialogTrigger asChild>
                 <Button
                     onClick={onClick} // Handle onClick
-                    className="py-3 px-4 flex gap-x-2 bg-card-orange text-white rounded-lg skew-x-[-20deg] bg-indigo-500 border-none ml-3"
+                    className="bg-card-orange ml-3 flex skew-x-[-20deg] gap-x-2 rounded-lg border-none bg-indigo-500 px-4 py-3 text-white"
                 >
                     <LuPlus className={"size-4 skew-x-[20deg]"} />
                     <span className={"skew-x-[20deg] "}>Yaratish</span>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] bg-white text-black max-h-[500px] overflow-y-auto">
+            <DialogContent className="max-h-[500px] overflow-y-auto bg-white text-black sm:max-w-[425px]">
                 <DialogHeader className="	h-16	">
                     <DialogTitle>Yaratish</DialogTitle>
                     <DialogDescription>
-                        <div className="flex w-full max-w-sm items-center space-x-2 mt-3">
+                        <div className="mt-3 flex w-full max-w-sm items-center space-x-2">
                             <Input
                                 type="text"
                                 placeholder="search"
@@ -135,7 +136,7 @@ const Modal = ({ onClick }: ModalProps) => {
                                 }}
                             />
 
-                            <Button type="submit" className="bg-indigo-500 text-white h-9	">
+                            <Button type="submit" className="h-9 bg-indigo-500 text-white	">
                                 Search
                             </Button>
                         </div>
@@ -144,7 +145,7 @@ const Modal = ({ onClick }: ModalProps) => {
                 <div className="grid gap-4 py-4">{usersMap}</div>
                 <DialogFooter>
                     <DialogClose asChild>
-                        <Button type="submit" className="bg-indigo-500 text-white h-9	">
+                        <Button type="submit" className="h-9 bg-indigo-500 text-white	">
                             Jo&apos;natish
                         </Button>
                     </DialogClose>

@@ -1,15 +1,16 @@
 "use client"
 
+import {Table} from "@tanstack/table-core";
+import React from "react";
+import {LuListFilter} from "react-icons/lu";
+
+import {Button} from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {Button} from "@/components/ui/button";
-import {LuListFilter} from "react-icons/lu";
-import React from "react";
-import {Table} from "@tanstack/table-core";
 
 interface FilterProps<D> {
     table: Table<D>;
@@ -21,8 +22,8 @@ export function ColumnFilter<D>(props: FilterProps<D>) {
         <div className="flex gap-x-4">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                        <Button  className="ml-auto rounded-lg font-medium py-3 px-4 bg-white text-muted-foreground outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
-                            <LuListFilter className="mr-2 h-4 w-4"/>
+                        <Button  className="ml-auto rounded-lg bg-white px-4 py-3 font-medium text-muted-foreground outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
+                            <LuListFilter className="mr-2 size-4"/>
                             <span>
                             Filter
                             </span>

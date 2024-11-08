@@ -1,4 +1,5 @@
 import React from "react";
+
 import CountDownConference from "../custom/CountDownConference";
 import { Button } from "../ui/button";
 export const TaskTodayCard = () => {
@@ -89,19 +90,19 @@ export const TaskTodayCard = () => {
       {data?.map((item) => (
         <div
           key={item?.id}
-          className="bg-primary-50 rounded-md overflow-hidden border-[2px]"
+          className="overflow-hidden rounded-md border-2 bg-primary-50"
         >
-          <img src={item?.images} alt="" className="w-full h-[180px]" />
+          <img src={item?.images} alt="" className="h-[180px] w-full" />
           <div className="p-2">
-            <div className=" flex justify-end opacity-80 pb-2 border-b mb-2">
+            <div className=" mb-2 flex justify-end border-b pb-2 opacity-80">
               {<CountDownConference targetDate={item?.deadlineForThesis} />}
             </div>
-            <p className="text-base font-medium text-wrap">{item?.name}</p>
-            <p className="text-base font-normal mb-4">
+            <p className="text-wrap text-base font-medium">{item?.name}</p>
+            <p className="mb-4 text-base font-normal">
               {item?.description.slice(0, 110)}
               ...
             </p>
-            <Button className="bg-primary hover:bg-primary/75 w-full" variant={"default"}>Ko&apos;proq ko&apos;rish</Button>
+            <Button className="w-full bg-primary hover:bg-primary/75" variant={"default"}>Ko&apos;proq ko&apos;rish</Button>
           </div>
         </div>
       ))}

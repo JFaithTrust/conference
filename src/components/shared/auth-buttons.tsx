@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import React from "react";
+
 import useLoginModal from "@/hook/useLoginModal";
 import useRegisterModal from "@/hook/useRegisterModal";
 
@@ -14,15 +15,15 @@ const AuthButtons = () => {
       <button
         onClick={() => registerModal.onOpen()}
         className={clsx(
-          "py-1 lg:px-2 px-2  md:block  border-[2px] rounded-md border-primary bg-white",
-          "text-base font-medium text-primary hidden md:block"
+          "rounded-md border-2 border-primary  bg-white  px-2 py-1 md:block lg:px-2",
+          "hidden text-base font-medium text-primary md:block"
         )}
       >
         Ro&apos;yxatdan o&apos;tish
       </button>
       <button
         className={clsx(
-          "md:py-1 py-[2px] px-2 md:block  border-[2px] rounded-md border-primary bg-primary text-white",
+          "rounded-md border-2 border-primary bg-primary  px-2 py-[2px] text-white md:block md:py-1",
           "text-base font-medium text-primary"
         )}
         onClick={() => loginModal.onOpen()}

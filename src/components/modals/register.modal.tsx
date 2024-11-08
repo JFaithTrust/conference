@@ -1,9 +1,8 @@
 "use client";
 
-import useLoginModal from "@/hook/useLoginModal";
-import useForgotPasswordModal from "@/hook/useForgotPasswordModal";
-import useRegisterModal from "@/hook/useRegisterModal";
 import { useCallback } from "react";
+
+import { RegisterForm } from "@/components/forms";
 import {
   Dialog,
   DialogContent,
@@ -11,8 +10,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { RegisterForm } from "@/components/forms";
-
+import useForgotPasswordModal from "@/hook/useForgotPasswordModal";
+import useLoginModal from "@/hook/useLoginModal";
+import useRegisterModal from "@/hook/useRegisterModal";
+s
 const RegisterModal = () => {
   const loginModal = useLoginModal();
   const forgotPasswordModal = useForgotPasswordModal();
@@ -28,20 +29,20 @@ const RegisterModal = () => {
     <Dialog open={registerModal.isOpen} onOpenChange={registerModal.onClose}>
       <DialogContent
         aria-describedby={undefined}
-        className="max-w-[450px] w-full p-8 md:p-10 lg:p-12 !bg-primary-50 bg-dotted-pattern bg-cover bg-fixed bg-center"
+        className="w-full max-w-[450px] !bg-primary-50 bg-dotted-pattern bg-cover bg-fixed bg-center p-8 md:p-10 lg:p-12"
       >
         <DialogHeader>
-          <DialogTitle className="font-medium text-2xl md:text-3xl text-primary-500 text-center">
+          <DialogTitle className="text-center text-2xl font-medium text-primary-500 md:text-3xl">
             Ro&apos;yxatdan o&apos;tish
           </DialogTitle>
         </DialogHeader>
         <RegisterForm />
         <DialogFooter>
-          <div className="mb-4 text-sm text-primary/70 flex flex-col gap-2 justify-center items-center w-full">
+          <div className="mb-4 flex w-full flex-col items-center justify-center gap-2 text-sm text-primary/70">
             <p>
               Menda allaqachon akkaunt mavjud
               <span
-                className="cursor-pointer underline text-primary hover:no-underline ml-3"
+                className="ml-3 cursor-pointer text-primary underline hover:no-underline"
                 onClick={onToggleLogin}
               >
                 Kirish

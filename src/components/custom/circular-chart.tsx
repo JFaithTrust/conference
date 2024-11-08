@@ -35,8 +35,8 @@ const chartConfig = {
 
 function CircularChart() {
   return (
-    <Card className="max-w-[350px] w-full h-full bg-gray-900/95 text-white rounded-lg flex flex-col justify-between">
-      <CardHeader className="items-center pb-0 flex justify-start">
+    <Card className="flex size-full max-w-[350px] flex-col justify-between rounded-lg bg-gray-900/95 text-white">
+      <CardHeader className="flex items-center justify-start pb-0">
         <CardTitle className="text-lg font-semibold">Running Task</CardTitle>
         <CardDescription className="text-4xl font-bold">
           65
@@ -59,7 +59,7 @@ function CircularChart() {
               gridType="circle"
               radialLines={false}
               stroke="none"
-              className="first:fill-muted last:fill-background "
+              className="last:fill-background first:fill-muted "
               polarRadius={[48, 44]}
             />
             <RadialBar dataKey="visitors" background cornerRadius={10} />

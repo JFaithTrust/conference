@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { getCookieToken } from "@/lib/actions/auth.action";
 
 const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;

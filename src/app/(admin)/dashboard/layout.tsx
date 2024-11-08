@@ -1,4 +1,5 @@
 import {ReactNode} from "react";
+
 import Sidebar from "@/components/layout/side-bar";
 import {getUser} from "@/lib/actions/user.action";
 
@@ -13,7 +14,7 @@ export default async function AuthLayout({
         <main>
             <div className="flex h-screen bg-indigo-50">
                 <Sidebar userData={userData} />
-                <main className={"flex-grow pt-3 container"}>{children}</main>
+                <main className={"container grow pt-3"}>{children}</main>
             </div>
         </main>
     );

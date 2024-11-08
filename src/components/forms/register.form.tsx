@@ -1,4 +1,10 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Dispatch, SetStateAction, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+
+import { PhoneInput } from "@/components/custom/phone-input";
 import {
   Form,
   FormControl,
@@ -8,15 +14,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-import { ConfirmPhoneCodeSchema, registerSchema } from "@/lib/validation";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import $axios from "@/http/axios";
-import { toast } from "sonner";
-import { PhoneInput } from "@/components/custom/phone-input";
 import useRegisterModal from "@/hook/useRegisterModal";
+import $axios from "@/http/axios";
 import { setCookie } from "@/lib/actions/auth.action";
+import { ConfirmPhoneCodeSchema, registerSchema } from "@/lib/validation";
 
 const RegisterForm = () => {
   const [step, setStep] = useState(1);
@@ -79,7 +80,7 @@ const Step1 = ({
                   type="text"
                   placeholder="Full Name"
                   {...field}
-                  className="border-[2px]  md:px-3 px-2 md:py-2 py-1 text-base font-normal md:font-medium border-primary-500 focus-visible:border-primary-500/70"
+                  className="border-2  border-primary-500 px-2 py-1 text-base font-normal focus-visible:border-primary-500/70 md:px-3 md:py-2 md:font-medium"
                 />
               </FormControl>
               <FormMessage className="text-red-600" />
@@ -98,7 +99,7 @@ const Step1 = ({
                 <PhoneInput
                   type="tel"
                   placeholder="+998912345678"
-                  className="border-[2px]  border-primary-500 font-normal md:font-medium text-base focus-visible:border-primary-500/70 rounded-md"
+                  className="rounded-md  border-2 border-primary-500 text-base font-normal focus-visible:border-primary-500/70 md:font-medium"
                   {...field}
                 />
               </FormControl>
@@ -117,7 +118,7 @@ const Step1 = ({
                   type="password"
                   placeholder="Password"
                   {...field}
-                  className="border-[2px] md:px-3 px-2 md:py-2 py-1 border-primary-500 font-normal md:font-medium text-base focus-visible:border-primary-500/70"
+                  className="border-2 border-primary-500 px-2 py-1 text-base font-normal focus-visible:border-primary-500/70 md:px-3 md:py-2 md:font-medium"
                 />
               </FormControl>
               <FormMessage className="text-red-600" />
@@ -138,7 +139,7 @@ const Step1 = ({
                   placeholder="Confirm Password"
                   {...field}
                   value={field.value || ""}
-                  className="border-[2px] md:px-3 px-2 md:py-2 py-1 border-primary-500 font-normal md:font-medium text-base focus-visible:border-primary-500/70"
+                  className="border-2 border-primary-500 px-2 py-1 text-base font-normal focus-visible:border-primary-500/70 md:px-3 md:py-2 md:font-medium"
                 />
               </FormControl>
               <FormMessage className="text-red-600" />
@@ -147,7 +148,7 @@ const Step1 = ({
         />
         <button
           type="submit"
-          className="py-[12px] w-full rounded-lg text-lg font-normal md:font-medium leading-[100%] text-white bg-primary"
+          className="w-full rounded-lg bg-primary py-[12px] text-lg font-normal leading-[100%] text-white md:font-medium"
         >
           Tasdiqlash
         </button>
@@ -202,13 +203,13 @@ const Step2 = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className=" w-full space-y-3 md:space-y-4"
       >
-        {/*<DialogTitle className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo">*/}
-        {/*    Telefon raqamingizni tasdiqlang*/}
-        {/*</DialogTitle>*/}
-        {/*<DialogDescription className="text-sm text-mainindigo/80">*/}
-        {/*    Sizning telefon raqamingizga SMS yubordik. Iltimos, SMS dagi kodni*/}
-        {/*    kiriting.*/}
-        {/*</DialogDescription>*/}
+        {/* <DialogTitle className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo"> */}
+        {/*    Telefon raqamingizni tasdiqlang */}
+        {/* </DialogTitle> */}
+        {/* <DialogDescription className="text-sm text-mainindigo/80"> */}
+        {/*    Sizning telefon raqamingizga SMS yubordik. Iltimos, SMS dagi kodni */}
+        {/*    kiriting. */}
+        {/* </DialogDescription> */}
         <FormField
           name="smsCode"
           control={form.control}
@@ -220,7 +221,7 @@ const Step2 = ({
                   // value={field.value || ""}
                   placeholder="Kod"
                   {...field}
-                  className="border-[2px] md:px-3 px-2 md:py-2 py-1 border-primary-500 focus-visible:border-primary-500/70"
+                  className="border-2 border-primary-500 px-2 py-1 focus-visible:border-primary-500/70 md:px-3 md:py-2"
                 />
               </FormControl>
               <FormMessage className="text-red-600" />
@@ -229,7 +230,7 @@ const Step2 = ({
         />
         <button
           type="submit"
-          className="py-[12px] w-full rounded-lg text-lg font-normal md:font-medium leading-[100%] text-white bg-primary"
+          className="w-full rounded-lg bg-primary py-[12px] text-lg font-normal leading-[100%] text-white md:font-medium"
         >
           Tasdiqlash
         </button>

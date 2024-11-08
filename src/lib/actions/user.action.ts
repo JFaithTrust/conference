@@ -1,8 +1,9 @@
 "use server";
 
+import {revalidatePath} from "next/cache";
+
 import $auth from "@/http/auth";
 import { UserType } from "@/types";
-import {revalidatePath} from "next/cache";
 
 export async function getUser() {
   try {

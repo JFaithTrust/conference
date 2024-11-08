@@ -1,17 +1,18 @@
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {PhoneInput} from "@/components/custom/phone-input";
-import {Input} from "@/components/ui/input";
-import {Dispatch, SetStateAction, useState} from "react";
-import useForgotPasswordModal from "@/hook/useForgotPasswordModal";
-import {Button} from "@/components/ui/button";
-import {forgotPasswordSchema1, forgotPasswordSchema2, forgotPasswordSchema3} from "@/lib/validation";
-import {useForm} from "react-hook-form";
-import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {Dispatch, SetStateAction, useState} from "react";
+import {useForm} from "react-hook-form";
 import {toast} from "sonner";
-import $axios from "@/http/axios";
-import useLoginModal from "@/hook/useLoginModal";
+import {z} from "zod";
+
+import {PhoneInput} from "@/components/custom/phone-input";
+import {Button} from "@/components/ui/button";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
 import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
+import useForgotPasswordModal from "@/hook/useForgotPasswordModal";
+import useLoginModal from "@/hook/useLoginModal";
+import $axios from "@/http/axios";
+import {forgotPasswordSchema1, forgotPasswordSchema2, forgotPasswordSchema3} from "@/lib/validation";
 
 const ForgotPasswordForm = () => {
     const [step, setStep] = useState(1);
@@ -29,7 +30,6 @@ const ForgotPasswordForm = () => {
 }
 
 export default ForgotPasswordForm
-
 
 function ForgotStep1({
                          setSaved,
@@ -83,7 +83,7 @@ function ForgotStep1({
                                     type="tel"
                                     placeholder="+998912345678"
                                     {...field}
-                                    className="rounded-md border-[2px] border-primary-500 focus-visible:border-primary-500/70"
+                                    className="rounded-md border-2 border-primary-500 focus-visible:border-primary-500/70"
                                     maxLength={13}
                                 />
                             </FormControl>
@@ -94,7 +94,7 @@ function ForgotStep1({
                 <button
                     type="submit"
                     aria-disabled={isSubmitting}
-                    className="py-[12px] w-full rounded-lg text-lg font-normal md:font-medium leading-[100%] text-white bg-primary"
+                    className="w-full rounded-lg bg-primary py-[12px] text-lg font-normal leading-[100%] text-white md:font-medium"
                 >
                     Tasdiqlash
                 </button>
@@ -102,7 +102,6 @@ function ForgotStep1({
         </Form>
     );
 }
-
 
 function ForgotStep2({
                          saved,
@@ -141,10 +140,10 @@ function ForgotStep2({
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-3 md:space-y-4"
                 >
-                    {/*<h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo">*/}
-                    {/*    Tasdiqlash*/}
-                    {/*</h1>*/}
-                    {/*<p>Telefon raqamingizga yuborilgan SMS kodni kiriting</p>*/}
+                    {/* <h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo"> */}
+                    {/*    Tasdiqlash */}
+                    {/* </h1> */}
+                    {/* <p>Telefon raqamingizga yuborilgan SMS kodni kiriting</p> */}
                     <FormField
                         name="smsCode"
                         control={form.control}
@@ -172,7 +171,7 @@ function ForgotStep2({
                     <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="py-[12px] w-full rounded-lg text-lg font-normal md:font-medium leading-[100%] text-white bg-primary"
+                        className="w-full rounded-lg bg-primary py-[12px] text-lg font-normal leading-[100%] text-white md:font-medium"
                     >Verify Phone Number</Button>
                 </form>
             </Form>
@@ -227,10 +226,10 @@ function ForgotStep3({ saved }: { saved: { phoneNumber: string } }) {
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-4"
                 >
-                    {/*<h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo">*/}
-                    {/*    Parolni tiklash*/}
-                    {/*</h1>*/}
-                    {/*<p>Yangi parolni kiriting</p>*/}
+                    {/* <h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo"> */}
+                    {/*    Parolni tiklash */}
+                    {/* </h1> */}
+                    {/* <p>Yangi parolni kiriting</p> */}
                     <FormField
                         name="password"
                         control={form.control}
@@ -244,7 +243,7 @@ function ForgotStep3({ saved }: { saved: { phoneNumber: string } }) {
                                         type="password"
                                         placeholder="*******"
                                         {...field}
-                                        className="border-[2px] border-primary-500 focus-visible:border-primary-500/70"
+                                        className="border-2 border-primary-500 focus-visible:border-primary-500/70"
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -264,7 +263,7 @@ function ForgotStep3({ saved }: { saved: { phoneNumber: string } }) {
                                         type="password"
                                         placeholder="*******"
                                         {...field}
-                                        className="border-[2px] border-primary-500 focus-visible:border-primary-500/70"
+                                        className="border-2 border-primary-500 focus-visible:border-primary-500/70"
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -274,7 +273,7 @@ function ForgotStep3({ saved }: { saved: { phoneNumber: string } }) {
                     <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="py-[12px] w-full rounded-lg text-lg font-medium leading-[100%] text-white bg-primary"
+                        className="w-full rounded-lg bg-primary py-[12px] text-lg font-medium leading-[100%] text-white"
                     >
                         Tasdiqlash
                     </Button>

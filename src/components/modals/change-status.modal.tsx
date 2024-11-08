@@ -1,6 +1,11 @@
 "use client";
 
 import { AlertDialog } from "@radix-ui/react-alert-dialog";
+import { toast } from "sonner";
+
+import { useChangeStatus } from "@/hook";
+import { changeUserStatus } from "@/lib/actions/user.action";
+
 import {
     AlertDialogAction,
     AlertDialogCancel,
@@ -10,9 +15,6 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "../ui/alert-dialog";
-import { useChangeStatus } from "@/hook";
-import { changeUserStatus } from "@/lib/actions/user.action";
-import { toast } from "sonner";
 
 const ChangeStatusModal = () => {
     const { isOpen, selectedUserId, nextStatus, onClose } = useChangeStatus();
@@ -32,7 +34,7 @@ const ChangeStatusModal = () => {
 
     return (
         <AlertDialog open={isOpen} onOpenChange={onClose}>
-            <AlertDialogContent className="max-w-[450px] w-full p-8 md:p-10 lg:p-12 !bg-primary-50 bg-dotted-pattern bg-cover bg-fixed bg-center">
+            <AlertDialogContent className="w-full max-w-[450px] !bg-primary-50 bg-dotted-pattern bg-cover bg-fixed bg-center p-8 md:p-10 lg:p-12">
                 <AlertDialogHeader>
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>
