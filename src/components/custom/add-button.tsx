@@ -14,10 +14,10 @@ export function AddButton({ link, onClick }: AddButtonProps) {
     return link ? (
         <Link href={link}>
             <Button
-                className="flex skew-x-[-20deg] gap-x-2 rounded-lg px-4 py-3 text-white"
+                className="flex gap-x-2 rounded-lg px-4 py-3 text-white"
             >
-                <LuPlus className={"size-4 skew-x-[20deg]"} />
-                <span className={"skew-x-[20deg]"}>Yaratish</span>
+                <LuPlus className={"size-4"} />
+                <span>Yaratish</span>
             </Button>
         </Link>
     ) : (

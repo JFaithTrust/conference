@@ -21,15 +21,21 @@ const ChangeStatusModal = () => {
 
     const handleConfirm = async () => {
         if (selectedUserId === null || nextStatus === null) return;
+        const res = await changeUserStatus(selectedUserId, nextStatus === "ACTIVE")
 
-        try {
-            await changeUserStatus(selectedUserId, nextStatus === "ACTIVE");
+        if(res === "ok"){
             toast.success(`Foydalanuvchi holati o'zgartirildi!`);
-            onClose();
-        } catch (error) {
+        }else{
             toast.error("Xatolik yuz berdi, iltimos qayta urinib ko'ring.");
-            console.log(error);
         }
+        // try {
+        //     await changeUserStatus(selectedUserId, nextStatus === "ACTIVE");
+        //     toast.success(`Foydalanuvchi holati o'zgartirildi!`);
+        //     onClose();
+        // } catch (error) {
+        //     toast.error("Xatolik yuz berdi, iltimos qayta urinib ko'ring.");
+        //     console.log(error);
+        // }
     };
 
     return (
@@ -44,8 +50,8 @@ const ChangeStatusModal = () => {
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleConfirm}>Continue</AlertDialogAction>
+                    <AlertDialogCancel className={"bg-status-red text-white hover:bg-status-red/80 hover:text-white"}>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleConfirm} className={"bg-indigo-500 text-white hover:bg-indigo-500/80 hover:text-white"}>Continue</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

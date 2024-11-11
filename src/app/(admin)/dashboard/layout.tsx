@@ -2,13 +2,14 @@ import {ReactNode} from "react";
 
 import Sidebar from "@/components/layout/side-bar";
 import {getUser} from "@/lib/actions/user.action";
+import {UserType} from "@/types";
 
 export default async function AuthLayout({
                                        children,
                                    }: Readonly<{
     children: ReactNode;
 }>) {
-    const userData = await getUser()
+    const userData: UserType = await getUser()
 
     return (
         <main>

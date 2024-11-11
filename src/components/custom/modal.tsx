@@ -88,7 +88,6 @@ const Modal = ({ onClick }: ModalProps) => {
         } else if (
             elem.name.toLowerCase().includes(searchText.toLowerCase())
         ) {
-            console.log(elem.name.toLowerCase())
             return   <div className="flex justify-between" key={elem.id}>
                 <h1>
                     {elem.name} {elem.surname}
@@ -115,14 +114,14 @@ const Modal = ({ onClick }: ModalProps) => {
             <DialogTrigger asChild>
                 <Button
                     onClick={onClick} // Handle onClick
-                    className="bg-card-orange ml-3 flex skew-x-[-20deg] gap-x-2 rounded-lg border-none bg-indigo-500 px-4 py-3 text-white"
+                    className="ml-3 flex gap-x-2 rounded-lg border-none bg-indigo-500 px-4 py-3 text-white"
                 >
-                    <LuPlus className={"size-4 skew-x-[20deg]"} />
-                    <span className={"skew-x-[20deg] "}>Yaratish</span>
+                    <LuPlus className={"size-4"} />
+                    <span>Yaratish</span>
                 </Button>
             </DialogTrigger>
             <DialogContent className="max-h-[500px] overflow-y-auto bg-white text-black sm:max-w-[425px]">
-                <DialogHeader className="	h-16	">
+                <DialogHeader className="h-16">
                     <DialogTitle>Yaratish</DialogTitle>
                     <DialogDescription>
                         <div className="mt-3 flex w-full max-w-sm items-center space-x-2">
@@ -136,7 +135,7 @@ const Modal = ({ onClick }: ModalProps) => {
                                 }}
                             />
 
-                            <Button type="submit" className="h-9 bg-indigo-500 text-white	">
+                            <Button type="submit" className="h-9 bg-indigo-500 text-white">
                                 Search
                             </Button>
                         </div>

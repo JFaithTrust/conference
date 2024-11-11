@@ -13,7 +13,7 @@ import {
 import useForgotPasswordModal from "@/hook/useForgotPasswordModal";
 import useLoginModal from "@/hook/useLoginModal";
 import useRegisterModal from "@/hook/useRegisterModal";
-s
+
 const RegisterModal = () => {
   const loginModal = useLoginModal();
   const forgotPasswordModal = useForgotPasswordModal();

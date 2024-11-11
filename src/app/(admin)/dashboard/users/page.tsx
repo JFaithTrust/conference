@@ -1,27 +1,29 @@
-import { Suspense } from "react";
+import {Suspense} from "react";
 
-import { usersColumn } from "@/app/(admin)/dashboard/users/users-column";
+import Loading from "@/app/(admin)/dashboard/users/loading";
+import {usersColumn} from "@/app/(admin)/dashboard/users/users-column";
 import {DataTable} from "@/components/custom/data-table";
-import Loading from "@/components/loading/loading";
 import ChangeStatusModal from "@/components/modals/change-status.modal";
-import { getAllUsers } from "@/lib/actions/user.action";
+import {getAllUsers} from "@/lib/actions/user.action";
+import {UserType} from "@/types";
 
 const Users = async () => {
-    const userData = await getAllUsers();
+    const [userData] = await Promise.all([getAllUsers()]);
 
     return (
-        <div>
-            <ChangeStatusModal />
-                <Suspense fallback={<Loading />}>
-                    <DataTable
-                        columns={usersColumn}
-                        data={userData}
-                        hasAddButton={false}
-                        hasFilter={true}
-                        hasPagination={true}
-                    />
-                </Suspense>
-        </div>
+        <>
+            <ChangeStatusModal/>
+            <Suspense fallback={<Loading/>}>
+                <DataTable
+                    columns={usersColumn}
+                    data={userData as UserType[]}
+                    hasAddButton={false}
+                    hasFilter={true}
+                    hasPagination={true}
+                    route={"/dashboard/users"}
+                />
+            </Suspense>
+        </>
     );
 };
 
