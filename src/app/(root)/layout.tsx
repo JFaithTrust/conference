@@ -1,4 +1,3 @@
-
 import {ReactNode} from "react";
 import {ForgotPasswordModal, LoginModal, RegisterModal} from "@/components/modals";
 import { Footer, Header } from "@/components/layout";
