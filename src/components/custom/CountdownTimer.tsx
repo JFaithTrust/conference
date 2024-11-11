@@ -1,7 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import React, { useState, useEffect } from "react";
+
+import { cn } from "@/lib/utils";
 
 interface CountdownProps {
   targetDate: string;
@@ -54,33 +55,33 @@ const CountdownTimer: React.FC<CountdownProps> = ({
             classNames
           )}
         >
-          <div className="overflow-hidden flex flex-col items-center justify-center py-3 px-[30px]">
+          <div className="flex flex-col items-center justify-center overflow-hidden px-[30px] py-3">
             <h2 className="relative leading-[100%]">
               {addLeadingZero(days) || 0}
             </h2>
-            <span className="relative text-xl tracking-[0.1em] leading-[100%]">
+            <span className="relative text-xl leading-[100%] tracking-widest">
               Kun
             </span>
           </div>
-          <div className="overflow-hidden flex flex-col items-center justify-center py-3 px-1">
+          <div className="flex flex-col items-center justify-center overflow-hidden px-1 py-3">
             <h2 className="relative leading-[100%]">
               {addLeadingZero(hours) || "00"}
             </h2>
             <span className="relative text-lg leading-[100%]">Soat</span>
           </div>
-          <div className="overflow-hidden flex flex-col items-center justify-center py-[19px] px-1">
+          <div className="flex flex-col items-center justify-center overflow-hidden px-1 py-[19px]">
             <span className="relative leading-[50%]">:</span>
           </div>
-          <div className="overflow-hidden flex flex-col items-center justify-center py-3 px-1">
+          <div className="flex flex-col items-center justify-center overflow-hidden px-1 py-3">
             <h2 className="relative leading-[100%]">
               {addLeadingZero(minutes) || "00"}
             </h2>
             <span className="relative text-lg leading-[100%]">Minut</span>
           </div>
-          <div className="overflow-hidden flex flex-col items-center justify-center py-[19px] px-1">
+          <div className="flex flex-col items-center justify-center overflow-hidden px-1 py-[19px]">
             <span className="relative leading-[50%]">:</span>
           </div>
-          <div className="overflow-hidden flex flex-col items-center justify-center py-3 px-1">
+          <div className="flex flex-col items-center justify-center overflow-hidden px-1 py-3">
             <h2 className="relative leading-[100%]">
               {addLeadingZero(seconds) || "00"}
             </h2>

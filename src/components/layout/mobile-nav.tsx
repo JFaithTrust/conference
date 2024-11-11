@@ -1,8 +1,9 @@
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
-import { LuMenu } from "react-icons/lu";
 import Link from "next/link";
+import { LuMenu } from "react-icons/lu";
+
 import NavItems from "@/components/layout/nav-items";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const MobileNav = () => {
   return (
@@ -14,7 +15,7 @@ const MobileNav = () => {
         <SheetContent className="flex flex-col gap-6 bg-white lg:hidden">
           <Link
             href="/"
-            className="flex items-center gap-[2px] md:text-2xl text-lg font-bold md:font-bold"
+            className="flex items-center gap-[2px] text-lg font-bold md:text-2xl md:font-bold"
           >
             <Image src="/logo.svg" alt="logo" width={38} height={38} />
             Konferensiya

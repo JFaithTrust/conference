@@ -1,8 +1,7 @@
-
 export default function Home() {
   return (
-    <div className="">
-      <div className="py-40 bg-primary-50 bg-dotted-pattern bg-contain">
+    <div>
+      <div className="bg-primary-50 bg-dotted-pattern bg-contain py-40">
         <div className="container">
             <h2 className="text-lg font-semibold">
                 Text

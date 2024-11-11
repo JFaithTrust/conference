@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+
 import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
 import isoWeek from "dayjs/plugin/isoWeek";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import { useState } from "react";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 
 dayjs.extend(localizedFormat);
@@ -29,20 +30,20 @@ const WeekCalendar = () => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-md p-4 space-y-4">
+    <div className="space-y-4 rounded-md bg-white p-4 shadow-md">
       {/* Header with month and navigation */}
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <button
-          className="text-primary hover:text-primary/70 rotate-90 focus:outline-none"
+          className="rotate-90 text-primary hover:text-primary/70 focus:outline-none"
           onClick={handlePrevMonth}
         >
           <MdOutlineArrowDropDown size={36} />
         </button>
-        <span className="font-semibold text-lg">
+        <span className="text-lg font-semibold">
           {dayjs(selectedDate).format("MMMM YYYY")}
         </span>
         <button
-          className=" text-primary rotate-[-90deg] hover:text-primary/70 focus:outline-none"
+          className=" -rotate-90 text-primary hover:text-primary/70 focus:outline-none"
           onClick={handleNextMonth}
         >
           <MdOutlineArrowDropDown size={36} />
@@ -56,7 +57,7 @@ const WeekCalendar = () => {
           return (
             <div
               key={day.format("YYYY-MM-DD")}
-              className={`flex group flex-col items-center justify-between p-2 rounded-lg cursor-pointer 
+              className={`group flex cursor-pointer flex-col items-center justify-between rounded-lg p-2 
                 ${isToday ? "bg-primary text-white" : "bg-gray-100 text-black"}
                 hover:bg-primary/90 hover:text-white`}
               onClick={() => setSelectedDate(day.toDate())}
@@ -69,11 +70,11 @@ const WeekCalendar = () => {
                 {daysOfWeekLetters[index]}
               </span>
               <div
-                className={`flex items-center justify-center w-8 h-8 rounded-full 
+                className={`flex size-8 items-center justify-center rounded-full 
                   ${
                     isToday
                       ? "bg-blue-500 text-white"
-                      : "bg-primary-50 group-hover:bg-blue-500/90 group-hover:text-white text-black"
+                      : "bg-primary-50 text-black group-hover:bg-blue-500/90 group-hover:text-white"
                   }`}
               >
                 <span className="text-sm font-medium">{day.format("D")}</span>

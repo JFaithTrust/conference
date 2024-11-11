@@ -26,3 +26,4 @@ export const formatDate = (dateString: string, isCalendar: boolean) => {
   
     return isCalendar ? formattedDateCalander : formattedDate;
   };
+

@@ -17,7 +17,7 @@ import {
 import { useChangeStatus } from "@/hook";
 import { UserType } from "@/types";
 
-export const usersColumn: ColumnDef<UserType>[] = [
+export const reviewerColumn: ColumnDef<UserType>[] = [
     {
         accessorKey: "fullName",
         header: ({ column }) => (
