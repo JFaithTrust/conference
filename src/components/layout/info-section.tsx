@@ -1,6 +1,6 @@
 import {motion} from "framer-motion";
-import {FiLogOut} from "react-icons/fi";
 import React from "react";
+import {FiLogOut} from "react-icons/fi";
 
 export default function InfoSection(props: {
     dashboard: boolean,
@@ -9,7 +9,7 @@ export default function InfoSection(props: {
     open: boolean | undefined,
     onClick: () => Promise<void>
 }) {
-    return <div className={`${props.dashboard ? "mb-3 border-b border-slate-300 pb-3" : "border-none mb-0 pb-0"}`}>
+    return <div className={`${props.dashboard ? "mb-3 border-b border-slate-300 pb-3" : "mb-0 border-none pb-0"}`}>
         <div className={
             `flex cursor-pointer items-center justify-between rounded-md transition-colors`
         }>

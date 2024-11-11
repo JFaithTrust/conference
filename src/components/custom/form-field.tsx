@@ -1,14 +1,16 @@
-import {Control, ControllerRenderProps, FieldValues} from "react-hook-form";
-import Image from "next/image";
 import {E164Number} from "libphonenumber-js/core";
+import Image from "next/image";
 import {ReactNode} from "react";
+import DatePicker from "react-datepicker";
+import {Control, ControllerRenderProps, FieldValues} from "react-hook-form";
+
+import {PhoneInput} from "@/components/custom/phone-input";
+import {Checkbox} from "@/components/ui/checkbox";
 import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
-import {Textarea} from "@/components/ui/textarea";
-import {Checkbox} from "@/components/ui/checkbox";
 import {Select, SelectContent, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {PhoneInput} from "@/components/custom/phone-input";
-import DatePicker from "react-datepicker";
+import {Textarea} from "@/components/ui/textarea";
+
 import "react-datepicker/dist/react-datepicker.css";
 
 export enum FormFieldType {
@@ -54,7 +56,7 @@ function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues,
                             type={props.type}
                             placeholder={props.placeholder}
                             {...field}
-                            className="border-[2px] font-normal md:font-medium text-base border-primary-500 focus-visible:border-primary-500/70"
+                            className="border-2 border-primary-500 text-base font-normal focus-visible:border-primary-500/70 md:font-medium"
                             // className="shad-input border-0"
                         />
                     </FormControl>
@@ -80,7 +82,7 @@ function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues,
                         international
                         value={field.value as E164Number | undefined}
                         onChange={field.onChange}
-                        className="rounded-md font-normal md:font-medium text-base border-[2px] border-primary-500 focus-visible:border-primary-500/70"
+                        className="rounded-md border-2 border-primary-500 text-base font-normal focus-visible:border-primary-500/70 md:font-medium"
                         // className="input-phone"
                     />
                 </FormControl>
@@ -105,13 +107,13 @@ function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues,
         case FormFieldType.DATE_PICKER:
             return (
                 <div className="flex rounded-md bg-white">
-                    {/*<Image*/}
-                    {/*    src="/assets/icons/calendar.svg"*/}
-                    {/*    height={24}*/}
-                    {/*    width={24}*/}
-                    {/*    alt="user"*/}
-                    {/*    className="ml-2"*/}
-                    {/*/>*/}
+                    {/* <Image */}
+                    {/*    src="/assets/icons/calendar.svg" */}
+                    {/*    height={24} */}
+                    {/*    width={24} */}
+                    {/*    alt="user" */}
+                    {/*    className="ml-2" */}
+                    {/* /> */}
                     <FormControl>
                         <DatePicker
                             showTimeSelect={props.showTimeSelect ?? false}

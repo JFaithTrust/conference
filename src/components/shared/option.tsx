@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { IconType } from "react-icons";
 import { usePathname, useRouter } from "next/navigation";
+import { IconType } from "react-icons";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 interface OptionProps {
@@ -77,7 +77,7 @@ export const Option = ({
           }}
           style={{ y: "-50%" }}
           transition={{ delay: 0.5 }}
-          className="absolute right-2 top-1/2 size-4 flex items-center justify-center rounded bg-indigo-500 text-xs text-white"
+          className="absolute right-2 top-1/2 flex size-4 items-center justify-center rounded bg-indigo-500 text-xs text-white"
         >
           {isConferencesOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
         </motion.span>
@@ -91,7 +91,7 @@ export const Option = ({
           }}
           style={{ y: "-50%" }}
           transition={{ delay: 0.5 }}
-          className="absolute right-2 top-1/2 size-4 flex items-center justify-center rounded bg-indigo-500 text-xs text-white"
+          className="absolute right-2 top-1/2 flex size-4 items-center justify-center rounded bg-indigo-500 text-xs text-white"
         >
           {isArticlesOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
         </motion.span>

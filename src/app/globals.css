@@ -175,3 +175,14 @@
     scrollbar-width: thin; /* Firefox support */
     scrollbar-color: #6366f1 #f1f1f1; /* Scrollbar color (thumb and track) */
 }
+
+::-webkit-scrollbar {
+    height: 10px;
+    width: 8px;
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #6052ba;
+    border-radius: 3px;
+}

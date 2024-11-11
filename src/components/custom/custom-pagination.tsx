@@ -64,7 +64,7 @@ export function CustomPagination<TData>({ table, className }: DataTablePaginatio
 
   return (
     <div className={`flex items-center justify-between px-2 ${className}`}>
-      <div className="w-full flex items-center justify-between space-x-6 lg:space-x-8">
+      <div className="flex w-full items-center justify-between space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Rows per page</p>
           <Select
@@ -90,21 +90,21 @@ export function CustomPagination<TData>({ table, className }: DataTablePaginatio
           {/* Birinchi sahifaga o'tish */}
           <Button
             variant="outline"
-            className="h-8 w-8 p-0"
+            className="size-8 p-0"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
-            <DoubleArrowLeftIcon className="h-4 w-4" />
+            <DoubleArrowLeftIcon className="size-4" />
           </Button>
 
           {/* Oldingi sahifaga o'tish */}
           <Button
             variant="outline"
-            className="h-8 w-8 p-0"
+            className="size-8 p-0"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            <ChevronLeftIcon className="h-4 w-4" />
+            <ChevronLeftIcon className="size-4" />
           </Button>
 
           {/* Sahifa raqamlari */}
@@ -112,7 +112,7 @@ export function CustomPagination<TData>({ table, className }: DataTablePaginatio
             <Button
               key={index}
               variant={page === pageIndex + 1 ? "primary" : "outline"}
-              className="h-8 w-8 p-0"
+              className="size-8 p-0"
               onClick={() => typeof page === "number" && table.setPageIndex(page - 1)}
               disabled={typeof page !== "number"}
             >
@@ -123,21 +123,21 @@ export function CustomPagination<TData>({ table, className }: DataTablePaginatio
           {/* Keyingi sahifaga o'tish */}
           <Button
             variant="outline"
-            className="h-8 w-8 p-0"
+            className="size-8 p-0"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            <ChevronRightIcon className="h-4 w-4" />
+            <ChevronRightIcon className="size-4" />
           </Button>
 
           {/* Oxirgi sahifaga o'tish */}
           <Button
             variant="outline"
-            className="h-8 w-8 p-0"
+            className="size-8 p-0"
             onClick={() => table.setPageIndex(pageCount - 1)}
             disabled={!table.getCanNextPage()}
           >
-            <DoubleArrowRightIcon className="h-4 w-4" />
+            <DoubleArrowRightIcon className="size-4" />
           </Button>
         </div>
       </div>

@@ -1,16 +1,17 @@
 "use client"
 
-import React, {Fragment, useState} from "react";
 import {motion} from "framer-motion";
-import {TitleSection} from "@/components/shared/title-section";
-import {Option} from "@/components/shared/option";
-import {ToggleClose} from "@/components/shared/toggle-close";
 import {usePathname, useRouter} from "next/navigation";
-import {FiHome, FiMonitor, FiTag, FiUsers} from "react-icons/fi";
-import {MdReviews} from "react-icons/md";
+import React, {Fragment, useState} from "react";
+import {IconType} from "react-icons";
 import {CgFileDocument} from "react-icons/cg";
 import {FcConferenceCall} from "react-icons/fc";
-import {IconType} from "react-icons";
+import {FiHome, FiMonitor, FiTag, FiUsers} from "react-icons/fi";
+import {MdReviews} from "react-icons/md";
+
+import {Option} from "@/components/shared/option";
+import {TitleSection} from "@/components/shared/title-section";
+import {ToggleClose} from "@/components/shared/toggle-close";
 import {UserType} from "@/types";
 
 interface SidebarProps {
@@ -26,18 +27,18 @@ const Sidebar = ({userData}: SidebarProps) => {
     const pathname = usePathname();
     const router = useRouter();
 
-    interface LinkProps {
-        Icon: IconType;
-        title: string;
-        pathName: string;
-        subLinks?: SubLinkProps[];
-    }
-
     interface SubLinkProps {
         Icon: IconType;
         title: string;
         pathName: string;
         notifs?: number;
+    }
+
+    interface LinkProps {
+        Icon: IconType;
+        title: string;
+        pathName: string;
+        subLinks?: SubLinkProps[];
     }
 
     const LinkData: LinkProps[] = [
@@ -126,7 +127,7 @@ const Sidebar = ({userData}: SidebarProps) => {
                         {isConferencesOpen &&
                             open &&
                             link.pathName.startsWith('/dashboard/conferences') && (
-                                <div className="mt-1 ml-5 space-y-0.5">
+                                <div className="ml-5 mt-1 space-y-0.5">
                                     {link?.subLinks?.map((item) => (
                                         <motion.button
                                             onClick={() => router.push(item.pathName)}
@@ -177,7 +178,7 @@ const Sidebar = ({userData}: SidebarProps) => {
                         {isArticlesOpen &&
                             open &&
                             link.pathName.startsWith('/dashboard/articles') && (
-                                <div className="mt-1 ml-5 space-y-1">
+                                <div className="ml-5 mt-1 space-y-1">
                                     {link?.subLinks?.map((item) => (
                                         <motion.button
                                             key={item.title}

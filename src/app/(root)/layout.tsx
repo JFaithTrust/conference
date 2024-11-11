@@ -1,7 +1,7 @@
 import {ReactNode} from "react";
-import {ForgotPasswordModal, LoginModal, RegisterModal} from "@/components/modals";
-import { Footer, Header } from "@/components/layout";
 
+import { Footer, Header } from "@/components/layout";
+import {ForgotPasswordModal, LoginModal, RegisterModal} from "@/components/modals";
 
 export default function RootLayout({
                                        children,
@@ -14,7 +14,7 @@ export default function RootLayout({
             <RegisterModal />
             <LoginModal />
             <Header/>
-            <section className={"flex-grow"}>{children}</section>
+            <section className={"grow"}>{children}</section>
             <Footer/>
         </main>
     );

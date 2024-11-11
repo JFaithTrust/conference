@@ -2,8 +2,8 @@ import ConferencesCards from "@/components/layout/conferences-cards";
 
 export default function Home() {
   return (
-    <div className="">
-      <div className="py-40 bg-primary-50 bg-dotted-pattern bg-contain">
+    <div>
+      <div className="bg-primary-50 bg-dotted-pattern bg-contain py-40">
         <div className="container">
          <ConferencesCards />
         </div>

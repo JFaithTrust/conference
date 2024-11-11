@@ -84,8 +84,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A line chart with dots";
-
 const chartData = [
   { name: "S", value: 1.7 },
     { name: "M", value: 2 },

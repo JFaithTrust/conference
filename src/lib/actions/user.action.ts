@@ -1,31 +1,102 @@
 "use server";
 
-import $auth from "@/http/auth";
-import { UserType } from "@/types";
 import {revalidatePath} from "next/cache";
 
-export async function getUser() {
-  try {
-    const { data } = await $auth.get("/user");
-    return data as UserType;
-  } catch (error) {
-    console.log(error);
-  }
+import {getCookieToken} from "@/lib/actions/auth.action";
+import {UserType} from "@/types";
+
+const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;
+
+export const getUser = async () => {
+    const token = await getCookieToken();
+
+    try {
+        const response = await fetch(`${URL}/user`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        const data: UserType = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export async function getAllUsers() {
-  const { data } = await $auth.get("/user/all?role=USER");
-  return data;
+    const token = await getCookieToken();
+
+    try {
+        const response = await fetch(`${URL}/user/all?role=USER`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+
+        const data: UserType[] = await response.json();
+
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getAllReviewers() {
+    const token = await getCookieToken();
+
+    try {
+        const response = await fetch(`${URL}/user/all?role=REVIEWER`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+
+        const data: UserType[] = await response.json();
+
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export async function changeUserStatus(id: number, enable: boolean) {
-  const { data } = await $auth.put(`/user/changeStatus/${id}?enable=${enable}`);
+    const token = await getCookieToken();
 
-  revalidatePath("/dashboard/users")
-  return data;
+    console.log("change")
+
+    try {
+        await fetch(`${URL}/user/changeStatus/${id}?enable=${enable}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        revalidatePath("/dashboard/users")
+        return "ok";
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-export async function getUserById(id: number) {
-  const { data } = await $auth.get(`/user/${id}`);
-  return data;
+export async function getUserById(id: string) {
+    const token = await getCookieToken();
+
+    try {
+        const response = await fetch(`${URL}/user/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const data: UserType = await response.json();
+
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
 }
