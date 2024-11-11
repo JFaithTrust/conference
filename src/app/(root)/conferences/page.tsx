@@ -5,5 +5,3 @@ const ConferencePage = () => {
     </div>
   );
 }
-
-export default ConferencePage;
