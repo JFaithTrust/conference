@@ -26,7 +26,7 @@ export const Card = ({data}: { data: ConferenceType }) => {
                 <h3 className="text-lg leading-[22px] line-clamp-2 font-medium h-[50px]">
                     {data?.name}
                 </h3>
-                <p className="text-justify line-clamp-2 pt-2 font-normal">
+                <p className="text-justify line-clamp-2 pt-2 h-[60px] font-normal">
                     {data?.description}
                 </p>
                 <div className="flex items-center gap-1">

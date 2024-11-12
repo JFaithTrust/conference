@@ -14,7 +14,7 @@ export const formatDate = (dateString: string, isCalendar: boolean) => {
       "Iyul",
       "August",
       "Sentabr",
-      "Octabr",
+      "Oktabr",
       "Noyabr",
       "Dekabr",
     ];
