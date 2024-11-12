@@ -10,8 +10,8 @@ export interface UserType {
 export interface ConferenceType {
     id: number;
     name: string;
-    startsAt?: string;
-    endsAt?: string | Date;
+    startsAt: string | Date;
+    endsAt: string | Date;
     deadlineForThesis: string;
     cost?: string;
     description?: string;

@@ -59,7 +59,7 @@ const CountdownTimer: React.FC<CountdownProps> = ({
             <h2 className="relative leading-[100%]">
               {addLeadingZero(days) || 0}
             </h2>
-            <span className="relative text-xl leading-[100%] tracking-widest">
+            <span className="relative text-lg leading-[100%] tracking-widest">
               Kun
             </span>
           </div>
@@ -76,7 +76,7 @@ const CountdownTimer: React.FC<CountdownProps> = ({
             <h2 className="relative leading-[100%]">
               {addLeadingZero(minutes) || "00"}
             </h2>
-            <span className="relative text-lg leading-[100%]">Minut</span>
+            <span className="relative text-lg leading-[100%]">Daqiqa</span>
           </div>
           <div className="flex flex-col items-center justify-center overflow-hidden px-1 py-[19px]">
             <span className="relative leading-[50%]">:</span>
