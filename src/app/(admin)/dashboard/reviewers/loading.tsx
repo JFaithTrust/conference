@@ -1,8 +1,8 @@
+import TableSkeleton from "@/components/custom/skletons/table-skleton";
+
 const Loading = () => {
     return (
-        <div className={"text-5xl"}>
-            Loading...
-        </div>
+        <TableSkeleton />
     );
 }
 
