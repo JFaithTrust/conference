@@ -1,5 +1,6 @@
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
+import {toast} from "sonner";
 import {z} from "zod";
 
 import CustomFormField, {FormFieldType} from "@/components/custom/form-field";
@@ -9,7 +10,6 @@ import {
 import useLoginModal from "@/hook/useLoginModal";
 import {login} from "@/lib/actions/auth.action";
 import {loginSchema} from "@/lib/validation";
-import {toast} from "sonner";
 
 const LoginForm = () => {
     const form = useForm<z.infer<typeof loginSchema>>({

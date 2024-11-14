@@ -76,7 +76,6 @@ export const reviewerColumn: ColumnDef<UserType>[] = [
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const router = useRouter();
             const isUserActive = user.userStatus === "ACTIVE";
-            const newStatus = isUserActive ? "INACTIVE" : "ACTIVE";
 
             return (
                 <DropdownMenu>
@@ -98,10 +97,10 @@ export const reviewerColumn: ColumnDef<UserType>[] = [
                                 "text-status-green": !isUserActive, // Show green for "Active"
                             })}
                             onClick={() => {
-                                changeStatus.onOpen(user.id, newStatus as "ACTIVE" | "INACTIVE"); // Open modal with user ID and next status
+                                changeStatus.onOpen(user.id); // Open modal with user ID and next status
                             }}
                         >
-                            {isUserActive ? "Inactive" : "Active"}
+                            {isUserActive ? "Bo'shatish" : "Active"}
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

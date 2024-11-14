@@ -1,6 +1,5 @@
 import {Suspense} from "react";
 
-import Loading from "@/app/(admin)/dashboard/users/loading";
 import {usersColumn} from "@/app/(admin)/dashboard/users/users-column";
 import {DataTable} from "@/components/custom/data-table";
 import ChangeStatusModal from "@/components/modals/change-status.modal";
@@ -12,8 +11,8 @@ const Users = async () => {
 
     return (
         <>
-            <ChangeStatusModal/>
-            <Suspense fallback={<Loading/>}>
+            <ChangeStatusModal title={"Foydalamuvchini statusini o'zgartirishni xohlaysizmi?"} page={"users"} />
+            <Suspense >
                 <DataTable
                     columns={usersColumn}
                     data={userData as UserType[]}
