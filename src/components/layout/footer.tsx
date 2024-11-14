@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="grid grid-cols-1 gap-8  py-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           <div className="ml-8 flex  flex-col items-center sm:ml-14 sm:items-center md:items-start">
             <Image 
-              src="/logo.jpg"
+              src="/logo.svg"
               alt="Logo picture"
               width={100}
               height={100}

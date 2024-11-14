@@ -1,16 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import { LuPlus } from "react-icons/lu";
 
-import Modal from "@/components/custom/modal";
 import { Button } from "@/components/ui/button";
+import {useReviewerAdd} from "@/hook";
 
 interface AddButtonProps {
     link?: string;
     onClick?: () => void; // Added an onClick prop
 }
 
-export function AddButton({ link, onClick }: AddButtonProps) {
+export function AddButton({ link }: AddButtonProps) {
+    const reviewerAdd = useReviewerAdd();
+
     return link ? (
         <Link href={link}>
             <Button
@@ -21,13 +25,12 @@ export function AddButton({ link, onClick }: AddButtonProps) {
             </Button>
         </Link>
     ) : (
-        <Modal onClick={onClick} />
-        // <Button
-        //     onClick={onClick} // Handle onClick
-        //     className="py-3 px-4 flex gap-x-2 bg-card-orange text-white rounded-lg skew-x-[-20deg]"
-        // >
-        //     <LuPlus className={"size-4 skew-x-[20deg]"} />
-        //     <span className={"skew-x-[20deg]"}>Yaratish</span>
-        // </Button>
+        <Button
+            onClick={reviewerAdd.onOpen} // Handle onClick
+            className="ml-3 flex gap-x-2 rounded-lg border-none bg-indigo-500 px-4 py-3 text-white"
+        >
+            <LuPlus className={"size-4"} />
+            <span>Yaratish</span>
+        </Button>
     );
 }

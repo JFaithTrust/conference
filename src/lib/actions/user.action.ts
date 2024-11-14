@@ -63,13 +63,13 @@ export async function getAllReviewers() {
     }
 }
 
-export async function changeUserStatus(id: number, enable: boolean) {
+export async function changeUserStatus(id: number) {
     const token = await getCookieToken();
 
     console.log("change")
 
     try {
-        await fetch(`${URL}/user/changeStatus/${id}?enable=${enable}`, {
+        await fetch(`${URL}/user/changeStatus/${id}`, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -100,3 +100,67 @@ export async function getUserById(id: string) {
         console.log(error);
     }
 }
+
+// user make a reviewer
+
+export async function putUserMakeReviewer(users: UserType[]) {
+    const token = await getCookieToken();
+
+    try {
+        await fetch(`${URL}/user/make/reviewer`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(users)
+        });
+
+        revalidatePath("/dashboard/reviewers");
+        return "ok";
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// change reviewer to user
+
+export async function changeReviewerToUser(id: number) {
+    const token = await getCookieToken();
+
+    try {
+        await fetch(`${URL}/user/make/user/${id}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        revalidatePath("/dashboard/reviewers");
+        return "ok";
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// For conference fields
+export async function getUserByDirectionId(id: number) {
+    const token = await getCookieToken();
+
+    try {
+        const response = await fetch(`${URL}/user/byDirection/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const data: UserType[] = await response.json();
+
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+

@@ -28,3 +28,9 @@ export interface ConferenceType {
         phoneNumber: string;
     };
 }
+
+export interface IDirection {
+    id: number;
+    name: string;
+    newApplicationsCount: number;
+}
