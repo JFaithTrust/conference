@@ -2,7 +2,6 @@
 
 import {revalidatePath} from "next/cache";
 import {cookies} from "next/headers";
-import {toast} from "sonner";
 
 const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;
 

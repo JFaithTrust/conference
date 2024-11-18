@@ -28,3 +28,31 @@ export interface ConferenceType {
         phoneNumber: string;
     };
 }
+
+export interface DirectionType {
+    id: number;
+    name: string;
+    newApplicationsCount?: number;
+}
+
+export interface ApplicationType {
+    id: number;
+    name: string;
+    description?: string;
+    authors?: string;
+    status: "NEW" | "ACCEPTED" | "FEEDBACK" | "REJECTED" | "PENDING";
+    paymentStatus: "PAID" | "UNPAID"
+    thesisFile?: File;
+    owner: UserType;
+    reviewer: UserType;
+    conference: ConferenceType;
+    direction?: DirectionType;
+    createdAt?: string | Date;
+    updatedAt?: Date;
+}
+
+export interface Props {
+    name: string;
+    id: number;
+    direction: DirectionType[];
+}

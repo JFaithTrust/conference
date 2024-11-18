@@ -14,7 +14,7 @@ async function ConferencesCards() {
     return (
         <div className={"space-y-6"}>
             <h2 className={"text-3xl"}>KONFERENSIYALAR</h2>
-            <div className={"grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 place-items-center gap-6"}>
+            <div className={"grid grid-cols-1 place-items-center gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"}>
                 {filteredConferenceCards.map((card) => (
                     <Card key={card.id} data={card} />
                 ))}

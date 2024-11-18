@@ -1,22 +1,27 @@
-import {getConferenceById} from "@/lib/actions/conference.action";
-import {ConferenceType} from "@/types";
-import {formatDate} from "@/functions/formats";
-import CountdownTimer from "@/components/custom/CountdownTimer";
 import {format} from "date-fns";
-import {FaMapMarkerAlt, FaDollarSign, FaClock} from "react-icons/fa";
 import Link from "next/link";
+import {FaDollarSign, FaClock} from "react-icons/fa";
 import {TbArrowNarrowLeft} from "react-icons/tb";
 
-export default async function ConferencesSingleItem({params}: { params: { id: string } }) {
+import CountdownTimer from "@/components/custom/CountdownTimer";
+import PostArticleForm from "@/components/forms/post-article-form";
+import {formatDate} from "@/functions/formats";
+import {getConferenceById} from "@/lib/actions/conference.action";
+import {getDirectionByConferenceId} from "@/lib/actions/direction.action";
+import {ConferenceType} from "@/types";
+
+export default async function ConferencesSingleItem({params}: { params: { id: number } }) {
+
     const data = (await getConferenceById(params.id)) as ConferenceType || {};
+    const directions = (await getDirectionByConferenceId(params.id)) as ConferenceType[];
     return (
         <div className="container my-10">
-            <Link href="/conferences" className="flex gap-[2px] items-center pb-5">
-                <TbArrowNarrowLeft className="w-5 h-5 text-black" size={24}/>
+            <Link href="/conferences" className="flex items-center gap-[2px] pb-5">
+                <TbArrowNarrowLeft className="size-5 text-black" size={24}/>
                 Barcha konferensiyalar
             </Link>
-            <div className="py-12 px-6 lg:px-10 bg-white rounded-lg shadow-lg mx-auto">
-                <h2 className="text-3xl font-bold text-center text-violet-700 mb-6">
+            <div className="mx-auto rounded-lg bg-white px-6 py-12 shadow-lg lg:px-10">
+                <h2 className="mb-6 text-center text-3xl font-bold text-violet-700">
                     {data?.name}
                 </h2>
 
@@ -53,21 +58,26 @@ export default async function ConferencesSingleItem({params}: { params: { id: st
                         <p className="font-semibold">{`${data?.cost} so'm`}</p>
                     </div>
 
+                    <>
+                        <p className="mb-2 text-lg font-medium text-gray-900">Konferensiya yo&apos;nalishlari</p>
+                        <p className="list-decimal pl-5 text-xl font-semibold">• {directions.map(direction => direction?.name)}</p>
+                    </>
+
                     <div className="border-b pb-4">
-                        <p className="text-lg font-medium text-gray-900 mb-2">Konferensiya haqida ma&apos;lumot:</p>
+                        <p className="mb-2 text-lg font-medium text-gray-900">Konferensiya haqida ma&apos;lumot:</p>
                         <p className="text-gray-600">{data?.description}</p>
                     </div>
 
                     <div className="border-b pb-4">
-                        <p className="text-lg font-medium text-gray-900 mb-2">Konferensiyada ishtirok etish tartibi:</p>
+                        <p className="mb-2 text-lg font-medium text-gray-900">Konferensiyada ishtirok etish tartibi:</p>
                         <p className="text-gray-600">{data?.requirements}</p>
                     </div>
 
                     <div className="flex space-x-2">
-                        <span className=""><span className="font-medium text-gray-900">Manzil:</span> {data?.address}</span>
+                        <span><span className="font-medium text-gray-900">Manzil:</span> {data?.address}</span>
                     </div>
 
-                    <div className="flex flex-col items-center mt-8">
+                    <div className="mt-8 flex flex-col items-center">
                         <p className="text-4xl font-bold text-violet-700">{data?.newApplicationsCount}</p>
                     </div>
 
@@ -78,6 +88,7 @@ export default async function ConferencesSingleItem({params}: { params: { id: st
                         />
                     </div>
                 </div>
+                <PostArticleForm name={data?.name} id={data?.id} direction={directions}/>
             </div>
         </div>
     );

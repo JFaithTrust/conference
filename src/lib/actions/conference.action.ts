@@ -17,7 +17,7 @@ export async  function getAllConferences(){
     }
 }
 
-export async function getConferenceById(id: string){
+export async function getConferenceById(id: number){
     try {
         const response = await fetch(`${URL}/conference/${id}`, {
             method: "GET"
