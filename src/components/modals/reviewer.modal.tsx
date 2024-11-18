@@ -18,8 +18,10 @@ import {UserType} from "@/types";
 
 
 interface ModalProps {
-    data: UserType[]
-    label: string
+    data: UserType[],
+    label: string,
+    selectedReviewersId?: string[],
+    setSelectedReviewersId?: (value: (((prevState: string[]) => string[]) | string[])) => void
 }
 
 const highlightSearchTerm = (text: string, term: string) => {
@@ -36,9 +38,16 @@ const highlightSearchTerm = (text: string, term: string) => {
     ));
 };
 
-const ReviewerModal = ({data, label}: ModalProps) => {
+const ReviewerModal = ({data, label, selectedReviewersId, setSelectedReviewersId}: ModalProps) => {
     const reviewerAdd = useReviewerAdd()
     const [searchTerm, setSearchTerm] = useState("")
+    const isReviewerPage = (label === "Muharrir qo'shish")
+
+    let filteredData = data
+
+    if(selectedReviewersId){
+        filteredData = data?.filter((item) => !selectedReviewersId.includes(item.id.toString()))
+    }
 
     const FormSchema = z.object({
         users: z.array(z.string()).refine((value) => value.some((item) => item), {
@@ -54,18 +63,25 @@ const ReviewerModal = ({data, label}: ModalProps) => {
     })
 
     async function onSubmit(data: z.infer<typeof FormSchema>) {
-        const usersIdList: any = [];
-        data.users.forEach((id) => {
-            usersIdList.push({
-                id,
+        if (isReviewerPage) {
+            const usersIdList: any = [];
+            data.users.forEach((id) => {
+                usersIdList.push({
+                    id,
+                });
             });
-        });
-        const res = await putUserMakeReviewer(usersIdList)
-        if(res === "ok"){
-            toast.success("Foydalanuvchilar muvaffaqiyatli o'zgartirildi")
-            reviewerAdd.onClose()
-        }else{
-            toast.error("Xatolik yuz berdi")
+            const res = await putUserMakeReviewer(usersIdList)
+            if (res === "ok") {
+                toast.success("Foydalanuvchilar muvaffaqiyatli o'zgartirildi")
+                reviewerAdd.onClose()
+            } else {
+                toast.error("Xatolik yuz berdi")
+            }
+        } else {
+            if (setSelectedReviewersId) {
+                setSelectedReviewersId(data.users)
+                reviewerAdd.onClose()
+            }
         }
     }
 
@@ -98,48 +114,56 @@ const ReviewerModal = ({data, label}: ModalProps) => {
                 <div className={"grid py-4"}>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-                            {data?.filter((user) =>
-                                user.fullName
-                                    ?.toLowerCase()
-                                    // .includes(searchTerm.toLowerCase())
-                                    .replace(/\s+/g, "")
-                                    .includes(searchTerm.toLowerCase().replace(/\s+/g, ""))
-                            ).map((item) => (
-                                <FormField
-                                    key={item.id}
-                                    control={form.control}
-                                    name="users"
-                                    render={({field}) => {
-                                        return (
-                                            <FormItem
+                            <FormField
+                                control={form.control}
+                                name="users"
+                                render={() => (
+                                    <FormItem>
+                                        {filteredData?.filter((user) =>
+                                            user.fullName
+                                                ?.toLowerCase()
+                                                // .includes(searchTerm.toLowerCase())
+                                                .replace(/\s+/g, "")
+                                                .includes(searchTerm.toLowerCase().replace(/\s+/g, ""))
+                                        ).map((item) => (
+                                            <FormField
                                                 key={item.id}
-                                                className="flex flex-row items-center justify-between space-y-0 rounded-md bg-white p-2 shadow"
-                                            >
-                                                <FormLabel className={"w-full cursor-pointer"}>
-                                                    <p>
-                                                    {highlightSearchTerm(item.fullName, searchTerm)}
-                                                    </p>
-                                                </FormLabel>
-                                                <FormControl className={"flex items-center"}>
-                                                    <Checkbox
-                                                        checked={field.value?.includes(item.id.toLocaleString())}
-                                                        onCheckedChange={(checked) => {
-                                                            return checked
-                                                                ? field.onChange([...field.value, item.id.toLocaleString()])
-                                                                : field.onChange(
-                                                                    field.value?.filter(
-                                                                        (value) => value !== item.id.toLocaleString()
-                                                                    )
-                                                                )
-                                                        }}
-                                                    />
-                                                </FormControl>
-                                            </FormItem>
-                                        )
-                                    }}
-                                />
-                            ))}
-                            <FormMessage/>
+                                                control={form.control}
+                                                name="users"
+                                                render={({field}) => {
+                                                    return (
+                                                        <FormItem
+                                                            key={item.id}
+                                                            className="flex flex-row items-center justify-between space-y-0 rounded-md bg-white p-2 shadow"
+                                                        >
+                                                            <FormLabel className={"w-full cursor-pointer"}>
+                                                                <p>
+                                                                    {highlightSearchTerm(item.fullName, searchTerm)}
+                                                                </p>
+                                                            </FormLabel>
+                                                            <FormControl className={"flex items-center"}>
+                                                                <Checkbox
+                                                                    checked={field.value?.includes(item.id.toLocaleString())}
+                                                                    onCheckedChange={(checked) => {
+                                                                        return checked
+                                                                            ? field.onChange([...field.value, item.id.toLocaleString()])
+                                                                            : field.onChange(
+                                                                                field.value?.filter(
+                                                                                    (value) => value !== item.id.toLocaleString()
+                                                                                )
+                                                                            )
+                                                                    }}
+                                                                />
+                                                            </FormControl>
+                                                        </FormItem>
+                                                    )
+                                                }}
+                                            />
+                                        ))}
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
                         </form>
                     </Form>
                 </div>

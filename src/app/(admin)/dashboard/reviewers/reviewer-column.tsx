@@ -30,7 +30,7 @@ export const reviewerColumn: ColumnDef<UserType>[] = [
             </Button>
         ),
         cell: ({ row }) => (
-            <div className="flex font-medium">
+            <div className="flex">
                 <div>{row.original.fullName}</div>
             </div>
         ),
@@ -39,7 +39,7 @@ export const reviewerColumn: ColumnDef<UserType>[] = [
         accessorKey: "phoneNumber",
         header: () => <div>Phone Number</div>,
         cell: ({ row }) => (
-            <div className="font-medium">{row.original.phoneNumber}</div>
+            <div>{row.original.phoneNumber}</div>
         ),
     },
     {
@@ -56,7 +56,7 @@ export const reviewerColumn: ColumnDef<UserType>[] = [
         cell: ({ row }) => (
             <div
                 className={clsx(
-                    "w-24 rounded-xl px-4 py-1.5 text-center font-medium capitalize text-white",
+                    "w-24 rounded-xl px-4 py-1.5 text-center capitalize text-white",
                     {
                         "bg-status-green": row.original.userStatus === "ACTIVE",
                         "bg-status-red": row.original.userStatus === "INACTIVE",

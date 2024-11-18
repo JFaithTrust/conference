@@ -40,8 +40,8 @@ const CountDownConference: React.FC<CountdownProps> = ({ targetDate }) => {
   return (
     <>
       {isClient && (
-        <div className="shrink-0 font-medium text-sm flex flex-row items-start justify-center py-0  pl-0 gap-[6px]">
-          <div className="rounded-3xl flex flex-col items-center justify-center py-1.5">
+        <div className="flex shrink-0 flex-row items-start justify-center gap-[6px] py-0 pl-0  text-sm font-medium">
+          <div className="flex flex-col items-center justify-center rounded-3xl py-1.5">
             <div className="relative leading-[100%]">
               {addLeadingZero(days) || 0} kun {addLeadingZero(hours) || "00"} : {addLeadingZero(minutes) || "00"} : {addLeadingZero(seconds) || "00"}
             </div>

@@ -14,11 +14,17 @@ import {Textarea} from "@/components/ui/textarea";
 import "react-datepicker/dist/react-datepicker.css";
 
 export enum FormFieldType {
+    // eslint-disable-next-line no-unused-vars
     INPUT = "input",
+    // eslint-disable-next-line no-unused-vars
     TEXTAREA = "textarea",
+    // eslint-disable-next-line no-unused-vars
     PHONE_INPUT = "phoneInput",
+    // eslint-disable-next-line no-unused-vars
     SELECT = "select",
+    // eslint-disable-next-line no-unused-vars
     CHECKBOX = "checkbox",
+    // eslint-disable-next-line no-unused-vars
     DATE_PICKER = "datePicker",
 }
 
@@ -56,7 +62,7 @@ function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues,
                             type={props.type}
                             placeholder={props.placeholder}
                             {...field}
-                            className="border-2 border-primary-500 text-base font-normal focus-visible:border-primary-500/70 md:font-medium"
+                            className="border border-primary-500 text-sm placeholder:font-medium focus-visible:border-primary-500/70" // border-2
                             // className="shad-input border-0"
                         />
                     </FormControl>

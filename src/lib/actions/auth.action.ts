@@ -12,7 +12,7 @@ export async function setCookie(token: string, role: string) {
 }
 
 export async function getCookieToken() {
-    const token =  cookies().get("token");
+    const token = cookies().get("token");
 
     if (token) {
         try {
@@ -45,16 +45,15 @@ export const login = async (values: LoginProps) => {
             },
             body: JSON.stringify(values),
         });
-        const { token } = await response.json();
+        const {token} = await response.json();
         const encodedData = token.split(".")[1];
         const {role} = JSON.parse(atob(encodedData || ""));
         await setCookie(token, role);
 
         revalidatePath("/");
-
         return "ok";
     } catch (error) {
-        return error;
+        return error instanceof Error ? error.message : "An unexpected error occurred";
     }
 }
 

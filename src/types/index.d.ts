@@ -14,12 +14,12 @@ export interface ConferenceType {
     endsAt: string | Date;
     deadlineForThesis: string;
     cost?: string;
-    description?: string;
-    address?: string;
+    description: string;
+    address: string;
     requirements?: string;
     newApplicationsCount?: number;
     images: string;
-    owner?: {
+    owner: {
         id: number;
         fullName: string;
         email: string;
@@ -33,4 +33,20 @@ export interface IDirection {
     id: number;
     name: string;
     newApplicationsCount: number;
+}
+
+export interface IApplication {
+    id: number;
+    name: string;
+    description: string;
+    authors: string;
+    status: "NEW" | "ACCEPTED" | "FEEDBACK" | "REJECTED" | "PENDING";
+    paymentStatus: "PAID" | "UNPAID";
+    thesisFile?: File;
+    owner: UserType;
+    reviewer: UserType;
+    conference: ConferenceType;
+    direction?: IDirection;
+    createdAt?: string | Date;
+    updatedAt?: string | Date;
 }

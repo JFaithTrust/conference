@@ -1,4 +1,3 @@
-// table-skeleton.tsx:
 "use client";
 
 import { clsx } from "clsx";
@@ -28,7 +27,7 @@ function TableSkeleton() {
 
             {/* Table Header */}
             <div className="overflow-hidden rounded-md bg-mainwhite drop-shadow">
-                <Skeleton className="flex space-x-2 bg-slate-400 p-4 h-12 font-medium text-white rounded-b-none" />
+                <Skeleton className="flex h-12 space-x-2 rounded-b-none bg-slate-400 p-4 font-medium text-white" />
 
                 {/* Table Body */}
                 <div>

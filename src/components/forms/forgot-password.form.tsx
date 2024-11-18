@@ -1,3 +1,5 @@
+"use client"
+
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Dispatch, SetStateAction, useState} from "react";
 import {useForm} from "react-hook-form";
@@ -11,7 +13,6 @@ import {Input} from "@/components/ui/input";
 import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
 import useForgotPasswordModal from "@/hook/useForgotPasswordModal";
 import useLoginModal from "@/hook/useLoginModal";
-import $axios from "@/http/axios";
 import {forgotPasswordSchema1, forgotPasswordSchema2, forgotPasswordSchema3} from "@/lib/validation";
 
 const ForgotPasswordForm = () => {
@@ -47,13 +48,13 @@ function ForgotStep1({
 
     async function onSubmit(values: z.infer<typeof forgotPasswordSchema1>) {
         try {
-            const { data } = await $axios.post("/auth/forgot", values);
-            if (data.success) {
-                setSaved({
-                    phoneNumber: values.phoneNumber,
-                });
-                setStep(2);
-            }
+            // const { data } = await $axios.post("/auth/forgot", values);
+            // if (data.success) {
+            //     setSaved({
+            //         phoneNumber: values.phoneNumber,
+            //     });
+            //     setStep(2);
+            // }
         } catch (error) {
             toast.error("Telefon raqam yoki parol noto'g'ri");
             console.log(error)
@@ -118,18 +119,18 @@ function ForgotStep2({
     });
 
     async function onSubmit(values: z.infer<typeof forgotPasswordSchema2>) {
-        try {
-            const { data } = await $axios.post("/auth/forgot/verify", {
-                ...saved,
-                ...values,
-            });
-            if (data.success) {
-                setStep(3);
-            }
-        } catch (error) {
-            toast.error("Telefon raqam yoki parol noto'g'ri");
-            console.log(error)
-        }
+        // try {
+        //     const { data } = await $axios.post("/auth/forgot/verify", {
+        //         ...saved,
+        //         ...values,
+        //     });
+        //     if (data.success) {
+        //         setStep(3);
+        //     }
+        // } catch (error) {
+        //     toast.error("Telefon raqam yoki parol noto'g'ri");
+        //     console.log(error)
+        // }
     }
 
     const { isSubmitting } = form.formState;
@@ -192,30 +193,30 @@ function ForgotStep3({ saved }: { saved: { phoneNumber: string } }) {
     });
 
     async function onSubmit(values: z.infer<typeof forgotPasswordSchema3>) {
-        try {
-            const { data: response } = await $axios.post("/auth/reset", {
-                ...saved,
-                ...values,
-            });
-            if (response.success) {
-                // const { data } = await axios.post("/api/auth/forgot/verify", {
-                //   phoneNumber: saved.phoneNumber,
-                // });
-                forgotPasswordModal.onClose();
-                loginModal.onOpen();
-                // localStorage.setItem("access_token", data.token);
-                // const userToken = localStorage.getItem("access_token");
-                // const encodedData = userToken?.split(".")[1];
-                // const { role } = JSON.parse(atob(encodedData || ""));
-                // localStorage.setItem("role", role);
-                // if (role === "SUPER_ADMIN") {
-                //   router.replace("/dashboard");
-                // }
-            }
-        } catch (error) {
-            toast.error("Telefon raqam yoki parol noto'g'ri");
-            console.log(error)
-        }
+        // try {
+        //     const { data: response } = await $axios.post("/auth/reset", {
+        //         ...saved,
+        //         ...values,
+        //     });
+        //     if (response.success) {
+        //         // const { data } = await axios.post("/api/auth/forgot/verify", {
+        //         //   phoneNumber: saved.phoneNumber,
+        //         // });
+        //         forgotPasswordModal.onClose();
+        //         loginModal.onOpen();
+        //         // localStorage.setItem("access_token", data.token);
+        //         // const userToken = localStorage.getItem("access_token");
+        //         // const encodedData = userToken?.split(".")[1];
+        //         // const { role } = JSON.parse(atob(encodedData || ""));
+        //         // localStorage.setItem("role", role);
+        //         // if (role === "SUPER_ADMIN") {
+        //         //   router.replace("/dashboard");
+        //         // }
+        //     }
+        // } catch (error) {
+        //     toast.error("Telefon raqam yoki parol noto'g'ri");
+        //     console.log(error)
+        // }
     }
 
     const { isSubmitting } = form.formState;
