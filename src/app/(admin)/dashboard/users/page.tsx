@@ -11,7 +11,7 @@ const Users = async () => {
 
     return (
         <>
-            <ChangeStatusModal title={"Foydalamuvchini statusini o'zgartirishni xohlaysizmi?"} page={"users"} />
+            <ChangeStatusModal title={"Foydalanuvchini statusini o'zgartirishni xohlaysizmi?"} page={"users"} />
             <Suspense >
                 <DataTable
                     columns={usersColumn}

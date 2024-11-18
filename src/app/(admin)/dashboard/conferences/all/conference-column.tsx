@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { clsx } from "clsx";
+import {format} from "date-fns";
 import { ArrowUpDown , MoreHorizontal } from "lucide-react";
 import {useRouter} from "next/navigation";
 
@@ -15,67 +15,77 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useChangeStatus } from "@/hook";
-import { UserType } from "@/types";
+import {ConferenceType} from "@/types";
 
-export const usersColumn: ColumnDef<UserType>[] = [
+export const conferenceColumn: ColumnDef<ConferenceType>[] = [
     {
-        accessorKey: "fullName",
+        accessorKey: "name",
+        header: () => <div>Konferensiya nomi</div>,
+        cell: ({ row }) => (
+            <div className="flex">
+                <div>{row.original.name}</div>
+            </div>
+        ),
+    },
+    {
+        accessorKey: "startsAt",
         header: ({ column }) => (
             <Button
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 className="font-medium"
             >
-                Name
+                Registratsiya vaqti
                 <ArrowUpDown className="ml-2 size-4" />
             </Button>
         ),
         cell: ({ row }) => (
-            <div className="flex">
-                <div>{row.original.fullName}</div>
+            <div className="flex pl-2">
+                <div>{format(row.original.startsAt, "dd.MM.yyyy")}</div>
             </div>
         ),
     },
     {
-        accessorKey: "phoneNumber",
-        header: () => <div>Phone Number</div>,
-        cell: ({ row }) => (
-            <div>{row.original.phoneNumber}</div>
-        ),
-    },
-    {
-        accessorKey: "userStatus",
+        accessorKey: "startsAt",
         header: ({ column }) => (
             <Button
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className={"font-medium"}
+                className="font-medium"
             >
-                Status
+                Boshlanish vaqti
                 <ArrowUpDown className="ml-2 size-4" />
             </Button>
         ),
         cell: ({ row }) => (
-            <div
-                className={clsx(
-                    "w-24 rounded-xl px-4 py-1.5 text-center capitalize text-white",
-                    {
-                        "bg-status-green": row.original.userStatus === "ACTIVE",
-                        "bg-status-red": row.original.userStatus === "INACTIVE",
-                    }
-                )}
+            <div className="flex pl-2">
+                <div>{format(row.original.startsAt, "dd.MM.yyyy")}</div>
+            </div>
+        ),
+    },
+    {
+        accessorKey: "startsAt",
+        header: ({ column }) => (
+            <Button
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                className="font-medium"
             >
-                {row.original.userStatus === "ACTIVE" ? "Active" : "Inactive"}
+                Tugash vaqti
+                <ArrowUpDown className="ml-2 size-4" />
+            </Button>
+        ),
+        cell: ({ row }) => (
+            <div className="flex pl-2">
+                <div>{format(row.original.endsAt, "dd.MM.yyyy")}</div>
             </div>
         ),
     },
     {
         id: "actions",
         cell: ({ row }) => {
-            const user = row.original;
+            const conference = row.original;
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const changeStatus = useChangeStatus();
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const router = useRouter();
-            const isUserActive = user.userStatus === "ACTIVE";
 
             return (
                 <DropdownMenu>
@@ -88,19 +98,22 @@ export const usersColumn: ColumnDef<UserType>[] = [
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => router.push(`/dashboard/users/${user.id}`)}>
+                        <DropdownMenuItem onClick={() => router.push(`/dashboard/conferences/all/${conference.id}`)}>
                             Ko&apos;rish
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                            className={clsx({
-                                "text-status-red": isUserActive, // Show red for "Block"
-                                "text-status-green": !isUserActive, // Show green for "Active"
-                            })}
+                            className={"text-orange-500"}
+                            onClick={() => router.push(`/dashboard/conferences/all/${conference.id}/edit`)}
+                        >
+                            Tahrirlash
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className={"text-destructive"}
                             onClick={() => {
-                                changeStatus.onOpen(user.id); // Open modal with user ID and next status
+                                changeStatus.onOpen(conference.id); // Open modal with user ID and next status
                             }}
                         >
-                            {isUserActive ? "Bloklash" : "Faollashtirish"}
+                            O&apos;chirish
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

@@ -30,23 +30,6 @@ const LoginForm = () => {
         }else{
             toast.error("Telefon raqam yoki parol noto'g'ri");
         }
-        // try {
-        //     const { data } = await $axios({
-        //         endpoint: "/auth/login",
-        //         options: {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //             },
-        //             body: values,
-        //         },
-        //     });
-        //
-        //     window.location.reload();
-        // } catch (error) {
-        //     toast.error("Telefon raqam yoki parol noto'g'ri");
-        //     console.log(error);
-        // }
     }
     
     const { isSubmitting } = form.formState;

@@ -1,7 +1,9 @@
 "use server";
 
+import {revalidatePath} from "next/cache";
+
 import {getCookieToken} from "@/lib/actions/auth.action";
-import {IDirection} from "@/types";
+import {IDirection, UserType} from "@/types";
 
 const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;
 
@@ -23,12 +25,30 @@ export async function getAllDirections() {
     }
 }
 
-export async function deleteDirectionById(id: number) {
+export async function getDirectionById(id: string) {
     const token = await getCookieToken();
 
     try {
         const response = await fetch(`${URL}/direction/${id}`, {
-            method: "DELATE",
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+
+        const data: IDirection = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getDirectionByConferenceId(id: string) {
+    const token = await getCookieToken();
+
+    try {
+        const response = await fetch(`${URL}/direction/byConference/${id}`, {
+            method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -36,6 +56,70 @@ export async function deleteDirectionById(id: number) {
 
         const data: IDirection[] = await response.json();
         return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+interface DirectionProps {
+    name: string;
+}
+
+export async function postDirection(values: DirectionProps) {
+    const token = await getCookieToken();
+
+    try {
+        const res = await fetch(`${URL}/direction`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(values)
+        })
+
+        // revalidatePath("/dashboard/conferences/fields");
+        const data: IDirection = await res.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function AddReviewerToDirection(id: number, reviewersId: UserType[]) {
+    const token = await getCookieToken();
+
+    try {
+        await fetch(`${URL}/direction/addReviewer/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(reviewersId)
+        })
+
+        revalidatePath("/dashboard/conferences/fields/create");
+        return "ok";
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function deleteDirectionById(id: number) {
+    const token = await getCookieToken();
+
+    try {
+        await fetch(`${URL}/direction/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+
+
+        revalidatePath("/dashboard/conferences/fields");
+        return "ok";
     } catch (error) {
         console.log(error);
     }

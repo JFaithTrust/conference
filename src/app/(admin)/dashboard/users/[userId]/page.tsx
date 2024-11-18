@@ -6,7 +6,7 @@ import {getUserById} from "@/lib/actions/user.action";
 import {UserType} from "@/types";
 
 const UserInfo = async ({params}: { params: { userId: string } }) => {
-    const userData = await getUserById(params.userId) as UserType || [];
+    const [userData] = await Promise.all([getUserById(params.userId)]) as UserType[];
 
     return (
         <div>

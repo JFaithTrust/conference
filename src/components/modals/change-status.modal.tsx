@@ -4,6 +4,7 @@ import {AlertDialog} from "@radix-ui/react-alert-dialog";
 import {toast} from "sonner";
 
 import {useChangeStatus} from "@/hook";
+import {deleteDirectionById} from "@/lib/actions/direction.action";
 import {changeReviewerToUser, changeUserStatus} from "@/lib/actions/user.action";
 
 import {
@@ -18,7 +19,7 @@ import {
 
 interface ModalProps {
     title: string
-    page: "users" | "reviewers"
+    page: "users" | "reviewers" | "fields"
 }
 
 const ChangeStatusModal = ({title, page}: ModalProps) => {
@@ -26,17 +27,24 @@ const ChangeStatusModal = ({title, page}: ModalProps) => {
 
     const handleConfirm = async () => {
         if (selectedUserId === null) return;
-        let res;
-        if (page === "users") {
-            res = await changeUserStatus(selectedUserId)
-        } else {
-            res = await changeReviewerToUser(selectedUserId)
-        }
-
-        if (res === "ok") {
-            toast.success(`Foydalanuvchi holati o'zgartirildi!`);
-        } else {
-            toast.error("Xatolik yuz berdi, iltimos qayta urinib ko'ring.");
+        switch (page) {
+            case "users":
+                await changeUserStatus(selectedUserId).then((res) =>
+                    res === "ok" ? toast.success(`Foydalanuvchi holati o'zgartirildi!`) : toast.error("Xatolik yuz berdi, iltimos qayta urinib ko'ring.")
+                );
+                break;
+            case "reviewers":
+                await changeReviewerToUser(selectedUserId).then((res) =>
+                    res === "ok" ? toast.success(`Muharrir bo'shatildi!`) : toast.error("Xatolik yuz berdi, iltimos qayta urinib ko'ring.")
+                );
+                break;
+            case "fields":
+                await deleteDirectionById(selectedUserId).then((res) =>
+                    res === "ok" ? toast.success(`Yo'nalish o'chirildi!`) : toast.error("Xatolik yuz berdi, iltimos qayta urinib ko'ring.")
+                );
+                break;
+            default:
+                break;
         }
     };
 

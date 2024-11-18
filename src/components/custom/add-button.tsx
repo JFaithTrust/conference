@@ -18,7 +18,7 @@ export function AddButton({ link }: AddButtonProps) {
     return link ? (
         <Link href={link}>
             <Button
-                className="flex gap-x-2 rounded-lg px-4 py-3 text-white"
+                className="ml-3 flex gap-x-2 rounded-lg border-none bg-indigo-500 px-4 py-3 text-white"
             >
                 <LuPlus className={"size-4"} />
                 <span>Yaratish</span>

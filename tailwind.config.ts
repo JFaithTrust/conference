@@ -39,7 +39,6 @@ const config: Config = {
         ring: "hsl(var(--ring))",
         foreground: "hsl(var(--foreground))",
         "status-green": "#01AA5C",
-        // 'status-green': '#49CC90',
         "status-red": "#E90000",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

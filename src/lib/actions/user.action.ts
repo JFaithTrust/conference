@@ -44,25 +44,6 @@ export async function getAllUsers() {
     }
 }
 
-export async function getAllReviewers() {
-    const token = await getCookieToken();
-
-    try {
-        const response = await fetch(`${URL}/user/all?role=REVIEWER`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-
-        const data: UserType[] = await response.json();
-
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 export async function changeUserStatus(id: number) {
     const token = await getCookieToken();
 
@@ -101,7 +82,25 @@ export async function getUserById(id: string) {
     }
 }
 
-// user make a reviewer
+// Reviewers
+export async function getAllReviewers() {
+    const token = await getCookieToken();
+
+    try {
+        const response = await fetch(`${URL}/user/all?role=REVIEWER`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+
+        const data: UserType[] = await response.json();
+
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export async function putUserMakeReviewer(users: UserType[]) {
     const token = await getCookieToken();
@@ -122,8 +121,6 @@ export async function putUserMakeReviewer(users: UserType[]) {
         console.log(error);
     }
 }
-
-// change reviewer to user
 
 export async function changeReviewerToUser(id: number) {
     const token = await getCookieToken();

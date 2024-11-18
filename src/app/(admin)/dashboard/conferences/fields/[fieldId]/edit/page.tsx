@@ -1,12 +1,16 @@
 import Link from "next/link";
+import React from 'react'
 import {FaArrowLeftLong} from "react-icons/fa6";
 
 import DirectionForm from "@/components/forms/direction.form";
-import {getAllReviewers} from "@/lib/actions/user.action";
-import {UserType} from "@/types";
+import {getDirectionById} from "@/lib/actions/direction.action";
+import {getAllReviewers, getUserByDirectionId} from "@/lib/actions/user.action";
+import {IDirection, UserType} from "@/types";
 
-const DirectionCreatePage = async () => {
-    const [reviewerData] = await Promise.all([getAllReviewers()]);
+const FieldEdit = async ({params}: { params: { fieldId: string } }) => {
+    const reviewersData = await getAllReviewers();
+    const directionData = await getDirectionById(params.fieldId);
+    const directionReviewers = await getUserByDirectionId(parseInt(params.fieldId));
 
     return (
         <div className="flex flex-col gap-y-4">
@@ -20,15 +24,15 @@ const DirectionCreatePage = async () => {
             <div
                 className="flex flex-col gap-y-4 rounded-xl bg-mainwhite px-10 py-6 shadow">
                 <h2 className="text-3xl font-semibold">
-                    Yangi yo&apos;nalish yaratish
+                    Yo&apos;nalishni tahrirlash
                 </h2>
-                <DirectionForm reviewerData={reviewerData as UserType[]} />
+                <DirectionForm
+                    reviewerData={reviewersData as UserType[]}
+                    directionData={directionData as IDirection}
+                    directionReviewers={directionReviewers as UserType[]}
+                />
             </div>
         </div>
-    );
-};
-
-export default DirectionCreatePage;
-
-
-
+    )
+}
+export default FieldEdit

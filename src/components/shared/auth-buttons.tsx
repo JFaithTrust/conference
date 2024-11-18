@@ -16,7 +16,7 @@ const AuthButtons = () => {
         onClick={() => registerModal.onOpen()}
         className={clsx(
           "rounded-md border-2 border-primary  bg-white  px-2 py-1 md:block lg:px-2",
-          "hidden text-base font-medium text-primary md:block"
+          // "hidden text-base font-medium text-primary md:block"
         )}
       >
         Ro&apos;yxatdan o&apos;tish
@@ -24,7 +24,7 @@ const AuthButtons = () => {
       <button
         className={clsx(
           "rounded-md border-2 border-primary bg-primary  px-2 py-[2px] text-white md:block md:py-1",
-          "text-base font-medium text-primary"
+          // "text-base font-medium text-primary"
         )}
         onClick={() => loginModal.onOpen()}
       >

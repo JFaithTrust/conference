@@ -49,7 +49,7 @@ export const ConfirmPhoneCodeSchema = z.object({
   smsCode: z.string().min(4).max(4),
 });
 
-export const DirectionAddSchema = z.object({
+export const DirectionSchema = z.object({
   name: z.string().min(3),
 });
 
@@ -61,7 +61,7 @@ export const ConferenceAddSchema = z.object({
   cost: z.string().min(0),
   startsAt: z.date({
     required_error: "Sana kiritilishi shart.",
-  }),
+  }).or(z.string().nonempty("Sana kiritilishi shart.")),
   endsAt: z.date({
     required_error: "Sana kiritilishi shart.",
   }),

@@ -40,8 +40,8 @@ const Users = async () => {
 
     return (
         <>
-            <ReviewerModal data={userData as UserType[]} label={"Iltimos tahlilchi qo'shing"} />
-            <ChangeStatusModal title={"Tahlilchini ishdan bo'shatishni xoxlaysizmi?"} page={"reviewers"}/>
+            <ReviewerModal data={userData as UserType[]} label={"Muharrir qo'shish"} />
+            <ChangeStatusModal title={"Muharrirni ishdan bo'shatishni xoxlaysizmi?"} page={"reviewers"}/>
             <Suspense>
                 <DataTable
                     columns={reviewerColumn}
