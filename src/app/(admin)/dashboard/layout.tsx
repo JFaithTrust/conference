@@ -9,7 +9,7 @@ export default async function AuthLayout({
                                    }: Readonly<{
     children: ReactNode;
 }>) {
-    const userData = await getUser() as Usertype
+    const userData = await getUser() as UserType
 
     return (
         <main>
