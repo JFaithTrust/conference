@@ -30,7 +30,7 @@ const highlightSearchTerm = (text: string, term: string) => {
         <span
             key={index}
             className={
-                part.toLowerCase() === term.toLowerCase() ? "bg-orange-500" : ""
+                part.toLowerCase() === term.toLowerCase() ? "bg-indigo-300" : ""
             }
         >
         {part}

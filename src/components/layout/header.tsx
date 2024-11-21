@@ -4,11 +4,14 @@ import React from "react";
 
 import AuthButtons from "@/components/shared/auth-buttons";
 import {TitleSection} from "@/components/shared/title-section";
+import { headerLinks } from "@/constants";
 import {getCookieToken} from "@/lib/actions/auth.action";
 import {getUser} from "@/lib/actions/user.action";
 
 import MobileNav from "./mobile-nav";
 import NavItems from "./nav-items";
+
+
 
 const Header = async () => {
     const token = await getCookieToken();
@@ -16,6 +19,14 @@ const Header = async () => {
     if (token) {
         userData = await getUser();
     }
+
+    const isAuth = !!token;
+
+     const newHeaderLinks = isAuth
+  ? [...headerLinks, { 
+    label: "Mening maqolalarim", 
+    route: "/articles" }]
+  : headerLinks;
 
     return (
         <header className="w-full border-b">
@@ -29,7 +40,7 @@ const Header = async () => {
                 </Link>
                 <nav className="hidden w-full max-w-xs lg:flex">
                     {/* md:flex-between */}
-                    <NavItems/>
+                     <NavItems headerLinks={newHeaderLinks} />
                 </nav>
                 <div className="flex items-center gap-4">
                     {

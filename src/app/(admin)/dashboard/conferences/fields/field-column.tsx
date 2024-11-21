@@ -47,7 +47,7 @@ export const fieldColumn: ColumnDef<IDirection>[] = [
                 reviewer.onOpen(reviewers);
             };
             return (
-                <Button variant="outline" onClick={handleClick}>
+                <Button variant="outline" onClick={handleClick} className="border-indigo-600 border-2">
                     <span className="w-52 truncate text-sm">Muharrirlarni ko‘rish</span>
                 </Button>
             );

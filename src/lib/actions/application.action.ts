@@ -11,8 +11,9 @@ export async function getApplicationByConferenceId(conferenceId: string){
         })
 
         const data: IApplication[] = await response.json();
-        return data;
+        return data || [];
     } catch (error) {
         console.log(error);
+        return [];
     }
 }
