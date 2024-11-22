@@ -52,7 +52,7 @@ const Header = async () => {
                                 <AuthButtons/>
                             )
                     }
-                    <MobileNav/>
+                    <MobileNav headerLinks={newHeaderLinks} />
                 </div>
             </div>
         </header>
