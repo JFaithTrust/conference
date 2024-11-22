@@ -117,7 +117,8 @@ export function DataTable<D, V>({
         }
     })
     return (
-        <div className={clsx("flex flex-col gap-y-[18px] px-[30px]")}>
+        // px-[30px]
+        <div className={clsx("flex flex-col gap-y-[18px]")}>
             <div className={"flex items-center justify-between"}>
                 {/* Search Bar and Filter (if needed) */}
                 <div className="relative max-w-[300px] py-4">
