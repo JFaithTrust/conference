@@ -59,19 +59,27 @@ z.object({
 });
 
 export const ConferenceAddSchema = z.object({
-    name: z.string().min(3),
-    description: z.string().min(3),
-    requirements: z.string().min(3),
-    address: z.string().min(3),
-    cost: z.string().min(0),
-    directionIds: z.array(z.string()).nonempty("Please select at least one person"),
-    startsAt: z.date({
-        required_error: "Sana kiritilishi shart.",
-    }),
-    endsAt: z.date({
-        required_error: "Sana kiritilishi shart.",
-    }),
-    deadlineForThesis: z.date({
-        required_error: "Sana kiritilishi shart.",
-    })
+  name: z.string().min(3),
+  description: z.string().min(3),
+  requirements: z.string().min(3),
+  address: z.string().min(3),
+  cost: z.string().min(0),
+  startsAt: z.date({
+    required_error: "Sana kiritilishi shart.",
+  }).or(z.string().nonempty("Sana kiritilishi shart.")),
+  endsAt: z.date({
+    required_error: "Sana kiritilishi shart.",
+  }),
+  deadlineForThesis: z.date({
+    required_error: "Sana kiritilishi shart.",
+  }),
+});
+
+
+export const ResetPasswordSchema = z.object({
+  newPassword: z.string().min(6, "Parol kamida 6 ta belgidan iborat bo'lishi kerak"),
+  confirmPassword: z.string().min(6, "Parol kamida 6 ta belgidan iborat bo'lishi kerak"),
+}).refine(data => data.newPassword === data.confirmPassword, {
+  message: "Parollar mos kelmaydi",
+  path: ["confirmPassword"],
 });

@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;
@@ -101,3 +100,55 @@ export const activate = async (values: ActivateProps) => {
     return error instanceof Error ? error.message : "An unexpected error occurred";
   }
 };
+
+
+
+
+
+
+
+
+
+interface forgotPassworddProps {
+  phoneNumber: string;
+}
+
+export const forgotPassword = async (values: forgotPassworddProps) => {
+  try {
+    const res = await fetch(`${URL}/auth/forgot`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+
+    return "ok";
+  } catch (error) {
+    return error
+  }
+};
+
+
+interface ResetPasswordProps {
+  phoneNumber: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export const resetPassword = async (values: ResetPasswordProps) => {
+  try {
+    await fetch(`${URL}/auth/reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+
+    return "ok";
+  } catch (error) {
+    return error instanceof Error ? error.message : "An unexpected error occurred";
+  }
+};
+

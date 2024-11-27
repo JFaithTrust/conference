@@ -1,44 +1,46 @@
-"use client"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Dispatch, SetStateAction, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
-import {zodResolver} from "@hookform/resolvers/zod";
-import {Dispatch, SetStateAction, useState} from "react";
-import {useForm} from "react-hook-form";
-import {toast} from "sonner";
-import {z} from "zod";
-
-import {PhoneInput} from "@/components/custom/phone-input";
-import {Button} from "@/components/ui/button";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {Input} from "@/components/ui/input";
-import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
-import useForgotPasswordModal from "@/hook/useForgotPasswordModal";
-import useLoginModal from "@/hook/useLoginModal";
-import {forgotPasswordSchema1, forgotPasswordSchema2, forgotPasswordSchema3} from "@/lib/validation";
+import { PhoneInput } from "@/components/custom/phone-input";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {activate, forgotPassword, resetPassword} from "@/lib/actions/auth.action";
+import {ConfirmPhoneCodeSchema, forgotPasswordSchema1, ResetPasswordSchema} from "@/lib/validation";
+import useLoginModal from "../../hook/useLoginModal";
+import {useForgotPasswordModal} from "@/hook";
 
 const ForgotPasswordForm = () => {
     const [step, setStep] = useState(1);
     const [saved, setSaved] = useState({ phoneNumber: "" });
 
-    return (
-        step === 1 ? (
-            <ForgotStep1 setSaved={setSaved} setStep={setStep} />
-        ) : step === 2 ? (
-            <ForgotStep2 saved={saved} setStep={setStep} />
-        ) : (
-            <ForgotStep3 saved={saved} />
-        )
-    )
-}
+    return step === 1 ? (
+        <Step1 setSaved={setSaved} setStep={setStep} />
+    ) : step === 2 ? (
+        <Step2 phoneNumber={saved.phoneNumber} setStep={setStep} />
+    ) : (
+        <Step3 phoneNumber={saved.phoneNumber} />
+    );
+};
 
-export default ForgotPasswordForm
+export default ForgotPasswordForm;
 
-function ForgotStep1({
-                         setSaved,
-                         setStep,
-                     }: {
-    setSaved: Dispatch<SetStateAction<{ phoneNumber: string }>>;
+const Step1 = ({
+                   setSaved,
+                   setStep,
+               }: {
+    setSaved: Dispatch<SetStateAction<{ phoneNumber: string; }>>;
     setStep: Dispatch<SetStateAction<number>>;
-}) {
+}) => {
     const form = useForm<z.infer<typeof forgotPasswordSchema1>>({
         resolver: zodResolver(forgotPasswordSchema1),
         defaultValues: {
@@ -46,18 +48,18 @@ function ForgotStep1({
         },
     });
 
+
     async function onSubmit(values: z.infer<typeof forgotPasswordSchema1>) {
-        try {
-            // const { data } = await $axios.post("/auth/forgot", values);
-            // if (data.success) {
-            //     setSaved({
-            //         phoneNumber: values.phoneNumber,
-            //     });
-            //     setStep(2);
-            // }
-        } catch (error) {
-            toast.error("Telefon raqam yoki parol noto'g'ri");
-            console.log(error)
+        const res = await forgotPassword(values);
+
+        if (res === "ok") {
+            toast.success("SMS kod yuborildi. Tekshirib ko'ring");
+            setSaved({
+                phoneNumber: values.phoneNumber,
+            });
+            setStep(2);
+        } else {
+            toast.error("Xatolik yuz berdi");
         }
     }
 
@@ -65,27 +67,19 @@ function ForgotStep1({
 
     return (
         <Form {...form}>
-            <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-3 md:space-y-4"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-3 md:space-y-4">
                 <FormField
                     name="phoneNumber"
                     control={form.control}
                     render={({ field }) => (
                         <FormItem className="space-y-1">
-                            <FormLabel
-                                className="text-base font-medium"
-                            >
-                                Telefon raqam
-                            </FormLabel>
+                            <FormLabel className="text-base font-medium">Telefon raqam</FormLabel>
                             <FormControl>
                                 <PhoneInput
                                     type="tel"
                                     placeholder="+998912345678"
+                                    className="rounded-md border-2 border-primary-500 text-base font-normal focus-visible:border-primary-500/70 md:font-medium"
                                     {...field}
-                                    className="rounded-md border-2 border-primary-500 focus-visible:border-primary-500/70"
-                                    maxLength={13}
                                 />
                             </FormControl>
                             <FormMessage className="text-red-600" />
@@ -93,193 +87,156 @@ function ForgotStep1({
                     )}
                 />
                 <button
+                    disabled={isSubmitting}
                     type="submit"
-                    aria-disabled={isSubmitting}
-                    className="w-full rounded-lg bg-primary py-[12px] text-lg font-normal leading-[100%] text-white md:font-medium"
+                    className="w-full rounded-lg bg-primary py-[12px] text-lg font-normal leading-[100%] text-white disabled:cursor-not-allowed disabled:opacity-50 md:font-medium"
+                >
+                    SMS Kod yuborish
+                </button>
+            </form>
+        </Form>
+    );
+};
+
+const Step2 = ({
+                   phoneNumber,
+                   setStep,
+               }: {
+    phoneNumber: string;
+    setStep: Dispatch<SetStateAction<number>>;
+}) => {
+    const form = useForm<z.infer<typeof ConfirmPhoneCodeSchema>>({
+        resolver: zodResolver(ConfirmPhoneCodeSchema),
+        defaultValues: {
+            smsCode: "",
+        },
+    });
+
+    async function onSubmit(values: z.infer<typeof ConfirmPhoneCodeSchema>) {
+        const res = await activate({ phoneNumber, smsCode: values.smsCode });
+
+        if (res === "ok") {
+            toast.success("Kod tasdiqlandi. Endi parolni o'zgartirishingiz mumkin.");
+            setStep(3);
+        } else {
+            toast.error("Xatolik yuz berdi");
+        }
+    }
+
+    const { isSubmitting } = form.formState;
+
+    return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-3 md:space-y-4">
+                <FormField
+                    name="smsCode"
+                    control={form.control}
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormControl>
+                                <Input
+                                    type="text"
+                                    placeholder="SMS kod"
+                                    {...field}
+                                    className="border-2 border-primary-500 px-2 py-1 focus-visible:border-primary-500/70 md:px-3 md:py-2"
+                                />
+                            </FormControl>
+                            <FormMessage className="text-red-600" />
+                        </FormItem>
+                    )}
+                />
+                <button
+                    disabled={isSubmitting}
+                    type="submit"
+                    className="w-full rounded-lg bg-primary py-[12px] text-lg font-normal leading-[100%] text-white disabled:cursor-not-allowed disabled:opacity-50 md:font-medium"
                 >
                     Tasdiqlash
                 </button>
             </form>
         </Form>
     );
-}
+};
 
-function ForgotStep2({
-                         saved,
-                         setStep,
-                     }: {
-    saved: { phoneNumber: string };
-    setStep: Dispatch<SetStateAction<number>>;
-}) {
-    const form = useForm<z.infer<typeof forgotPasswordSchema2>>({
-        resolver: zodResolver(forgotPasswordSchema2),
+const Step3 = ({
+                   phoneNumber,
+               }: {
+    phoneNumber: string;
+}) => {
+    const form = useForm<z.infer<typeof ResetPasswordSchema>>({
+        resolver: zodResolver(ResetPasswordSchema),
         defaultValues: {
-            smsCode: "",
-        },
-    });
-
-    async function onSubmit(values: z.infer<typeof forgotPasswordSchema2>) {
-        // try {
-        //     const { data } = await $axios.post("/auth/forgot/verify", {
-        //         ...saved,
-        //         ...values,
-        //     });
-        //     if (data.success) {
-        //         setStep(3);
-        //     }
-        // } catch (error) {
-        //     toast.error("Telefon raqam yoki parol noto'g'ri");
-        //     console.log(error)
-        // }
-    }
-
-    const { isSubmitting } = form.formState;
-    return (
-        <div>
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-3 md:space-y-4"
-                >
-                    {/* <h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo"> */}
-                    {/*    Tasdiqlash */}
-                    {/* </h1> */}
-                    {/* <p>Telefon raqamingizga yuborilgan SMS kodni kiriting</p> */}
-                    <FormField
-                        name="smsCode"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-base font-medium">
-                                    SMS kod
-                                </FormLabel>
-                                <FormControl>
-                                    <InputOTP maxLength={6} {...field}>
-                                        <InputOTPGroup>
-                                            <InputOTPSlot index={0} />
-                                            <InputOTPSlot index={1} />
-                                            <InputOTPSlot index={2} />
-                                            <InputOTPSlot index={3} />
-                                            <InputOTPSlot index={4} />
-                                            <InputOTPSlot index={5} />
-                                        </InputOTPGroup>
-                                    </InputOTP>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full rounded-lg bg-primary py-[12px] text-lg font-normal leading-[100%] text-white md:font-medium"
-                    >Verify Phone Number</Button>
-                </form>
-            </Form>
-        </div>
-    );
-}
-
-function ForgotStep3({ saved }: { saved: { phoneNumber: string } }) {
-    const forgotPasswordModal = useForgotPasswordModal();
-    const loginModal = useLoginModal();
-
-    const form = useForm<z.infer<typeof forgotPasswordSchema3>>({
-        resolver: zodResolver(forgotPasswordSchema3),
-        defaultValues: {
-            password: "",
+            newPassword: "",
             confirmPassword: "",
         },
     });
 
-    async function onSubmit(values: z.infer<typeof forgotPasswordSchema3>) {
-        // try {
-        //     const { data: response } = await $axios.post("/auth/reset", {
-        //         ...saved,
-        //         ...values,
-        //     });
-        //     if (response.success) {
-        //         // const { data } = await axios.post("/api/auth/forgot/verify", {
-        //         //   phoneNumber: saved.phoneNumber,
-        //         // });
-        //         forgotPasswordModal.onClose();
-        //         loginModal.onOpen();
-        //         // localStorage.setItem("access_token", data.token);
-        //         // const userToken = localStorage.getItem("access_token");
-        //         // const encodedData = userToken?.split(".")[1];
-        //         // const { role } = JSON.parse(atob(encodedData || ""));
-        //         // localStorage.setItem("role", role);
-        //         // if (role === "SUPER_ADMIN") {
-        //         //   router.replace("/dashboard");
-        //         // }
-        //     }
-        // } catch (error) {
-        //     toast.error("Telefon raqam yoki parol noto'g'ri");
-        //     console.log(error)
-        // }
+    const {onClose} = useForgotPasswordModal();
+
+    async function onSubmit(values: z.infer<typeof ResetPasswordSchema>) {
+        console.log(values);
+        const res: string = await resetPassword({
+            phoneNumber,
+            newPassword: values.newPassword,
+            confirmPassword: values.confirmPassword,
+        });
+        onClose()
+        if (res === "ok") {
+            toast.success("Parol muvaffaqiyatli o'zgartirildi");
+
+        } else {
+            toast.error("Xatolik yuz berdi");
+        }
     }
 
     const { isSubmitting } = form.formState;
+
     return (
-        <div>
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-4"
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-3 md:space-y-4">
+                <FormField
+                    name="newPassword"
+                    control={form.control}
+                    render={({ field }) => (
+                        <FormItem className="space-y-1">
+                            <FormLabel className="text-base font-medium">Yangi parol</FormLabel>
+                            <FormControl>
+                                <Input
+                                    type="password"
+                                    placeholder="Yangi parol"
+                                    {...field}
+                                    className="border-2 border-primary-500 px-2 py-1 text-base font-normal focus-visible:border-primary-500/70 md:px-3 md:py-2 md:font-medium"
+                                />
+                            </FormControl>
+                            <FormMessage className="text-red-600" />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    name="confirmPassword"
+                    control={form.control}
+                    render={({ field }) => (
+                        <FormItem className="space-y-1">
+                            <FormLabel className="text-base font-medium">Parolni takrorlang</FormLabel>
+                            <FormControl>
+                                <Input
+                                    type="password"
+                                    placeholder="Parolni tasdiqlang"
+                                    {...field}
+                                    className="border-2 border-primary-500 px-2 py-1 text-base font-normal focus-visible:border-primary-500/70 md:px-3 md:py-2 md:font-medium"
+                                />
+                            </FormControl>
+                            <FormMessage className="text-red-600" />
+                        </FormItem>
+                    )}
+                />
+                <button
+                    disabled={isSubmitting}
+                    type="submit"
+                    className="w-full rounded-lg bg-primary py-[12px] text-lg font-normal leading-[100%] text-white disabled:cursor-not-allowed disabled:opacity-50 md:font-medium"
                 >
-                    {/* <h1 className="px-0 py-0.5 leading-[100%] font-medium text-3xl text-mainindigo"> */}
-                    {/*    Parolni tiklash */}
-                    {/* </h1> */}
-                    {/* <p>Yangi parolni kiriting</p> */}
-                    <FormField
-                        name="password"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-base font-medium">
-                                    Parol
-                                </FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="password"
-                                        placeholder="*******"
-                                        {...field}
-                                        className="border-2 border-primary-500 focus-visible:border-primary-500/70"
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        name="confirmPassword"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-base font-medium">
-                                    Parol
-                                </FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="password"
-                                        placeholder="*******"
-                                        {...field}
-                                        className="border-2 border-primary-500 focus-visible:border-primary-500/70"
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full rounded-lg bg-primary py-[12px] text-lg font-medium leading-[100%] text-white"
-                    >
-                        Tasdiqlash
-                    </Button>
-                </form>
-            </Form>
-        </div>
+                    Parolni yangilash
+                </button>
+            </form>
+        </Form>
     );
-}
+};
