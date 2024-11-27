@@ -69,3 +69,12 @@ export const ConferenceAddSchema = z.object({
     required_error: "Sana kiritilishi shart.",
   }),
 });
+
+
+export const ResetPasswordSchema = z.object({
+  newPassword: z.string().min(6, "Parol kamida 6 ta belgidan iborat bo'lishi kerak"),
+  confirmPassword: z.string().min(6, "Parol kamida 6 ta belgidan iborat bo'lishi kerak"),
+}).refine(data => data.newPassword === data.confirmPassword, {
+  message: "Parollar mos kelmaydi",
+  path: ["confirmPassword"],
+});
