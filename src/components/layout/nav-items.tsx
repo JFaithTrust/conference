@@ -4,13 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-import { headerLinks } from "@/constants";
-
-const NavItems = () => {
+interface NavItemsProps {
+  headerLinks: { label: string; route: string }[];  // Define the structure of the headerLinks array
+} 
+const NavItems = ({ headerLinks }: NavItemsProps) => {
   const pathname = usePathname();
 
   return (
-    <ul className="flex w-full flex-col items-start gap-3 md:flex-row lg:gap-5"> 
+    <ul className="flex w-full flex-col items-start gap-3 md:flex-row lg:gap-5">
       {/* md:flex-between */}
       {headerLinks.map((link, i) => {
         const isActive = pathname === link.route;
