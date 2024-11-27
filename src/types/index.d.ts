@@ -10,15 +10,16 @@ export interface UserType {
 export interface ConferenceType {
     id: number;
     name: string;
-    startsAt: string | Date;
-    endsAt: string | Date;
-    deadlineForThesis: string;
+    startsAt: Date;
+    endsAt: Date;
+    deadlineForThesis: Date;
     cost?: string;
     description: string;
     address: string;
     requirements?: string;
     newApplicationsCount?: number;
     images: string;
+    directions: number[];
     owner: {
         id: number;
         fullName: string;
@@ -33,6 +34,7 @@ export interface IDirection {
     id: number;
     name: string;
     newApplicationsCount: number;
+    reviewers: UserType[];
 }
 
 export interface IApplication {

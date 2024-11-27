@@ -1,6 +1,7 @@
 "use client"
 
 import {zodResolver} from "@hookform/resolvers/zod";
+import {useRouter} from "next/navigation";
 import React, {useState} from 'react'
 import {useForm} from "react-hook-form";
 import {LuPlus} from "react-icons/lu";
@@ -13,20 +14,20 @@ import ReviewerModal from "@/components/modals/reviewer.modal";
 import {Button} from "@/components/ui/button";
 import {Form} from "@/components/ui/form";
 import {useReviewerAdd} from "@/hook";
-import {AddReviewerToDirection, postDirection} from "@/lib/actions/direction.action";
+import {postDirection, putDirection} from "@/lib/actions/direction.action";
 import {DirectionSchema} from "@/lib/validation";
 import {IDirection, UserType} from "@/types";
 
 interface DirectionFormProps {
     reviewerData: UserType[],
     directionData?: IDirection,
-    directionReviewers?: UserType[]
 }
 
-const DirectionForm = ({reviewerData, directionData, directionReviewers}: DirectionFormProps) => {
-    const reviewersForEdit = directionReviewers?.map((item) => item.id.toString())
+const DirectionForm = ({reviewerData, directionData}: DirectionFormProps) => {
+    const reviewersForEdit = directionData?.reviewers.map((item) => item.id.toString())
     const [selectedReviewersId, setSelectedReviewersId] = useState<string[]>(reviewersForEdit || [])
     const reviewerAdd = useReviewerAdd()
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof DirectionSchema>>({
         resolver: zodResolver(DirectionSchema),
@@ -41,27 +42,29 @@ const DirectionForm = ({reviewerData, directionData, directionReviewers}: Direct
 
 
     async function onSubmit(values: z.infer<typeof DirectionSchema>) {
-        const data = await postDirection(values)
-        if (data) {
-            if (selectedReviewersId.length > 0) {
-                const reviewersId: any[] = []
-                selectedReviewersId.forEach((item) => {
-                    reviewersId.push({
-                        id: parseInt(item),
-                    })
-                })
-                const res = await AddReviewerToDirection(data.id, reviewersId)
-                if (res) {
-                    setSelectedReviewersId([])
-                    toast.success("Muharrirlar yo'nalishga qo'shildi")
-                } else {
-                    toast.error("Muharrirlar yo'nalishga qo'shishda xatolik")
-                }
+        const newDirection = {
+            ...values,
+            reviewers: selectedReviewersId
+        }
+        if(directionData){
+            const data = await putDirection(directionData.id, newDirection)
+            if (data === "ok") {
+                setSelectedReviewersId([])
+                toast.success("Yo'nalish o'zgartirildi")
+                form.reset()
+                router.back()
+            } else {
+                toast.error("Yo'nalish o'zgartirishda xatolik")
             }
-            form.reset()
-            toast.success("Yo'nalish yaratildi")
-        } else {
-            toast.error("Yo'nalish yaratishda xatolik")
+        }else{
+            const data = await postDirection(newDirection)
+            if (data === "ok") {
+                setSelectedReviewersId([])
+                toast.success("Yo'nalish yaratildi")
+                form.reset()
+            } else {
+                toast.error("Yo'nalish yaratishda xatolik")
+            }
         }
     }
 

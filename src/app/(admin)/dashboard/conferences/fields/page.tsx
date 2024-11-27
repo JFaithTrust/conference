@@ -26,6 +26,7 @@ const ConferenceFieldsPage = async () => {
                     hasFilter={false}
                     hasPagination={true}
                     addButtonLink={"/dashboard/conferences/fields/create"}
+                    route={"/dashboard/conferences/fields"}
                 />
             </Suspense>
         </div>

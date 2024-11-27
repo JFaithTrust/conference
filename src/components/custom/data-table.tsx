@@ -39,9 +39,9 @@ interface TableProps<D, V> {
     hasPagination?: boolean
     hasAddButton?: boolean
     addButtonLink?: string
-    openDialog?: () => void
-    searchedBy?: string
-    isReportPage?: boolean
+    // openDialog?: () => void
+    // searchedBy?: string
+    // isReportPage?: boolean
     route?: string
 }
 
@@ -52,7 +52,6 @@ export function DataTable<D, V>({
                                     hasPagination = false,
                                     hasAddButton = false,
                                     addButtonLink,
-                                    openDialog,
                                     route,
                                 }: TableProps<D, V>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -67,6 +66,7 @@ export function DataTable<D, V>({
     const searchParams = useSearchParams();
     const query = searchParams.get("query") || "";
     const [searchQuery, setSearchQuery] = useState(query)
+
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
@@ -141,7 +141,6 @@ export function DataTable<D, V>({
                     {hasAddButton && (
                         <AddButton
                             link={addButtonLink}
-                            onClick={openDialog}
                         />
                     )}
                 </div>
