@@ -4,13 +4,12 @@ import {FaArrowLeftLong} from "react-icons/fa6";
 
 import DirectionForm from "@/components/forms/direction.form";
 import {getDirectionById} from "@/lib/actions/direction.action";
-import {getAllReviewers, getUserByDirectionId} from "@/lib/actions/user.action";
+import {getAllReviewers} from "@/lib/actions/user.action";
 import {IDirection, UserType} from "@/types";
 
 const FieldEdit = async ({params}: { params: { fieldId: string } }) => {
     const reviewersData = await getAllReviewers();
     const directionData = await getDirectionById(params.fieldId);
-    const directionReviewers = await getUserByDirectionId(parseInt(params.fieldId));
 
     return (
         <div className="flex flex-col gap-y-4">
@@ -29,7 +28,6 @@ const FieldEdit = async ({params}: { params: { fieldId: string } }) => {
                 <DirectionForm
                     reviewerData={reviewersData as UserType[]}
                     directionData={directionData as IDirection}
-                    directionReviewers={directionReviewers as UserType[]}
                 />
             </div>
         </div>

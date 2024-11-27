@@ -9,6 +9,7 @@ import {ConferenceType} from "@/types";
 
 const AllConferencePage = async () => {
     const [conferenceData] = await Promise.all([getAllConferences()]);
+    console.log(conferenceData);
 
     return (
         <>

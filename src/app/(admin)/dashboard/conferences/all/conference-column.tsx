@@ -28,7 +28,7 @@ export const conferenceColumn: ColumnDef<ConferenceType>[] = [
         ),
     },
     {
-        accessorKey: "startsAt",
+        accessorKey: "deadlineForThesis",
         header: ({ column }) => (
             <Button
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
@@ -40,7 +40,7 @@ export const conferenceColumn: ColumnDef<ConferenceType>[] = [
         ),
         cell: ({ row }) => (
             <div className="flex pl-2">
-                <div>{format(row.original.startsAt, "dd.MM.yyyy")}</div>
+                <div>{format(row.original.deadlineForThesis, "dd.MM.yyyy")}</div>
             </div>
         ),
     },
@@ -62,7 +62,7 @@ export const conferenceColumn: ColumnDef<ConferenceType>[] = [
         ),
     },
     {
-        accessorKey: "startsAt",
+        accessorKey: "endsAt",
         header: ({ column }) => (
             <Button
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}

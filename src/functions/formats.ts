@@ -1,5 +1,5 @@
-export const formatDate = (dateString: string, isCalendar: boolean) => {
-    const year = dateString?.slice(0, 4);
+export const formatDate = (dateString: Date, isCalendar: boolean) => {
+    const year = new Date().getFullYear();
     const date = new Date(dateString);
     const day = date.getDate();
     const month = date.getMonth();
