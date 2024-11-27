@@ -42,12 +42,8 @@ export const fieldColumn: ColumnDef<IDirection>[] = [
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const reviewer = useReviewersStore();
 
-            const handleClick = async () => {
-               const reviewers = await getUserByDirectionId(field.id) as UserType[];
-                reviewer.onOpen(reviewers);
-            };
             return (
-                <Button variant="outline" onClick={handleClick} className="border-indigo-600 border-2">
+                <Button variant="outline" onClick={() => reviewer.onOpen(field.reviewers)}>
                     <span className="w-52 truncate text-sm">Muharrirlarni ko‘rish</span>
                 </Button>
             );

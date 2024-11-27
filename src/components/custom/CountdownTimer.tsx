@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 interface CountdownProps {
-  targetDate: string;
+  targetDate: Date;
   shadowColor?: string;
   classNames?: string;
 }

@@ -1,6 +1,6 @@
 import {E164Number} from "libphonenumber-js/core";
 import Image from "next/image";
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
 import DatePicker from "react-datepicker";
 import {Control, ControllerRenderProps, FieldValues} from "react-hook-form";
 
@@ -12,6 +12,7 @@ import {Select, SelectContent, SelectTrigger, SelectValue} from "@/components/ui
 import {Textarea} from "@/components/ui/textarea";
 
 import "react-datepicker/dist/react-datepicker.css";
+import {SmartDatetimeInput} from "@/components/custom/smart-date-input";
 
 export enum FormFieldType {
     // eslint-disable-next-line no-unused-vars
@@ -112,24 +113,27 @@ function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues,
             );
         case FormFieldType.DATE_PICKER:
             return (
-                <div className="flex rounded-md bg-white">
-                    {/* <Image */}
-                    {/*    src="/assets/icons/calendar.svg" */}
-                    {/*    height={24} */}
-                    {/*    width={24} */}
-                    {/*    alt="user" */}
-                    {/*    className="ml-2" */}
-                    {/* /> */}
-                    <FormControl>
-                        <DatePicker
-                            showTimeSelect={props.showTimeSelect ?? false}
-                            selected={field.value}
-                            onChange={(date) => field.onChange(date)}
-                            dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
-                            wrapperClassName="date-picker"
+                <FormControl>
+                    <FormItem>
+                        <FormLabel
+                            className="text-center text-xs"
+                        >
+                            {props.label}
+                        </FormLabel>
+                        <SmartDatetimeInput
+                            value={field.value}
+                            onValueChange={field.onChange}
+                            placeholder="e.g. Tomorrow morning 9am"
                         />
-                    </FormControl>
-                </div>
+                    </FormItem>
+                    {/*<DatePicker*/}
+                    {/*    showTimeSelect={props.showTimeSelect ?? false}*/}
+                    {/*    selected={field.value}*/}
+                    {/*    onChange={(date) => field.onChange(date)}*/}
+                    {/*    dateFormat={props.dateFormat ?? "MM/dd/yyyy"}*/}
+                    {/*    wrapperClassName="date-picker"*/}
+                    {/*/>*/}
+                </FormControl>
             );
         case FormFieldType.SELECT:
             return (
@@ -165,7 +169,7 @@ const CustomFormField = (props: CustomProps) => {
             name={name}
             render={({field}) => (
                 <FormItem className={"flex-1"}>
-                    {props.fieldType !== FormFieldType.CHECKBOX && label && (
+                    {props.fieldType !== FormFieldType.CHECKBOX && props.fieldType !== FormFieldType.DATE_PICKER && label && (
                         <FormLabel className={"font-medium"}>{label}</FormLabel>
                     )}
                     <RenderInput field={field} props={props}/>

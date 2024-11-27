@@ -9,7 +9,6 @@ import {useReviewerAdd} from "@/hook";
 
 interface AddButtonProps {
     link?: string;
-    onClick?: () => void; // Added an onClick prop
 }
 
 export function AddButton({ link }: AddButtonProps) {

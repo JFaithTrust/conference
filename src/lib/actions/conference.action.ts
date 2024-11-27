@@ -1,10 +1,13 @@
 "use server"
 
+import {revalidatePath, revalidateTag} from "next/cache";
+
+import {getCookieToken} from "@/lib/actions/auth.action";
 import {ConferenceType} from "@/types";
 
 const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;
 
-export async  function getAllConferences(){
+export async function getAllConferences() {
     try {
         const response = await fetch(`${URL}/conference/all`, {
             method: "GET"
@@ -17,14 +20,67 @@ export async  function getAllConferences(){
     }
 }
 
-export async function getConferenceById(id: string){
+export async function getConferenceById(id: number) {
     try {
         const response = await fetch(`${URL}/conference/${id}`, {
-            method: "GET"
+            method: "GET",
+            cache: "no-store"
         })
 
         const data: ConferenceType = await response.json();
         return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+interface PostConferenceProps {
+    name: string;
+    startsAt: Date;
+    endsAt: Date;
+    deadlineForThesis: Date;
+    cost: string;
+    description: string;
+    requirements: string;
+    address: string;
+    directionIds: number[];
+}
+
+export async function postConference(data: PostConferenceProps) {
+    const token = await getCookieToken();
+
+    try {
+        await fetch(`${URL}/conference`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data)
+        })
+
+        revalidatePath("/dashboard/conferences/all")
+        return "ok";
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function putConference(id: number, values: PostConferenceProps) {
+    const token = await getCookieToken();
+
+    try {
+        await fetch(`${URL}/conference/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(values)
+        })
+
+        revalidatePath("/dashboard/conferences/all")
+        return "ok";
     } catch (error) {
         console.log(error);
     }
