@@ -1,10 +1,10 @@
 import {E164Number} from "libphonenumber-js/core";
 import Image from "next/image";
 import React, {ReactNode} from "react";
-import DatePicker from "react-datepicker";
 import {Control, ControllerRenderProps, FieldValues} from "react-hook-form";
 
 import {PhoneInput} from "@/components/custom/phone-input";
+import {SmartDatetimeInput} from "@/components/custom/smart-date-input";
 import {Checkbox} from "@/components/ui/checkbox";
 import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
@@ -12,7 +12,6 @@ import {Select, SelectContent, SelectTrigger, SelectValue} from "@/components/ui
 import {Textarea} from "@/components/ui/textarea";
 
 import "react-datepicker/dist/react-datepicker.css";
-import {SmartDatetimeInput} from "@/components/custom/smart-date-input";
 
 export enum FormFieldType {
     // eslint-disable-next-line no-unused-vars
@@ -32,16 +31,17 @@ export enum FormFieldType {
 interface CustomProps {
     control: Control<any>,
     fieldType: FormFieldType,
-    name: string
-    type?: string
-    label?: string
-    placeholder?: string
-    iconSrc?: string
-    iconAlt?: string
-    disabled?: boolean
+    name: string,
+    type?: string,
+    label?: string,
+    placeholder?: string,
+    iconSrc?: string,
+    iconAlt?: string,
+    disabled?: boolean,
     dateFormat?: string,
     showTimeSelect?: boolean,
     children?: ReactNode,
+    classNames?: string
 }
 
 function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues, string>, props: CustomProps }) {
@@ -63,7 +63,7 @@ function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues,
                             type={props.type}
                             placeholder={props.placeholder}
                             {...field}
-                            className="border border-primary-500 text-sm placeholder:font-medium focus-visible:border-primary-500/70" // border-2
+                            className="border" // border-2 border border-primary-500 text-sm placeholder:font-medium focus-visible:border-primary-500/70
                             // className="shad-input border-0"
                         />
                     </FormControl>
@@ -75,8 +75,8 @@ function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues,
                     <Textarea
                         placeholder={props.placeholder}
                         {...field}
-                        // className="shad-textArea"
                         disabled={props.disabled}
+                        className={"min-h-20"}
                     />
                 </FormControl>
             );
@@ -126,13 +126,6 @@ function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues,
                             placeholder="e.g. Tomorrow morning 9am"
                         />
                     </FormItem>
-                    {/*<DatePicker*/}
-                    {/*    showTimeSelect={props.showTimeSelect ?? false}*/}
-                    {/*    selected={field.value}*/}
-                    {/*    onChange={(date) => field.onChange(date)}*/}
-                    {/*    dateFormat={props.dateFormat ?? "MM/dd/yyyy"}*/}
-                    {/*    wrapperClassName="date-picker"*/}
-                    {/*/>*/}
                 </FormControl>
             );
         case FormFieldType.SELECT:
@@ -161,14 +154,14 @@ function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues,
 
 
 const CustomFormField = (props: CustomProps) => {
-    const {control, name, label} = props;
+    const {control, name, label, classNames} = props;
 
     return (
         <FormField
             control={control}
             name={name}
             render={({field}) => (
-                <FormItem className={"flex-1"}>
+                <FormItem className={`flex-1 ${classNames}`}>
                     {props.fieldType !== FormFieldType.CHECKBOX && props.fieldType !== FormFieldType.DATE_PICKER && label && (
                         <FormLabel className={"font-medium"}>{label}</FormLabel>
                     )}

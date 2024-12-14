@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {FaArrowLeftLong} from "react-icons/fa6";
 
-import ConferenceForm from "@/components/forms/conference.form";
+import ConferenceCreateForm from "@/components/forms/conference.create.form";
 import {getAllDirections} from "@/lib/actions/direction.action";
 import {IDirection} from "@/types";
 
@@ -23,7 +23,7 @@ const ConferenceCreatePage = async () => {
                 <h2 className="text-3xl font-semibold">
                     Yangi konferensiya yaratish
                 </h2>
-                <ConferenceForm directionData={directionData as IDirection[]} />
+                <ConferenceCreateForm directionData={directionData as IDirection[]} />
             </div>
         </div>
     );

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 
 interface CountdownProps {
-  targetDate: string;
+  targetDate: Date;
 }
 
 const CountDownConference: React.FC<CountdownProps> = ({ targetDate }) => {
