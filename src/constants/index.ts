@@ -11,4 +11,8 @@ export const headerLinks = [
         label: 'Biz haqimizda',
         route: '#',
     },
+    // {
+    //     label: 'Konferensiya yaratish',
+    //     route: '/create-conference',
+    // },
 ]

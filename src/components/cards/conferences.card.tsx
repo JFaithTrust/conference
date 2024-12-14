@@ -4,16 +4,16 @@ import {FaLocationDot} from "react-icons/fa6";
 
 import CustomImage from "@/components/custom/image";
 import {formatDate} from "@/functions/formats";
-import {ConferenceType} from "@/types";
+import {IConference} from "@/types";
 
 import CountDownConference from "../custom/CountDownConference";
 
-export const Card = ({data}: { data: ConferenceType }) => {
+export const Card = ({data}: { data: IConference }) => {
     return (
         <div
             className="group relative inline-block w-full max-w-[350px] cursor-pointer overflow-hidden rounded-lg bg-white drop-shadow-lg hover:drop-shadow-xl">
             <div className="h-[230px] overflow-hidden object-cover">
-                <CustomImage src={data.images} alt={data.name} />
+                <CustomImage src={"https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2012&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={data.name} />
                 <div className="absolute right-4 top-[10px] rounded-md bg-black/40 px-2 text-white">
                     <CountDownConference targetDate={data.deadlineForThesis}/>
                 </div>

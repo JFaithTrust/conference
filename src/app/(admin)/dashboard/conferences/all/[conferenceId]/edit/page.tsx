@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from 'react'
 import {FaArrowLeftLong} from "react-icons/fa6";
 
-import ConferenceForm from "@/components/forms/conference.form";
+import ConferenceCreateForm from "@/components/forms/conference.create.form";
 import {getConferenceById} from "@/lib/actions/conference.action";
 import {getAllDirections} from "@/lib/actions/direction.action";
 import {IDirection} from "@/types";
@@ -24,7 +24,7 @@ const EditConferencePage = async ({params}: { params: { conferenceId: string } }
                 <h2 className="text-3xl font-semibold">
                     Konferensiyani tahrirlash
                 </h2>
-                <ConferenceForm directionData={directionData as IDirection[]} conferenceData={conferenceData} />
+                <ConferenceCreateForm directionData={directionData as IDirection[]} conferenceData={conferenceData} />
             </div>
         </div>
     )

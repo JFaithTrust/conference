@@ -7,18 +7,18 @@ export interface UserType {
     userStatus: "ACTIVE" | "INACTIVE";
 }
 
-export interface ConferenceType {
+export interface IConference {
     id: number;
     name: string;
     startsAt: Date;
     endsAt: Date;
     deadlineForThesis: Date;
-    cost?: string;
+    paymentDate: Date;
+    cost: string;
     description: string;
     address: string;
-    requirements?: string;
+    requirements: string;
     newApplicationsCount?: number;
-    images: string;
     directions: number[];
     owner: {
         id: number;

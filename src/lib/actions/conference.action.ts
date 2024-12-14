@@ -1,33 +1,36 @@
 "use server"
 
-import {revalidatePath, revalidateTag} from "next/cache";
+import {revalidatePath} from "next/cache";
 
 import {getCookieToken} from "@/lib/actions/auth.action";
-import {ConferenceType} from "@/types";
+import {IConference} from "@/types";
 
 const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;
 
-export async function getAllConferences() {
+export async function getAllConferences(){
     try {
         const response = await fetch(`${URL}/conference/all`, {
-            method: "GET"
+            method: "GET",
+            next: {
+                tags: ["conference"]
+            }
         })
 
-        const data: ConferenceType[] = await response.json();
+        const data: IConference[] = await response.json();
         return data;
     } catch (error) {
         console.log(error);
     }
 }
 
-export async function getConferenceById(id: number) {
+export async function getConferenceById(id: string) {
     try {
         const response = await fetch(`${URL}/conference/${id}`, {
             method: "GET",
             cache: "no-store"
         })
 
-        const data: ConferenceType = await response.json();
+        const data: IConference = await response.json();
         return data;
     } catch (error) {
         console.log(error);
@@ -43,14 +46,14 @@ interface PostConferenceProps {
     description: string;
     requirements: string;
     address: string;
-    directionIds: number[];
+    directions: number[];
 }
 
 export async function postConference(data: PostConferenceProps) {
     const token = await getCookieToken();
 
     try {
-        await fetch(`${URL}/conference`, {
+        const res = await fetch(`${URL}/conference`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -59,6 +62,7 @@ export async function postConference(data: PostConferenceProps) {
             body: JSON.stringify(data)
         })
 
+        console.log(await res.json())
         revalidatePath("/dashboard/conferences/all")
         return "ok";
     } catch (error) {

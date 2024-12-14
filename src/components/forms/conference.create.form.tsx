@@ -18,14 +18,14 @@ import {Button} from "@/components/ui/button";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {postConference, putConference} from "@/lib/actions/conference.action";
 import {ConferenceAddSchema} from "@/lib/validation";
-import {ConferenceType, IDirection} from "@/types";
+import {IConference, IDirection} from "@/types";
 
 interface ConferenceFormProps {
     directionData: IDirection[],
-    conferenceData?: ConferenceType
+    conferenceData?: IConference
 }
 
-const ConferenceForm = ({directionData, conferenceData}: ConferenceFormProps) => {
+const ConferenceCreateForm = ({directionData, conferenceData}: ConferenceFormProps) => {
     const router = useRouter()
     let directionMatchNames: string[] = []
     if(conferenceData){
@@ -41,18 +41,19 @@ const ConferenceForm = ({directionData, conferenceData}: ConferenceFormProps) =>
             startsAt: conferenceData?.startsAt || undefined,
             endsAt: conferenceData?.endsAt || undefined,
             deadlineForThesis: conferenceData?.deadlineForThesis || undefined,
+            paymentDate: conferenceData?.paymentDate || undefined,
             description: conferenceData?.description || "",
             requirements: conferenceData?.requirements || "",
             address: conferenceData?.address || "",
             cost: conferenceData?.cost || "",
-            directionIds: directionMatchNames
+            directions: directionMatchNames || []
         }
     })
 
     async function onSubmit(values: z.infer<typeof ConferenceAddSchema>) {
-        const selectedDirectionsId = directionData.filter((direction) => values.directionIds.includes(direction.name)).map((direction) => direction.id)
+        const selectedDirectionsId = directionData.filter((direction) => values.directions.includes(direction.name)).map((direction) => direction.id)
         if(conferenceData){
-            const res = await putConference(conferenceData.id, {...values, directionIds: selectedDirectionsId})
+            const res = await putConference(conferenceData.id, {...values, directions: selectedDirectionsId})
             if (res === "ok") {
                 toast.success("Konferensiya muvaffaqiyatli tahrirlandi")
                 form.reset()
@@ -61,7 +62,7 @@ const ConferenceForm = ({directionData, conferenceData}: ConferenceFormProps) =>
                 toast.error("Konferensiyani tahrirlashda xatolik")
             }
         }else{
-            const res = await postConference({...values, directionIds: selectedDirectionsId})
+            const res = await postConference({...values, directions: selectedDirectionsId})
             if (res === "ok") {
                 toast.success("Konferensiya muvaffaqiyatli yaratildi")
                 form.reset()
@@ -88,40 +89,50 @@ const ConferenceForm = ({directionData, conferenceData}: ConferenceFormProps) =>
                     label={"Manzil"}
                     placeholder={"Toshkent shahri, Yunusobod tumani, Olmazor ko'chasi, 12-uy"}
                 />
-                <FormField
-                    control={form.control}
-                    name="directionIds"
-                    render={({field}) => (
-                        <FormItem>
-                            <FormLabel>Yo&apos;nalishlar</FormLabel>
-                            <FormControl>
-                                <MultiSelector
-                                    onValuesChange={field.onChange}
-                                    values={field.value}
-                                >
-                                    <MultiSelectorTrigger>
-                                        <MultiSelectorInput
-                                            placeholder="Yo'nalish biriktiring"
-                                        />
-                                    </MultiSelectorTrigger>
-                                    <MultiSelectorContent
+                <div className={"grid grid-cols-4 items-center gap-20"}>
+                    <FormField
+                        control={form.control}
+                        name="directions"
+                        render={({field}) => (
+                            <FormItem className={"col-span-3"}>
+                                <FormLabel>Yo&apos;nalishlar</FormLabel>
+                                <FormControl>
+                                    <MultiSelector
+                                        onValuesChange={field.onChange}
+                                        values={field.value}
                                     >
-                                        <MultiSelectorList
-                                            className={"bg-white"}
+                                        <MultiSelectorTrigger>
+                                            <MultiSelectorInput
+                                                placeholder="Yo'nalish biriktiring"
+                                            />
+                                        </MultiSelectorTrigger>
+                                        <MultiSelectorContent
                                         >
-                                            {directionData.map((direction) => (
-                                                <MultiSelectorItem key={direction.id} value={direction.name}>
-                                                    <span>{direction.name}</span>
-                                                </MultiSelectorItem>
-                                            ))}
-                                        </MultiSelectorList>
-                                    </MultiSelectorContent>
-                                </MultiSelector>
-                            </FormControl>
-                            <FormMessage/>
-                        </FormItem>
-                    )}
-                />
+                                            <MultiSelectorList
+                                                className={"bg-white"}
+                                            >
+                                                {directionData.map((direction) => (
+                                                    <MultiSelectorItem key={direction.id} value={direction.name}>
+                                                        <span>{direction.name}</span>
+                                                    </MultiSelectorItem>
+                                                ))}
+                                            </MultiSelectorList>
+                                        </MultiSelectorContent>
+                                    </MultiSelector>
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
+                    <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldType.INPUT}
+                        name={"cost"}
+                        label={"Narxi"}
+                        placeholder={"50000"}
+                        classNames={"col-span-1"}
+                    />
+                </div>
                 <div className={"grid grid-cols-4 items-center gap-20"}>
                     <CustomFormField
                         control={form.control}
@@ -143,10 +154,9 @@ const ConferenceForm = ({directionData, conferenceData}: ConferenceFormProps) =>
                     />
                     <CustomFormField
                         control={form.control}
-                        fieldType={FormFieldType.INPUT}
-                        name={"cost"}
-                        label={"Narxi"}
-                        placeholder={"50000"}
+                        fieldType={FormFieldType.DATE_PICKER}
+                        name={"paymentDate"}
+                        label={"To'lov muddati"}
                     />
                 </div>
                 <CustomFormField
@@ -173,4 +183,4 @@ const ConferenceForm = ({directionData, conferenceData}: ConferenceFormProps) =>
         </Form>
     )
 }
-export default ConferenceForm
+export default ConferenceCreateForm
