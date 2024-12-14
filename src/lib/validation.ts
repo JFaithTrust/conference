@@ -59,27 +59,39 @@ z.object({
 });
 
 export const ConferenceAddSchema = z.object({
-  name: z.string().min(3),
-  description: z.string().min(3),
-  requirements: z.string().min(3),
-  address: z.string().min(3),
-  cost: z.string().min(0),
-  startsAt: z.date({
-    required_error: "Sana kiritilishi shart.",
-  }).or(z.string().nonempty("Sana kiritilishi shart.")),
-  endsAt: z.date({
-    required_error: "Sana kiritilishi shart.",
-  }),
-  deadlineForThesis: z.date({
-    required_error: "Sana kiritilishi shart.",
-  }),
+    name: z.string().min(3),
+    description: z.string().min(3),
+    requirements: z.string().min(3),
+    address: z.string().min(3),
+    cost: z.string().min(0),
+    startsAt: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    endsAt: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    deadlineForThesis: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    paymentDate: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    directions: z.array(z.string()).nonempty("Iltimos yo'nalishni tanlang."),
+});
+
+
+export const CreateApplicationSchema = z.object({
+    name: z.string().min(3),
+    authors: z.string().min(3),
+    description: z.string().min(3),
+    directionId: z.string().min(1),
 });
 
 
 export const ResetPasswordSchema = z.object({
-  newPassword: z.string().min(6, "Parol kamida 6 ta belgidan iborat bo'lishi kerak"),
-  confirmPassword: z.string().min(6, "Parol kamida 6 ta belgidan iborat bo'lishi kerak"),
+    newPassword: z.string().min(6, "Parol kamida 6 ta belgidan iborat bo'lishi kerak"),
+    confirmPassword: z.string().min(6, "Parol kamida 6 ta belgidan iborat bo'lishi kerak"),
 }).refine(data => data.newPassword === data.confirmPassword, {
-  message: "Parollar mos kelmaydi",
-  path: ["confirmPassword"],
+    message: "Parollar mos kelmaydi",
+    path: ["confirmPassword"],
 });

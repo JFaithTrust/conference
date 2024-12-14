@@ -47,7 +47,7 @@ export async function getDirectionByConferenceId(id: string) {
     const token = await getCookieToken();
 
     try {
-        const response = await fetch(`${URL}/direction/byConference/${id}`, {
+        const response = await fetch(`${URL}/direction/by_conference/${id}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,

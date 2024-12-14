@@ -11,8 +11,6 @@ import {getUser} from "@/lib/actions/user.action";
 import MobileNav from "./mobile-nav";
 import NavItems from "./nav-items";
 
-
-
 const Header = async () => {
     const token = await getCookieToken();
     let userData = null;
