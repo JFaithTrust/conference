@@ -1,16 +1,20 @@
 "use client"
 
 import {zodResolver} from "@hookform/resolvers/zod";
-import React from 'react'
+import React, {useState} from 'react'
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 
 import CustomFormField, {FormFieldType} from "@/components/custom/form-field";
-import {Form} from "@/components/ui/form";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {CreateApplicationSchema} from "@/lib/validation";
 import {IDirection} from "@/types";
+
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../ui/select";
+import {ImageUploader} from "@/components/custom/image-uploader";
+import {Button} from "@/components/ui/button";
 
 interface PostArticleFormProps {
     directions?: IDirection[],
@@ -18,6 +22,7 @@ interface PostArticleFormProps {
 }
 
 const PostArticleForm = ({directions, conferenceName}: PostArticleFormProps) => {
+    const [file, setFile] = useState<File | null>(null);
 
     const form = useForm<z.infer<typeof CreateApplicationSchema>>({
         resolver: zodResolver(CreateApplicationSchema),
@@ -40,17 +45,35 @@ const PostArticleForm = ({directions, conferenceName}: PostArticleFormProps) => 
                 <form onSubmit={form.handleSubmit(onSubmit)} className={"flex flex-col gap-y-4"}>
                     <Label htmlFor={"conferenceName"}>Konferensiya nomi</Label>
                     <Input id={"conferenceName"} className={"border"} value={conferenceName} readOnly/>
-                    <CustomFormField
+                    <FormField
                         control={form.control}
-                        fieldType={FormFieldType.SELECT}
-                        name={"directionId"}
-                        label={"Yo'nalish"}
-                        placeholder={"Raqamli texnologiyalar"}
-                    >
-                        {directions?.map((direction) => (
-                            <option key={direction.id} value={direction.id}>{direction.name}</option>
-                        ))}
-                    </CustomFormField>
+                        name={`directionId`}
+                        render={({field}) => (
+                            <FormItem>
+                                <FormLabel>Yo&apos;nalish</FormLabel>
+                                <FormControl>
+                                    <Select
+                                        onValueChange={(value) => {
+                                            field.onChange(value);
+                                        }}
+                                        value={field.value}
+                                    >
+                                        <SelectTrigger className="border">
+                                            <SelectValue placeholder="Yo'nalish tanlang"/>
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {directions && directions.map((item) => (
+                                                <SelectItem key={item.id} value={item.id.toString()}>
+                                                    {item.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
                     <CustomFormField
                         control={form.control}
                         fieldType={FormFieldType.INPUT}
@@ -72,6 +95,18 @@ const PostArticleForm = ({directions, conferenceName}: PostArticleFormProps) => 
                         label={"Annotatsiya"}
                         placeholder={"Maqola tavsifi"}
                     />
+                    <ImageUploader
+                        onChange={setFile}
+                        className="w-full"
+                    />
+                    <div className={"flex justify-end"}>
+                        <Button
+                            type={"submit"}
+                            className={"bg-primary text-white"}
+                        >
+                            Yuborish
+                        </Button>
+                    </div>
                 </form>
             </Form>
         </div>
