@@ -2,7 +2,7 @@ export interface UserType {
     id: number;
     fullName: string;
     email: string;
-    role: "SUPER_ADMIN" | "REVIEWER" | "USER";
+    role: "SUPER_ADMIN" | "REVIEWER" | "USER" | "EDITOR";
     phoneNumber: string;
     userStatus: "ACTIVE" | "INACTIVE";
 }

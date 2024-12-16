@@ -77,7 +77,9 @@ const UserCard = async ({ user }: {user: UserType}) => {
                     {/*    </SheetContent> */}
                     {/* </Sheet> */}
                     {(user.role.length > 0 && user.role === "SUPER_ADMIN") ||
-                    (user.role.length > 0 && user.role === "REVIEWER") ? (
+                    (user.role.length > 0 && user.role === "REVIEWER") ||
+                    (user.role.length > 0 && user.role === "EDITOR") ?
+                        (
                         <Link href="/dashboard">
                             <Button
                                 className="flex w-fit flex-row gap-x-2 rounded bg-mainindigo p-2.5 text-sm text-mainwhite transition-all duration-200 ease-in-out hover:bg-mainindigo/85"

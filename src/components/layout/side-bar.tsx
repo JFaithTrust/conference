@@ -50,8 +50,8 @@ const Sidebar = ({userData}: SidebarProps) => {
         {
             Icon: FcConferenceCall,
             title: "Conferences",
-            pathName: "/dashboard/conferences/all",
-            subLinks: [
+            pathName: userData?.role === "REVIEWER" ? "/dashboard/conferences" : "/dashboard/conferences/all",
+            subLinks: userData?.role !== "REVIEWER" ? [
                 {
                     title: "All Conferences",
                     pathName: "/dashboard/conferences/all",
@@ -62,13 +62,13 @@ const Sidebar = ({userData}: SidebarProps) => {
                     pathName: "/dashboard/conferences/fields",
                     Icon: FiTag,
                 },
-            ],
+            ] : undefined,
         },
         {
             Icon: CgFileDocument,
             title: "Articles",
-            pathName: "/dashboard/articles/new",
-            subLinks: [
+            pathName: userData?.role === "REVIEWER" ? "/dashboard/articles" : "/dashboard/articles/new",
+            subLinks: userData?.role !== "REVIEWER" ? [
                 {
                     title: "New Articles",
                     pathName: "/dashboard/articles/new",
@@ -87,19 +87,19 @@ const Sidebar = ({userData}: SidebarProps) => {
                     Icon: FiMonitor,
                     notifs: 2,
                 },
-            ],
+            ] : undefined,
         },
-        {
+        userData?.role !== "REVIEWER" && {
             Icon: MdReviews,
             title: "Reviewers",
             pathName: "/dashboard/reviewers",
         },
-        {
+        userData?.role === "SUPER_ADMIN" && {
             Icon: FiUsers,
             title: "Users",
             pathName: "/dashboard/users",
         },
-    ];
+    ].filter((link): link is LinkProps => link !== false);
 
     return (
         <motion.nav
@@ -110,6 +110,7 @@ const Sidebar = ({userData}: SidebarProps) => {
             }}
         >
             <TitleSection open={open} userData={userData} isDashboard={true}/>
+
 
             <div className="space-y-1">
                 {LinkData.map((link) => (
@@ -124,108 +125,55 @@ const Sidebar = ({userData}: SidebarProps) => {
                             setIsArticlesOpen={setIsArticlesOpen}
                             setIsConferencesOpen={setIsConferencesOpen}
                         />
-                        {isConferencesOpen &&
-                            open &&
-                            link.pathName.startsWith('/dashboard/conferences') && (
-                                <div className="ml-5 mt-1 space-y-0.5">
-                                    {link?.subLinks?.map((item) => (
-                                        <motion.button
-                                            onClick={() => router.push(item.pathName)}
-                                            key={item.title}
+                        {link.subLinks && open && (
+                            <div className="ml-5 mt-1 space-y-1">
+                                {link.subLinks.map((item) => (
+                                    <motion.button
+                                        key={item.title}
+                                        onClick={() => router.push(item.pathName)}
+                                        layout
+                                        className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
+                                            pathname === item.pathName
+                                                ? "bg-indigo-100 text-indigo-800"
+                                                : "text-slate-500 hover:bg-slate-100"
+                                        }`}
+                                    >
+                                        <motion.div
                                             layout
-                                            className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
-                                                pathname === item.pathName
-                                                    ? "bg-indigo-100 text-indigo-800"
-                                                    : "text-slate-500 hover:bg-slate-100"
-                                            }`}
+                                            className="grid h-full w-10 place-content-center text-lg"
                                         >
-                                            <motion.div
+                                            <item.Icon/>
+                                        </motion.div>
+                                        {open && (
+                                            <motion.span
                                                 layout
-                                                className="grid h-full w-10 place-content-center text-lg"
+                                                initial={{opacity: 0, y: 12}}
+                                                animate={{opacity: 1, y: 0}}
+                                                transition={{delay: 0.125}}
+                                                className="text-xs font-medium"
                                             >
-                                                <item.Icon/>
-                                            </motion.div>
-                                            {open && (
-                                                <motion.span
-                                                    layout
-                                                    initial={{opacity: 0, y: 12}}
-                                                    animate={{opacity: 1, y: 0}}
-                                                    transition={{delay: 0.125}}
-                                                    className="text-xs font-medium"
-                                                >
-                                                    {item.title}
-                                                </motion.span>
-                                            )}
+                                                {item.title}
+                                            </motion.span>
+                                        )}
 
-                                            {item.notifs && open && (
-                                                <motion.span
-                                                    initial={{scale: 0, opacity: 0}}
-                                                    animate={{
-                                                        opacity: 1,
-                                                        scale: 1,
-                                                    }}
-                                                    style={{y: "-50%"}}
-                                                    transition={{delay: 0.5}}
-                                                    className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
-                                                >
-                                                    {item.notifs}
-                                                </motion.span>
-                                            )}
-                                        </motion.button>
-                                    ))}
-                                </div>
-                            )}
-                        {isArticlesOpen &&
-                            open &&
-                            link.pathName.startsWith('/dashboard/articles') && (
-                                <div className="ml-5 mt-1 space-y-1">
-                                    {link?.subLinks?.map((item) => (
-                                        <motion.button
-                                            key={item.title}
-                                            onClick={() => router.push(item.pathName)}
-                                            layout
-                                            className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
-                                                pathname === item.pathName
-                                                    ? "bg-indigo-100 text-indigo-800"
-                                                    : "text-slate-500 hover:bg-slate-100"
-                                            }`}
-                                        >
-                                            <motion.div
-                                                layout
-                                                className="grid h-full w-10 place-content-center text-lg"
+                                        {item.notifs && open && (
+                                            <motion.span
+                                                initial={{scale: 0, opacity: 0}}
+                                                animate={{
+                                                    opacity: 1,
+                                                    scale: 1,
+                                                }}
+                                                style={{y: "-50%"}}
+                                                transition={{delay: 0.5}}
+                                                className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
                                             >
-                                                <item.Icon/>
-                                            </motion.div>
-                                            {open && (
-                                                <motion.span
-                                                    layout
-                                                    initial={{opacity: 0, y: 12}}
-                                                    animate={{opacity: 1, y: 0}}
-                                                    transition={{delay: 0.125}}
-                                                    className="text-xs font-medium"
-                                                >
-                                                    {item.title}
-                                                </motion.span>
-                                            )}
-
-                                            {item.notifs && open && (
-                                                <motion.span
-                                                    initial={{scale: 0, opacity: 0}}
-                                                    animate={{
-                                                        opacity: 1,
-                                                        scale: 1,
-                                                    }}
-                                                    style={{y: "-50%"}}
-                                                    transition={{delay: 0.5}}
-                                                    className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
-                                                >
-                                                    {item.notifs}
-                                                </motion.span>
-                                            )}
-                                        </motion.button>
-                                    ))}
-                                </div>
-                            )}
+                                                {item.notifs}
+                                            </motion.span>
+                                        )}
+                                    </motion.button>
+                                ))}
+                            </div>
+                        )}
                     </Fragment>
                 ))}
             </div>

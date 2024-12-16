@@ -27,6 +27,7 @@ export const Option = ({
   isConferencesOpen,
   setIsArticlesOpen,
   setIsConferencesOpen,
+
 }: OptionProps) => {
   const pathname = usePathname();
   const router = useRouter();
