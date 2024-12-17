@@ -1,25 +1,26 @@
-"use client"
+"use client";
 
-import {motion} from "framer-motion";
-import {usePathname, useRouter} from "next/navigation";
-import React, {Fragment, useState} from "react";
-import {IconType} from "react-icons";
-import {CgFileDocument} from "react-icons/cg";
-import {FcConferenceCall} from "react-icons/fc";
-import {FiHome, FiMonitor, FiTag, FiUsers} from "react-icons/fi";
-import {MdReviews} from "react-icons/md";
+import { motion } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
+import React, { Fragment, useState } from "react";
+import { IconType } from "react-icons";
+import { CgFileDocument } from "react-icons/cg";
+import { FcConferenceCall } from "react-icons/fc";
+import { FiHome, FiMonitor, FiTag, FiUsers } from "react-icons/fi";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { MdReviews } from "react-icons/md";
 
-import {Option} from "@/components/shared/option";
-import {TitleSection} from "@/components/shared/title-section";
-import {ToggleClose} from "@/components/shared/toggle-close";
-import {UserType} from "@/types";
+import { TitleSection } from "@/components/shared/title-section";
+import { ToggleClose } from "@/components/shared/toggle-close";
+import { UserType } from "@/types";
+
 
 interface SidebarProps {
-    userData?: UserType,
-    status?: boolean
+    userData?: UserType;
+    status?: boolean;
 }
 
-const Sidebar = ({userData}: SidebarProps) => {
+const Sidebar = ({ userData }: SidebarProps) => {
     const [open, setOpen] = useState(true);
     const [isArticlesOpen, setIsArticlesOpen] = useState(false);
     const [isConferencesOpen, setIsConferencesOpen] = useState(false);
@@ -99,7 +100,8 @@ const Sidebar = ({userData}: SidebarProps) => {
             title: "Users",
             pathName: "/dashboard/users",
         },
-    ].filter((link): link is LinkProps => link !== false);
+    ].filter((link): link is LinkProps => link !== false &&
+        (userData?.role !== "EDITOR" || link.title !== "Users"));
 
     return (
         <motion.nav
@@ -109,67 +111,86 @@ const Sidebar = ({userData}: SidebarProps) => {
                 width: open ? "280px" : "fit-content",
             }}
         >
-            <TitleSection open={open} userData={userData} isDashboard={true}/>
-
+            <TitleSection open={open} userData={userData} isDashboard={true} />
 
             <div className="space-y-1">
                 {LinkData.map((link) => (
                     <Fragment key={link.title}>
-                        <Option
-                            Icon={link.Icon}
-                            title={link.title}
-                            pathName={link.pathName}
-                            open={open}
-                            isArticlesOpen={isArticlesOpen}
-                            isConferencesOpen={isConferencesOpen}
-                            setIsArticlesOpen={setIsArticlesOpen}
-                            setIsConferencesOpen={setIsConferencesOpen}
-                        />
+                        <motion.button
+                            layout
+                            key={link.title}
+                            onClick={() => {
+                                if (link.title === "Articles") setIsArticlesOpen(!isArticlesOpen);
+                                if (link.title === "Conferences") setIsConferencesOpen(!isConferencesOpen);
+                            }}
+                            className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
+                                pathname === link.pathName
+                                    ? "bg-indigo-100 text-indigo-800"
+                                    : "text-slate-500 hover:bg-slate-100"
+                            }`}
+                        >
+                            <motion.div
+                                layout
+                                className="grid h-full w-10 place-content-center text-lg">
+                                <link.Icon />
+                            </motion.div>
+
+
+                            {open && (
+                                <motion.span className="text-xs font-medium">{link.title}</motion.span>
+                            )}
+                            {(link.title === "Conferences" || link.title === "Articles") && open && (
+                                <motion.span
+                                    initial={{ scale: 0, opacity: 0 }}
+                                    animate={{
+                                        opacity: 1,
+                                        scale: 1,
+                                    }}
+                                    style={{ y: "-50%" }}
+                                    transition={{ delay: 0.5 }}
+                                    className="absolute right-2 top-1/2 flex size-4 items-center justify-center rounded bg-indigo-500 text-xs text-white"
+                                >
+                                    {link.title === "Conferences" && isConferencesOpen ? <IoIosArrowUp /> : null}
+                                    {link.title === "Articles" && isArticlesOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+                                </motion.span>
+                            )}
+                            
+                            
+                            
+                        </motion.button>
+
+
                         {link.subLinks && open && (
-                            <div className="ml-5 mt-1 space-y-1">
+                            <div
+                                className={`ml-5 mt-1 space-y-1 ${
+                                    link.title === "Articles" && !isArticlesOpen ? "hidden" : ""
+                                } ${
+                                    link.title === "Conferences" && !isConferencesOpen ? "hidden" : ""
+                                }`}
+                            >
                                 {link.subLinks.map((item) => (
                                     <motion.button
                                         key={item.title}
                                         onClick={() => router.push(item.pathName)}
-                                        layout
                                         className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
                                             pathname === item.pathName
                                                 ? "bg-indigo-100 text-indigo-800"
                                                 : "text-slate-500 hover:bg-slate-100"
                                         }`}
                                     >
-                                        <motion.div
-                                            layout
-                                            className="grid h-full w-10 place-content-center text-lg"
-                                        >
-                                            <item.Icon/>
+
+
+                                        <motion.div className="grid h-full w-10 place-content-center text-lg">
+                                            <item.Icon />
                                         </motion.div>
-                                        {open && (
-                                            <motion.span
-                                                layout
-                                                initial={{opacity: 0, y: 12}}
-                                                animate={{opacity: 1, y: 0}}
-                                                transition={{delay: 0.125}}
-                                                className="text-xs font-medium"
-                                            >
-                                                {item.title}
-                                            </motion.span>
+
+                                        <motion.span className="text-xs font-medium">{item.title}</motion.span>
+                                        {item.notifs && (
+                                            <span className="absolute right-2 top-1/2 flex size-4 items-center justify-center rounded bg-indigo-500 text-xs text-white">
+                                                {item.notifs}
+                                            </span>
                                         )}
 
-                                        {item.notifs && open && (
-                                            <motion.span
-                                                initial={{scale: 0, opacity: 0}}
-                                                animate={{
-                                                    opacity: 1,
-                                                    scale: 1,
-                                                }}
-                                                style={{y: "-50%"}}
-                                                transition={{delay: 0.5}}
-                                                className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
-                                            >
-                                                {item.notifs}
-                                            </motion.span>
-                                        )}
                                     </motion.button>
                                 ))}
                             </div>
@@ -178,7 +199,7 @@ const Sidebar = ({userData}: SidebarProps) => {
                 ))}
             </div>
 
-            <ToggleClose open={open} setOpen={setOpen}/>
+            <ToggleClose open={open} setOpen={setOpen} />
         </motion.nav>
     );
 };

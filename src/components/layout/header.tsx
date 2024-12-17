@@ -45,7 +45,6 @@ const Header = async () => {
                 <div className="flex items-center gap-4">
                     {
                         token && userData != null ? (
-                                // <UserCard user={userData}/>
                                 <TitleSection userData={userData} isDashboard={false}/>
                             )
                             : (

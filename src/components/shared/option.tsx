@@ -7,6 +7,7 @@ interface OptionProps {
   Icon: IconType;
   title: string;
   pathName: string;
+  toggleSubLinks?: () => void;
   open: boolean;
   isArticlesOpen: boolean;
   isConferencesOpen: boolean;
@@ -16,7 +17,10 @@ interface OptionProps {
   setIsConferencesOpen: (
     value: ((prevState: boolean) => boolean) | boolean
   ) => void;
+    handleToggleArticles: () => void;
+    handleToggleConferences: () => void;
 }
+
 
 export const Option = ({
   Icon,

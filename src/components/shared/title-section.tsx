@@ -41,7 +41,7 @@ export const TitleSection = ({open, userData, isDashboard}: TitleSectionProps) =
                 <PopoverContent
                     className={`flex flex-col gap-y-2`}
                 >
-                    {(userData?.role === "SUPER_ADMIN" || userData?.role === "REVIEWER") ? (
+                    {(userData?.role === "SUPER_ADMIN" || userData?.role === "REVIEWER" || userData?.role === "EDITOR") ? (
                         <Link href="/dashboard">
                             <Button
                                 className="flex w-full flex-row gap-x-2 rounded bg-indigo-500 p-2.5 text-sm text-mainwhite transition-all duration-200 ease-in-out hover:bg-indigo-500/80"
