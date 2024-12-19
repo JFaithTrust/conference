@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import {revalidatePath, revalidateTag} from "next/cache";
 
@@ -21,15 +21,15 @@ export async function getLandingConference(){
     } catch (error) {
         return error instanceof Error ? error.message : "An unexpected error occurred";
     }
+
 }
 
 export async function getConferenceById(id: string) {
-    try {
-        const response = await fetch(`${URL}/conference/${id}`, {
-            method: "GET",
-            cache: "no-store"
-        })
-
+  try {
+    const response = await fetch(`${URL}/conference/${id}`, {
+      method: "GET",
+      cache: "no-store",
+    });
         const data: IConference = await response.json();
         return data;
     } catch (error) {
@@ -62,15 +62,15 @@ export async function postConference(data: Partial<IPostConference>) {
 export async function putConference(id: number, values: IConference) {
     const token = await getCookieToken();
 
-    try {
-        await fetch(`${URL}/conference/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(values)
-        })
+  try {
+    await fetch(`${URL}/conference/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(values),
+    });
 
         revalidatePath("/dashboard/conferences/all")
         return "ok";
