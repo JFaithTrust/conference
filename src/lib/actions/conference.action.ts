@@ -1,15 +1,15 @@
 "use server"
 
-import {revalidatePath} from "next/cache";
+import {revalidatePath, revalidateTag} from "next/cache";
 
 import {getCookieToken} from "@/lib/actions/auth.action";
-import {IConference} from "@/types";
+import {IConference, IPostConference} from "@/types";
 
 const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;
 
-export async function getAllConferences(){
+export async function getLandingConference(){
     try {
-        const response = await fetch(`${URL}/conference/all`, {
+        const response = await fetch(`${URL}/conference/landing`, {
             method: "GET",
             next: {
                 tags: ["conference"]
@@ -19,7 +19,7 @@ export async function getAllConferences(){
         const data: IConference[] = await response.json();
         return data;
     } catch (error) {
-        console.log(error);
+        return error instanceof Error ? error.message : "An unexpected error occurred";
     }
 }
 
@@ -33,27 +33,16 @@ export async function getConferenceById(id: string) {
         const data: IConference = await response.json();
         return data;
     } catch (error) {
-        console.log(error);
+        return error instanceof Error ? error.message : "An unexpected error occurred";
     }
 }
 
-interface PostConferenceProps {
-    name: string;
-    startsAt: Date;
-    endsAt: Date;
-    deadlineForThesis: Date;
-    cost: string;
-    description: string;
-    requirements: string;
-    address: string;
-    directions: number[];
-}
-
-export async function postConference(data: PostConferenceProps) {
+export async function postConference(data: Partial<IPostConference>) {
     const token = await getCookieToken();
+    console.log(data)
 
     try {
-        const res = await fetch(`${URL}/conference`, {
+        const response = await fetch(`${URL}/conference`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -62,15 +51,15 @@ export async function postConference(data: PostConferenceProps) {
             body: JSON.stringify(data)
         })
 
-        console.log(await res.json())
-        revalidatePath("/dashboard/conferences/all")
+        console.log(await response.json())
+        revalidateTag("conference")
         return "ok";
     } catch (error) {
-        console.log(error);
+        return error instanceof Error ? error.message : "An unexpected error occurred";
     }
 }
 
-export async function putConference(id: number, values: PostConferenceProps) {
+export async function putConference(id: number, values: IConference) {
     const token = await getCookieToken();
 
     try {
@@ -86,6 +75,6 @@ export async function putConference(id: number, values: PostConferenceProps) {
         revalidatePath("/dashboard/conferences/all")
         return "ok";
     } catch (error) {
-        console.log(error);
+        return error instanceof Error ? error.message : "An unexpected error occurred";
     }
 }

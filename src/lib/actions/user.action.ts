@@ -3,7 +3,7 @@
 import {revalidatePath} from "next/cache";
 
 import {getCookieToken} from "@/lib/actions/auth.action";
-import {UserType} from "@/types";
+import {IUser} from "@/types";
 
 const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;
 
@@ -18,7 +18,7 @@ export const getUser = async () => {
             },
         });
 
-        const data: UserType = await response.json();
+        const data: IUser = await response.json();
         return data;
     } catch (error) {
         console.log(error);
@@ -36,7 +36,7 @@ export async function getAllUsers() {
             },
         })
 
-        const data: UserType[] = await response.json();
+        const data: IUser[] = await response.json();
 
         return data;
     } catch (error) {
@@ -74,7 +74,7 @@ export async function getUserById(id: string) {
                 Authorization: `Bearer ${token}`,
             },
         });
-        const data: UserType = await response.json();
+        const data: IUser = await response.json();
 
         return data;
     } catch (error) {
@@ -94,7 +94,7 @@ export async function getAllReviewers() {
             },
         })
 
-        const data: UserType[] = await response.json();
+        const data: IUser[] = await response.json();
 
         return data;
     } catch (error) {
@@ -102,7 +102,7 @@ export async function getAllReviewers() {
     }
 }
 
-export async function putUserMakeReviewer(users: UserType[]) {
+export async function putUserMakeReviewer(users: IUser[]) {
     const token = await getCookieToken();
 
     try {
@@ -151,7 +151,7 @@ export async function getUserByDirectionId(id: number) {
                 Authorization: `Bearer ${token}`,
             },
         });
-        const data: UserType[] = await response.json();
+        const data: IUser[] = await response.json();
 
         return data;
     } catch (error) {

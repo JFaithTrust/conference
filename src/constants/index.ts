@@ -5,14 +5,10 @@ export const headerLinks = [
     },
     {
         label: 'Konferensiyalar',
-        route: '#',
-    },
-    {
-        label: 'Biz haqimizda',
-        route: '#',
+        route: '/conferences',
     },
     // {
-    //     label: 'Konferensiya yaratish',
-    //     route: '/create-conference',
+    //     label: 'Biz haqimizda',
+    //     route: '#',
     // },
 ]

@@ -103,7 +103,7 @@ function RenderInput({field, props}: { field: ControllerRenderProps<FieldValues,
                             checked={field.value}
                             onCheckedChange={field.onChange}
                         />
-                        <label htmlFor={props.name}
+                        <label className={"text-sm"} htmlFor={props.name}
                             // className="checkbox-label"
                         >
                             {props.label}

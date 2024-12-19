@@ -14,11 +14,11 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/components/ui/input";
 import {useReviewerAdd} from "@/hook";
 import {putUserMakeReviewer} from "@/lib/actions/user.action";
-import {UserType} from "@/types";
+import {IUser} from "@/types";
 
 
 interface ModalProps {
-    data: UserType[],
+    data: IUser[],
     label: string,
     selectedReviewersId?: string[],
     setSelectedReviewersId?: (value: (((prevState: string[]) => string[]) | string[])) => void

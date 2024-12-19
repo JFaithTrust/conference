@@ -6,6 +6,8 @@ import {useForm} from "react-hook-form";
 import {z} from "zod";
 
 import CustomFormField, {FormFieldType} from "@/components/custom/form-field";
+import {ImageUploader} from "@/components/custom/image-uploader";
+import {Button} from "@/components/ui/button";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
@@ -13,8 +15,6 @@ import {CreateApplicationSchema} from "@/lib/validation";
 import {IDirection} from "@/types";
 
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../ui/select";
-import {ImageUploader} from "@/components/custom/image-uploader";
-import {Button} from "@/components/ui/button";
 
 interface PostArticleFormProps {
     directions?: IDirection[],

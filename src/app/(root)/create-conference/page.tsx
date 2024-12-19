@@ -1,11 +1,12 @@
 import React from 'react'
 
-import ConferenceCreateForm from "@/components/forms/conference.create.form";
+import {PostConferenceForm} from "@/components/forms";
 
 const CreateConferencePage = () => {
     return (
-        <div className={"container py-4"}>
-            {/*<ConferenceCreateForm />*/}
+        <div className={"container my-4 space-y-4 rounded-md pt-3 shadow-md"}>
+            <h1 className={"text-2xl font-bold"}>Konferensiya yaratish</h1>
+            <PostConferenceForm/>
         </div>
     )
 }

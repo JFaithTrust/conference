@@ -79,6 +79,44 @@ export const ConferenceAddSchema = z.object({
     directions: z.array(z.string()).nonempty("Iltimos yo'nalishni tanlang."),
 });
 
+export const PostConferenceFormSchema = z.object({
+    nameUz: z.string().min(3),
+    nameRu: z.string().min(3),
+    nameEng: z.string().min(3),
+    directions: z.array(
+        z.string().min(1, "Yo'nalish bo'lishi shart.")
+    ).min(1, "Yo'nalishni tanlang"),
+    startsAt: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    endsAt: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    registrationStartsAt: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    registrationEndsAt: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    paymentStartsAt: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    paymentEndsAt: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    publishDate: z.date({
+        required_error: "Sana kiritilishi shart.",
+    }),
+    goal: z.string().min(3),
+    cost: z.string().min(3),
+    address: z.string().min(3),
+    organization: z.string().min(3),
+    requirements: z.string().min(3),
+    description: z.string().min(3),
+    doiRequired: z.boolean().default(false),
+    antiPlagiarismRequired: z.boolean().default(false)
+});
+
 
 export const CreateApplicationSchema = z.object({
     name: z.string().min(3),
