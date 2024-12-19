@@ -1,69 +1,73 @@
+import { ArrowRight, Calendar, Send, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Send, Users } from "lucide-react";
-import HeroStatisticCard from "../cards/hero-statistic-card";
+
 import FeatureCard from "../cards/feature-card";
+import HeroStatisticCard from "../cards/hero-statistic-card";
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-primary-900 to-primary-800 text-white">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="https://www.mikro-makro.net/uploads/images/image_750x422_5fbfe4716eeb1.jpg"
-          alt="Background Pattern"
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
+      <section className="relative overflow-hidden text-white">
+        {/* Background Pattern */}
+        <div className={"absolute top-0 z-10 h-5 w-full bg-gradient-to-b from-white to-transparent"}/>
+        <div className={"absolute bottom-0 z-10 h-5 w-full bg-gradient-to-b from-transparent to-white"}/>
+        <div className="absolute inset-0 z-0">
+          <Image
+              src="https://www.mikro-makro.net/uploads/images/image_750x422_5fbfe4716eeb1.jpg"
+              alt="Background Pattern"
+              layout="fill"
+              objectFit="cover"
+          />
+        </div>
 
-      <div className="container max-w-7xl mx-auto px-4 py-20 sm:py-24 lg:py-32 relative z-10">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
-          <div className="space-y-8">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tighter">
-              Revolutionize Your Conference Management
-            </h1>
-            <p className="text-xl sm:text-2xl text-primary-100 max-w-2xl">
-              Create, send, and organize conferences with ease. Streamline your
-              event planning process and deliver unforgettable experiences.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className=" h-11 bg-black" asChild>
-                <Link href="/get-started">
-                  Get Started <ArrowRight className="m-auto h-5 w-10" />
-                </Link>
-              </Button>
-              {/* <Button size="lg" variant="outline" asChild>
+        <div className="container relative z-10 mx-auto max-w-7xl px-4 py-20 sm:py-24 lg:py-32">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
+            <div className="space-y-8">
+              <h1 className="text-4xl font-extrabold leading-tight tracking-tighter sm:text-5xl lg:text-6xl">
+                Revolutionize Your Conference Management
+              </h1>
+              <p className="max-w-2xl text-xl sm:text-2xl">
+                Create, send, and organize conferences with ease. Streamline your
+                event planning process and deliver unforgettable experiences.
+              </p>
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <Button size="lg" className=" h-11 bg-black" asChild>
+                  <Link href="/create-conference">
+                    Get Started <ArrowRight className="m-auto h-5 w-10"/>
+                  </Link>
+                </Button>
+                {/* <Button size="lg" variant="outline" asChild>
                 <Link href="/demo">Watch Demo</Link>
               </Button> */}
+              </div>
+            </div>
+
+            <div className="w-3/4 lg:ml-auto">
+              <HeroStatisticCard/>
             </div>
           </div>
 
-          <div className="lg:ml-auto w-3/4">
-            <HeroStatisticCard />
+          <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <FeatureCard
+                icon={<Calendar className="text-primary-300 size-10"/>}
+                title="Easy Scheduling"
+                description="Effortlessly plan and schedule your conferences with our intuitive tools."
+            />
+            <FeatureCard
+                icon={<Send className="text-primary-300 size-10"/>}
+                title="Smart Invitations"
+                description="Create and send personalized invitations to attendees with just a few clicks."
+            />
+            <FeatureCard
+                icon={<Users className="text-primary-300 size-10"/>}
+                title="Attendee Management"
+                description="Efficiently manage registrations, check-ins, and attendee engagement."
+            />
           </div>
         </div>
-
-        <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <FeatureCard
-            icon={<Calendar className="h-10 w-10 text-primary-300" />}
-            title="Easy Scheduling"
-            description="Effortlessly plan and schedule your conferences with our intuitive tools."
-          />
-          <FeatureCard
-            icon={<Send className="h-10 w-10 text-primary-300" />}
-            title="Smart Invitations"
-            description="Create and send personalized invitations to attendees with just a few clicks."
-          />
-          <FeatureCard
-            icon={<Users className="h-10 w-10 text-primary-300" />}
-            title="Attendee Management"
-            description="Efficiently manage registrations, check-ins, and attendee engagement."
-          />
-        </div>
-      </div>
-    </section>
+      </section>
   );
 }
 

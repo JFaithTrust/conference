@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
-import { ConferenceSection } from "@/components/sections";
 import Hero from "@/components/layout/hero";
+import { ConferenceSection } from "@/components/sections";
 
 export default function Home() {
   return (
