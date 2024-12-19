@@ -24,11 +24,11 @@ const LoginForm = () => {
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     const res = await login(values);
-    if (res === "ok") {
-      toast.success("Tizimga kirdingiz");
+    if (res?.success) {
+      toast.success(res.message);
       loginModal.onClose();
     } else {
-      toast.error("Telefon raqam yoki parol noto'g'ri");
+      toast.error(res?.message);
     }
   }
 

@@ -62,3 +62,7 @@
     --basePageBg: black;
     background: var(--basePageBg);
 }
+
+.mdxeditor-popup-container {
+    display: none !important;
+}

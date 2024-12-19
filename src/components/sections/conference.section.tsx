@@ -1,10 +1,10 @@
 import React from 'react'
 
 import {Card} from "@/components/cards/conferences.card";
-import {getAllConferences} from "@/lib/actions/conference.action";
+import {getLandingConference} from "@/lib/actions/conference.action";
 
 const ConferenceSection = async () => {
-    const conferenceCards = await getAllConferences();
+    const conferenceCards = await getLandingConference();
 
     return (
         <div className={"space-y-6"}>

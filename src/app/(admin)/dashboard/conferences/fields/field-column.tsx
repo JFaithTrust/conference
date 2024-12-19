@@ -14,8 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {useChangeStatus} from "@/hook";
 import useReviewersStore from "@/hook/useReviewerModal";
-import {getUserByDirectionId} from "@/lib/actions/user.action";
-import {IDirection, UserType} from "@/types";
+import {IDirection} from "@/types";
 
 export const fieldColumn: ColumnDef<IDirection>[] = [
     {

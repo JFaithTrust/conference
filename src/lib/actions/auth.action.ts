@@ -45,14 +45,14 @@ export const login = async (values: LoginProps) => {
       body: JSON.stringify(values),
     });
 
-    const { token } = await response.json();
+    const { token, message, success } = await response.json();
     const encodedData = token.split(".")[1];
     const { role } = JSON.parse(atob(encodedData || ""));
     await setCookie(token, role);
 
-    return "ok";
+    return { message, success };
   } catch (error) {
-    return error instanceof Error ? error.message : "An unexpected error occurred";
+    console.log(error instanceof Error ? error.message : "An unexpected error occurred");
   }
 };
 
@@ -100,14 +100,6 @@ export const activate = async (values: ActivateProps) => {
     return error instanceof Error ? error.message : "An unexpected error occurred";
   }
 };
-
-
-
-
-
-
-
-
 
 interface forgotPassworddProps {
   phoneNumber: string;

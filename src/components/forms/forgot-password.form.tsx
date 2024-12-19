@@ -1,3 +1,5 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,10 +16,9 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {useForgotPasswordModal} from "@/hook";
 import {activate, forgotPassword, resetPassword} from "@/lib/actions/auth.action";
 import {ConfirmPhoneCodeSchema, forgotPasswordSchema1, ResetPasswordSchema} from "@/lib/validation";
-import useLoginModal from "../../hook/useLoginModal";
-import {useForgotPasswordModal} from "@/hook";
 
 const ForgotPasswordForm = () => {
     const [step, setStep] = useState(1);

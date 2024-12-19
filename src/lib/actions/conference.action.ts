@@ -1,26 +1,27 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import {revalidatePath, revalidateTag} from "next/cache";
 
-import { getCookieToken } from "@/lib/actions/auth.action";
-import { IConference } from "@/types";
+import {getCookieToken} from "@/lib/actions/auth.action";
+import {IConference, IPostConference} from "@/types";
 
 const URL = process.env.NEXT_PUBLIC_GLOBAL_API_URL;
 
-export async function getAllConferences() {
-  try {
-    const response = await fetch(`${URL}/conference/landing`, {
-      method: "GET",
-      next: {
-        tags: ["conference"],
-      },
-    });
+export async function getLandingConference(){
+    try {
+        const response = await fetch(`${URL}/conference/landing`, {
+            method: "GET",
+            next: {
+                tags: ["conference"]
+            }
+        })
 
-    const data: IConference[] = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+        const data: IConference[] = await response.json();
+        return data;
+    } catch (error) {
+        return error instanceof Error ? error.message : "An unexpected error occurred";
+    }
+
 }
 
 export async function getConferenceById(id: string) {
@@ -29,49 +30,37 @@ export async function getConferenceById(id: string) {
       method: "GET",
       cache: "no-store",
     });
-
-    const data: IConference = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+        const data: IConference = await response.json();
+        return data;
+    } catch (error) {
+        return error instanceof Error ? error.message : "An unexpected error occurred";
+    }
 }
 
-interface PostConferenceProps {
-  name: string;
-  startsAt: Date;
-  endsAt: Date;
-  deadlineForThesis: Date;
-  cost: string;
-  description: string;
-  requirements: string;
-  address: string;
-  directions: number[];
+export async function postConference(data: Partial<IPostConference>) {
+    const token = await getCookieToken();
+    console.log(data)
+
+    try {
+        const response = await fetch(`${URL}/conference`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data)
+        })
+
+        console.log(await response.json())
+        revalidateTag("conference")
+        return "ok";
+    } catch (error) {
+        return error instanceof Error ? error.message : "An unexpected error occurred";
+    }
 }
 
-export async function postConference(data: PostConferenceProps) {
-  const token = await getCookieToken();
-
-  try {
-    const res = await fetch(`${URL}/conference`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    });
-
-    console.log(await res.json());
-    revalidatePath("/dashboard/conferences/all");
-    return "ok";
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function putConference(id: number, values: PostConferenceProps) {
-  const token = await getCookieToken();
+export async function putConference(id: number, values: IConference) {
+    const token = await getCookieToken();
 
   try {
     await fetch(`${URL}/conference/${id}`, {
@@ -83,9 +72,9 @@ export async function putConference(id: number, values: PostConferenceProps) {
       body: JSON.stringify(values),
     });
 
-    revalidatePath("/dashboard/conferences/all");
-    return "ok";
-  } catch (error) {
-    console.log(error);
-  }
+        revalidatePath("/dashboard/conferences/all")
+        return "ok";
+    } catch (error) {
+        return error instanceof Error ? error.message : "An unexpected error occurred";
+    }
 }
