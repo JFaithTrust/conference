@@ -5,7 +5,7 @@ function hasRequiredRole(req: NextRequest): boolean {
     const role = req.cookies.get('role')?.value; // Get the role cookie
 
     // Check if the role is either "SUPER_ADMIN" or "REVIEWER"
-    return role === 'SUPER_ADMIN' || role === 'REVIEWER';
+    return role === 'SUPER_ADMIN' || role === 'REVIEWER' || role === 'EDITOR';
 }
 
 export default function middleware(req: NextRequest) {

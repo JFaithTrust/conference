@@ -119,10 +119,15 @@ const Sidebar = ({ userData }: SidebarProps) => {
                         <motion.button
                             layout
                             key={link.title}
-                            onClick={() => {
-                                if (link.title === "Articles") setIsArticlesOpen(!isArticlesOpen);
-                                if (link.title === "Conferences") setIsConferencesOpen(!isConferencesOpen);
-                            }}
+                            onClick={() =>
+                                userData?.role === "REVIEWER"
+                                    ? router.push(link.pathName)
+                                    : link.title === "Articles"
+                                        ? setIsArticlesOpen(!isArticlesOpen)
+                                        : link.title === "Conferences"
+                                            ? setIsConferencesOpen(!isConferencesOpen)
+                                            : null
+                            }
                             className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
                                 pathname === link.pathName
                                     ? "bg-indigo-100 text-indigo-800"
@@ -131,32 +136,30 @@ const Sidebar = ({ userData }: SidebarProps) => {
                         >
                             <motion.div
                                 layout
-                                className="grid h-full w-10 place-content-center text-lg">
-                                <link.Icon />
+                                className="grid h-full w-10 place-content-center text-lg"
+                            >
+                                <link.Icon/>
                             </motion.div>
-
 
                             {open && (
                                 <motion.span className="text-xs font-medium">{link.title}</motion.span>
                             )}
-                            {(link.title === "Conferences" || link.title === "Articles") && open && (
+                            {(link.title === "Conferences" || link.title === "Articles") && open && userData?.role !== "REVIEWER" && (
                                 <motion.span
-                                    initial={{ scale: 0, opacity: 0 }}
-                                    animate={{
-                                        opacity: 1,
-                                        scale: 1,
-                                    }}
-                                    style={{ y: "-50%" }}
-                                    transition={{ delay: 0.5 }}
+                                    initial={{scale: 0, opacity: 0}}
+                                    animate={{opacity: 1, scale: 1}}
+                                    style={{y: "-50%"}}
+                                    transition={{delay: 0.5}}
                                     className="absolute right-2 top-1/2 flex size-4 items-center justify-center rounded bg-indigo-500 text-xs text-white"
                                 >
-                                    {link.title === "Conferences" && isConferencesOpen ? <IoIosArrowUp /> : null}
-                                    {link.title === "Articles" && isArticlesOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+                                    {((link.title === "Conferences" && isConferencesOpen) ||
+                                        (link.title === "Articles" && isArticlesOpen)) ? (
+                                        <IoIosArrowUp/>
+                                    ) : (
+                                        <IoIosArrowDown/>
+                                    )}
                                 </motion.span>
                             )}
-                            
-                            
-                            
                         </motion.button>
 
 
@@ -181,7 +184,7 @@ const Sidebar = ({ userData }: SidebarProps) => {
 
 
                                         <motion.div className="grid h-full w-10 place-content-center text-lg">
-                                            <item.Icon />
+                                            <item.Icon/>
                                         </motion.div>
 
                                         <motion.span className="text-xs font-medium">{item.title}</motion.span>
